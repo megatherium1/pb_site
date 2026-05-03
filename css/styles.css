@@ -324,9 +324,11 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
 }
 .pb-hero__grid {
   display: grid;
-  /* Right column gets more weight so the floating monitor reads as the
-     page's hero subject, not a thumbnail next to the copy. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
+  /* Left column gets a bit more horizontal room so the headline can
+     breathe (H1 reads as two lines instead of three) and the lede flows
+     naturally. The poster's `scale()` makes it visually larger without
+     needing to dominate the grid track. */
+  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
   gap: clamp(20px, 3vw, 48px);
   /* `start` aligns the poster's top with the eyebrow row of the left
      column; `center` was pushing the poster too far down. */
@@ -413,14 +415,18 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   padding: 0;
   cursor: pointer;
   /* Larger and lifted toward the headline so it reads as the page's
-     hero subject rather than drifting toward the access form below. */
-  transform: rotate(-3deg) scale(1.10);
+     hero subject rather than a thumbnail next to the copy. The right
+     column is narrower now (1fr vs 1.1fr left), so scale() does the
+     heavy lifting — the monitor reads big and bleeds slightly beyond
+     its grid track, matching the GeneralDesignFormat reference where
+     the monitor extends toward the right edge of the page. */
+  transform: rotate(-3deg) scale(1.22);
   transform-origin: center top;
-  margin-top: -16px;
+  margin-top: -8px;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 .pb-poster:hover, .pb-poster:focus-visible {
-  transform: rotate(-1.5deg) scale(1.11) translateY(-3px);
+  transform: rotate(-1.5deg) scale(1.23) translateY(-3px);
 }
 .pb-poster img {
   width: 100%;
@@ -454,8 +460,13 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   position: absolute;
   left: -6%;
   right: -6%;
-  bottom: -8%;
-  height: 48%;
+  /* The poster is scaled 1.22 from transform-origin: center top, which
+     means the visual bottom of the monitor sits ~22% below the wrapper
+     bottom. Push the fog down so it overlaps the actual visible lower
+     edge of the (now-larger) monitor and produce the GeneralDesignFormat
+     "resting in the clouds" effect. */
+  bottom: -12%;
+  height: 55%;
   pointer-events: none; /* never block the play button's click target */
   z-index: 2;
   background-image: url("../assets/backgrounds/CosmicBackground.png");

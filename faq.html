@@ -86,17 +86,20 @@
                 <li>accountants</li>
                 <li>professors and engineering / research teams</li>
                 <li>lab users</li>
+				<li>software engineers who seek version control in files not tracked with Git or who want their codebases online</li>
                 <li>anyone who keeps saving copies of files and later has to figure out what changed</li>
+                <li>anyone who wants version control without having to put your files online</li>
               </ul>
             </div>
           </details>
 
           <details>
-            <summary>Does ProjBox run locally?</summary>
+            <summary>Tell me about the ProjBox privacy policies</summary>
             <div class="pb-faq__body">
-              <p>Yes. ProjBox is designed to run on your machine. The website may collect
-              form submissions for beta access, but the product itself is intended to
-              work locally.</p>
+              <p>ProjBox is entirely local. The website itself may use standard web services for forms, analytics, or video embeds, but the ProjBox app is entirely on your machine</p>
+			  <p>For transparency, I welcome you to verify this yourself by monitoring network activity while ProjBox runs. On Windows, you can use Resource Monitor or Windows Defender Firewall; on macOS, you can use Activity Monitor or a network monitor such as Little Snitch. 
+			  <p>My driving credo behind ProjBox was that your project files stay on your machine. No cloud. No uploads. Everything 100% on your machine.</p>
+
             </div>
           </details>
 
@@ -112,14 +115,14 @@
           <details>
             <summary>What files does ProjBox support today?</summary>
             <div class="pb-faq__body">
-              <p>Today, the strongest support is for:</p>
+              <p>The core functionality of ProjBox supports any and all file types. The Diff Viewer currently supports:</p>
               <ul>
                 <li>CSV files</li>
                 <li>text files</li>
                 <li>Markdown</li>
                 <li>YAML / YML</li>
               </ul>
-              <p>Support for more file types may expand over time.</p>
+              <p>Support for more file types will be expanding over time, with .xlsx and .docx next on the horizon</p>
             </div>
           </details>
 
@@ -137,29 +140,31 @@
           </details>
 
           <details>
-            <summary>Does ProjBox replace Git?</summary>
+            <summary>I'm a software engineer. Does ProjBox replace Git?</summary>
             <div class="pb-faq__body">
-              <p>No. ProjBox is not aimed at replacing Git for software teams. It is meant
-              for people who work in normal project folders and want understandable file
-              history without a developer workflow.</p>
+              <p>No. Git is excellent for code. ProjBox is for project files that are harder to understand in Git, like CSVs, notes, configs, and local working folders. It gives you readable snapshot summaries and intelligent diffs without forcing a developer workflow.
+
+If your project is only code, you may not need ProjBox. If your project mixes code with data files, notes, and local working files, ProjBox works well alongside Git. Just add _ProjBox_History/ to your .gitignore so ProjBox snapshots stay local.
+			  </p>
+            </div>
+          </details>
+		  
+		  <details>
+            <summary>Why not just use OneDrive, Time Machine, or file history?</summary>
+            <div class="pb-faq__body">
+              <p>You can, if all you need is an old copy somewhere. But good luck quickly understanding what changed inside a messy CSV, note, config, or project folder.
+
+ProjBox is designed for understanding changes, not *just* recovering files (even though it does that too). You choose when to run a snapshot, and ProjBox turns that moment into readable project history. It represents your state of mind at that point in time.
+			  </p>
             </div>
           </details>
 
-          <details>
-            <summary>Is ProjBox cloud-based?</summary>
-            <div class="pb-faq__body">
-              <p>The product is intended to be local-first. The website itself may use
-              standard web services for forms, analytics, or video embeds.</p>
-            </div>
-          </details>
-
-          <details>
-            <summary>Is ProjBox free?</summary>
-            <div class="pb-faq__body">
-              <p>For the current beta / pilot stage, that is the plan. Pricing can be
-              decided later after feedback and validation.</p>
-            </div>
-          </details>
+          <!-- <details> -->
+            <!-- <summary>Is ProjBox free?</summary> -->
+            <!-- <div class="pb-faq__body"> -->
+              <!-- <p>Yes</p> -->
+            <!-- </div> -->
+          <!-- </details> -->
 
           <details>
             <summary>How do I get access?</summary>
@@ -182,7 +187,8 @@
             <div class="pb-faq__body">
               <p>Yes, ProjBox can help you ask questions about your project history
               locally. The deterministic snapshot and diff layer comes first; the AI
-              layer is there to make the history more queryable and usable.</p>
+              layer is there to make the history more queryable and usable. Please note that you will need to download Ollama at https://ollama.com/ to access chat features.
+			  Ollama allows you to download AI models on your local device so nothing ever leaves your device</p>
             </div>
           </details>
 

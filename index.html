@@ -175,7 +175,17 @@
           <div class="pb-fade-in pb-hero__visual">
             <button type="button" class="pb-poster" data-video-open
                     aria-label="Play 2-minute demo video">
-              <img src="assets/screenshots/RightSide.png"
+              <!-- RightSideV4.png is the first export with a real alpha
+                   channel (PNG color-type 6 / RGBA). V1 and V3 were both
+                   color-type 2 (RGB, no alpha) — their "transparent" areas
+                   were painted pixels rather than true transparency, which
+                   produced the hard rectangle around the monitor.
+                   With V4's real alpha, the cosmic background shows through
+                   naturally and the foreground cloud band in
+                   css/styles.css (.pb-hero__visual::after) can dissolve the
+                   lower edge of the monitor into the scene. Target effect:
+                   see GeneralDesignFormat.png in docs. -->
+              <img src="assets/screenshots/RightSideV4.png"
                    alt="ProjBox app preview showing snapshots and a diff view."
                    width="1200" height="800"
                    decoding="async" />
