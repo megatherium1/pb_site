@@ -167,8 +167,12 @@
             </form>
           </div>
 
-          <!-- Right column: hero visual / video poster -->
-          <div class="pb-fade-in">
+          <!-- Right column: hero visual / video poster.
+               .pb-hero__visual is the positioned stage for the foreground
+               cloud band (see .pb-hero__visual::after in css/styles.css)
+               that overlaps the bottom of the monitor and dissolves its
+               rectangular silhouette into the cosmic scene. -->
+          <div class="pb-fade-in pb-hero__visual">
             <button type="button" class="pb-poster" data-video-open
                     aria-label="Play 2-minute demo video">
               <img src="assets/screenshots/RightSide.png"

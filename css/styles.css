@@ -324,9 +324,9 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
 }
 .pb-hero__grid {
   display: grid;
-  /* Right column gets a touch more weight so the floating monitor reads
-     larger and presents the product. */
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr);
+  /* Right column gets more weight so the floating monitor reads as the
+     page's hero subject, not a thumbnail next to the copy. */
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr);
   gap: clamp(20px, 3vw, 48px);
   /* `start` aligns the poster's top with the eyebrow row of the left
      column; `center` was pushing the poster too far down. */
@@ -365,46 +365,115 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   box-shadow: 0 0 12px #6cf3a8;
 }
 
-/* Hero visual / video poster.
-   The PNG (RightSide.png) is the monitor floating in cosmic clouds with a
-   transparent background. Earlier versions used `border-radius` and a
-   `box-shadow` on the <img> to add a card-like bezel — but that traced the
-   rectangular bounding box of the image, producing a visible white-ish
-   rectangle behind the transparent areas. We now use `filter: drop-shadow`
-   which respects the PNG alpha so the glow follows the actual monitor.
+/* =====================================================================
+   Hero visual / video poster — compositing strategy
+   =====================================================================
+   The previous pass switched from `box-shadow` (rectangular outline) to
+   `filter: drop-shadow` (follows PNG alpha). That removed CSS-side
+   framing, but the monitor still read as a hard rectangle floating on
+   the page because nothing in the scene overlapped its edges.
 
-   Caveat: if a future RightSide.png export contains opaque (white) pixels
-   instead of true transparency, no CSS can hide them — re-export the PNG
-   with a transparent background. */
+   This pass adds a foreground cloud band — a pseudo-element on the
+   right-column wrapper (.pb-hero__visual) that samples the same
+   CosmicBackground.png used as the page background, blurs it, and masks
+   it from opaque-at-bottom to transparent-at-top. That cloud band sits
+   in front of the monitor's lower edge, dissolving the rectangular
+   silhouette into the cosmic scene.
+
+   Why a CSS pseudo-element rather than a second <img>:
+   - zero extra HTTP requests — the asset is already loaded for body bg
+   - color and texture match the scene exactly by construction
+   - no DOM noise
+
+   Layering top to bottom: play badge (z 3) > fog (z 2) > monitor (z 1).
+   The fog uses pointer-events: none so the entire poster stays clickable.
+
+   FAILURE MODE TO WATCH FOR:
+   If the upper portion of the poster (above the fog band) still shows a
+   clearly demarcated rectangle against the cosmic background, then
+   RightSide.png itself contains opaque pixels around the monitor on its
+   canvas. CSS cannot strip pixels out of an image — re-export the PNG
+   with a transparent canvas around the monitor and the page will
+   compose correctly with no further changes.
+   ===================================================================== */
+
+.pb-poster,
+.pb-poster:hover,
+.pb-poster:focus,
+.pb-poster:focus-visible {
+  background: transparent;
+  border: 0;
+  outline: none;
+  box-shadow: none;
+}
 .pb-poster {
   position: relative;
   display: block;
   width: 100%;
-  border: 0;
-  background: transparent;
   padding: 0;
   cursor: pointer;
-  /* Slightly larger than 1:1 and nudged up so it visually anchors near the
-     headline rather than drifting toward the access form below. */
-  transform: rotate(-3deg) scale(1.06);
+  /* Larger and lifted toward the headline so it reads as the page's
+     hero subject rather than drifting toward the access form below. */
+  transform: rotate(-3deg) scale(1.10);
   transform-origin: center top;
-  margin-top: -8px;
+  margin-top: -16px;
   transition: transform 0.3s ease, filter 0.3s ease;
 }
 .pb-poster:hover, .pb-poster:focus-visible {
-  transform: rotate(-1.5deg) scale(1.07) translateY(-3px);
-  outline: none;
+  transform: rotate(-1.5deg) scale(1.11) translateY(-3px);
 }
 .pb-poster img {
   width: 100%;
   height: auto;
+  background: transparent;
   /* No border-radius / box-shadow: those create a rectangular halo when
-     the PNG has transparent regions. drop-shadow follows the alpha. */
+     the PNG has transparent regions. drop-shadow follows the alpha,
+     and we keep it tight so it can't trace the bounding box if the
+     PNG has minor edge-alpha noise. */
   border-radius: 0;
   box-shadow: none;
   filter:
-    drop-shadow(0 24px 60px rgba(0, 0, 0, 0.55))
-    drop-shadow(0 0 50px rgba(110, 92, 255, 0.35));
+    drop-shadow(0 18px 38px rgba(0, 0, 0, 0.50))
+    drop-shadow(0 0 60px rgba(110, 92, 255, 0.28));
+  /* Slight transparency lets cosmic light bleed through faintly so the
+     monitor feels integrated into the scene, not stamped on top. */
+  opacity: 0.97;
+  position: relative;
+  z-index: 1;
+}
+
+/* Right-column wrapper — positioned stage for the foreground cloud band. */
+.pb-hero__visual { position: relative; }
+
+/* Foreground cloud band: sampled from CosmicBackground.png, blurred into
+   fog, masked from opaque (bottom) to transparent (top). Sits in front
+   of the poster's lower portion so the rectangular silhouette dissolves
+   into the cosmic scene. */
+.pb-hero__visual::after {
+  content: "";
+  position: absolute;
+  left: -6%;
+  right: -6%;
+  bottom: -8%;
+  height: 48%;
+  pointer-events: none; /* never block the play button's click target */
+  z-index: 2;
+  background-image: url("../assets/backgrounds/CosmicBackground.png");
+  background-size: cover;
+  /* Sample the cloud band toward the bottom of the cosmic image. */
+  background-position: center 78%;
+  -webkit-mask-image: linear-gradient(to top,
+                        rgba(0, 0, 0, 0.96) 0%,
+                        rgba(0, 0, 0, 0.85) 25%,
+                        rgba(0, 0, 0, 0.45) 55%,
+                        transparent 100%);
+          mask-image: linear-gradient(to top,
+                        rgba(0, 0, 0, 0.96) 0%,
+                        rgba(0, 0, 0, 0.85) 25%,
+                        rgba(0, 0, 0, 0.45) 55%,
+                        transparent 100%);
+  filter: blur(6px);
+  opacity: 0.85;
 }
 .pb-poster__play {
   position: absolute;
@@ -412,6 +481,8 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   display: grid;
   place-items: center;
   pointer-events: none;
+  /* Above the foreground cloud overlay (z 2) so the badge stays visible. */
+  z-index: 3;
 }
 .pb-poster__play span {
   width: 84px; height: 84px;
