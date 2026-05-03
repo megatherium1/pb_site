@@ -112,9 +112,17 @@
                    message + mailto: fallback (no fake submissions).
                  ================================================== -->
             <form class="pb-card pb-access" id="access" data-access-form novalidate>
-              <p class="pb-access__title">Invited to the pilot?</p>
+              <div class="pb-access__head">
+                <p class="pb-access__title">Invited to the pilot?</p>
+                <p class="pb-access__helper">
+                  If you received an invitation link, your access code may
+                  already be filled in.
+                </p>
+              </div>
 
-              <div class="pb-access__grid">
+              <!-- Horizontal strip: Name, Email, University, Access Code, submit.
+                   Wraps to 2 columns at ≤1080px and 1 column on phones. -->
+              <div class="pb-access__row-fields">
                 <div class="pb-field">
                   <label for="pb-name">Name</label>
                   <input id="pb-name" name="name" type="text" autocomplete="name" placeholder="Your name" />
@@ -123,32 +131,36 @@
                   <label for="pb-email">Email</label>
                   <input id="pb-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
                 </div>
-                <div class="pb-field pb-field--full">
-                  <label for="pb-org">Organization / University</label>
-                  <input id="pb-org" name="organization" type="text" autocomplete="organization" placeholder="Where you work or study" />
+                <div class="pb-field">
+                  <!-- Field name stays `organization` so existing prefill /
+                       mailto / future Tally mapping continues to work. -->
+                  <label for="pb-org">University</label>
+                  <input id="pb-org" name="organization" type="text" autocomplete="organization" placeholder="School or company" />
                 </div>
-                <div class="pb-field pb-field--full">
+                <div class="pb-field">
                   <label for="pb-code">Access Code</label>
                   <input id="pb-code" name="access_code" type="text" autocomplete="off"
                          placeholder="Enter access code" spellcheck="false" />
                 </div>
+                <div class="pb-access__submit">
+                  <button type="submit" class="pb-btn pb-btn--primary">Get ProjBox</button>
+                </div>
+              </div>
+
+              <!--
+                Optional message / workflow textarea was removed for the
+                compact horizontal layout. To restore it, add this block
+                back inside .pb-access__row-fields with class pb-field--full:
+
                 <div class="pb-field pb-field--full">
                   <label for="pb-message">Optional message or workflow note</label>
                   <textarea id="pb-message" name="message" rows="3"
                             placeholder="What kinds of project files do you work with?"></textarea>
                 </div>
-              </div>
+              -->
 
               <!-- Invited-state note. Shown by js/form.js when a code param is detected. -->
               <p class="pb-access__note" data-access-note aria-live="polite"></p>
-
-              <div class="pb-access__row">
-                <p class="pb-access__helper">
-                  If you received an invitation link, your access code may
-                  already be filled in.
-                </p>
-                <button type="submit" class="pb-btn pb-btn--primary">Get ProjBox</button>
-              </div>
 
               <!-- Submit-status panel. Used for the friendly "form not yet wired" message. -->
               <p class="pb-access__status" data-access-status aria-live="polite"></p>
