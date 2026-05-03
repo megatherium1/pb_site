@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- ProjBox Privacy page — drafted from docs/privacy_notes.md.
+       Honest, short, and clearly separates website data collection
+       from desktop app behavior. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Privacy — ProjBox</title>
+  <meta name="description" content="How the ProjBox website handles data, and how that differs from the local-first desktop app." />
+  <meta name="theme-color" content="#0c0e22" />
+
+  <link rel="icon" type="image/png" href="assets/branding/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/branding/favicon.png" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="ProjBox — Privacy" />
+  <meta property="og:description" content="How the ProjBox website handles data." />
+  <meta property="og:image"       content="assets/og/og-image.png" />
+  <meta property="og:url"         content="https://projbox.com/privacy.html" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="pb-skip" href="#main">Skip to content</a>
+
+  <header class="pb-header" role="banner">
+    <div class="pb-container pb-header__inner">
+      <a class="pb-brand" href="index.html" aria-label="ProjBox home">
+        <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="32" height="32" />
+        <span>ProjBox</span>
+      </a>
+
+      <button class="pb-nav-toggle" type="button"
+              data-nav-toggle aria-controls="primary-nav" aria-expanded="false">
+        <span class="pb-sr-only">Toggle navigation</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <nav class="pb-nav" id="primary-nav" data-nav aria-label="Primary">
+        <a href="index.html">Overview</a>
+        <a href="faq.html">FAQs</a>
+        <a href="privacy.html" aria-current="page">Privacy</a>
+        <a class="pb-btn pb-btn--primary" href="index.html#access">Get Early Access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="pb-page-hero">
+      <div class="pb-container">
+        <span class="pb-eyebrow">Privacy</span>
+        <h1>Privacy at ProjBox</h1>
+        <p class="pb-lede">
+          Two things to know up front: the desktop app is built to run on
+          your machine, and this website collects only what we need to
+          respond to you. We try not to overclaim either side.
+        </p>
+      </div>
+    </section>
+
+    <section class="pb-section pb-section--tight">
+      <div class="pb-container">
+        <div class="pb-card pb-prose">
+
+          <!-- Lead with the strongest point: the product is local. -->
+          <h2>The desktop app is local-first</h2>
+          <p>
+            ProjBox is designed so your project files stay on your machine.
+            Snapshots, diffs, and version history are produced on your
+            computer. The product is built to work without uploading your
+            project files to a server.
+          </p>
+          <p>
+            We describe website data and app behavior separately on purpose.
+            What this website collects is not the same as what the desktop
+            app does.
+          </p>
+
+          <h2>What this website collects</h2>
+          <p>
+            When you fill out the early-access form on this site, we may
+            collect:
+          </p>
+          <ul>
+            <li>your name</li>
+            <li>your email address</li>
+            <li>your organization, university, or company</li>
+            <li>any access code or campaign code you provide</li>
+            <li>an optional message or workflow description</li>
+            <li>basic submission metadata (e.g. submission time, the
+                campaign code that brought you here)</li>
+          </ul>
+
+          <h2>Why we collect it</h2>
+          <ul>
+            <li>to respond to early-access requests</li>
+            <li>to distribute the app to invited users</li>
+            <li>to manage pilot programs</li>
+            <li>to understand which audiences are most interested</li>
+            <li>to follow up with users who request access or support</li>
+          </ul>
+
+          <h2>Third-party services that may appear on the site</h2>
+          <p>
+            Depending on how the site is configured, we may use third-party
+            services for embedded video, form processing, spam protection,
+            light analytics, or email delivery. Examples include video
+            hosts such as YouTube and form platforms such as Tally or
+            Formspree. Those services have their own privacy practices,
+            and your interactions with them (for example, watching the
+            embedded demo video or submitting the access form) may be
+            subject to their terms.
+          </p>
+
+          <h2>Access codes and links</h2>
+          <p>
+            Access codes passed in URLs are convenience and routing tools,
+            not strong security controls. URL parameters can appear in
+            browser history or server logs. Please don't put sensitive
+            secrets in a URL parameter.
+          </p>
+
+          <h2>Cookies and analytics</h2>
+          <p>
+            This first version of the site does not set its own analytics
+            cookies. If we add light analytics later, we will update this
+            page. Embedded third-party content (such as a video player or
+            an external form) may set its own cookies; that is up to those
+            providers.
+          </p>
+
+          <h2>Email handling</h2>
+          <p>
+            Beta and website inquiries may be sent to
+            <a href="mailto:matt@projbox.com">matt@projbox.com</a>. If a
+            third-party form tool is used, submissions may also be stored
+            in that provider's system.
+          </p>
+
+          <h2>Downloads</h2>
+          <p>
+            App download links on the
+            <a href="download.html">download page</a> are placeholders for
+            now. When real builds are available, they will likely be hosted
+            on a public release artifact host. Access decisions are
+            informed by the early-access form, not enforced cryptographically
+            in the URL.
+          </p>
+
+          <h2>Contact</h2>
+          <p>
+            Questions about this page? Email
+            <a href="mailto:matt@projbox.com">matt@projbox.com</a>.
+          </p>
+
+          <p style="margin-top: 28px;">
+            <a class="pb-btn pb-btn--ghost" href="index.html">← Back to home</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pb-footer" role="contentinfo">
+    <div class="pb-container pb-footer__inner">
+      <div class="pb-footer__links">
+        <a href="index.html">Overview</a>
+        <a href="faq.html">FAQs</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <p class="pb-footer__trust">
+        Runs 100% on your machine. No cloud. No account. No uploads.
+        &nbsp;·&nbsp; © <span data-year>2026</span> ProjBox
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- ProjBox FAQ page — copy sourced from docs/faq_source.md -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FAQs — ProjBox</title>
+  <meta name="description" content="Frequently asked questions about ProjBox: a local desktop app that turns file changes into project history." />
+  <meta name="theme-color" content="#0c0e22" />
+
+  <link rel="icon" type="image/png" href="assets/branding/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/branding/favicon.png" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="ProjBox — FAQs" />
+  <meta property="og:description" content="Frequently asked questions about ProjBox." />
+  <meta property="og:image"       content="assets/og/og-image.png" />
+  <meta property="og:url"         content="https://projbox.com/faq.html" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="pb-skip" href="#main">Skip to content</a>
+
+  <!-- Shared header -->
+  <header class="pb-header" role="banner">
+    <div class="pb-container pb-header__inner">
+      <a class="pb-brand" href="index.html" aria-label="ProjBox home">
+        <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="32" height="32" />
+        <span>ProjBox</span>
+      </a>
+
+      <button class="pb-nav-toggle" type="button"
+              data-nav-toggle aria-controls="primary-nav" aria-expanded="false">
+        <span class="pb-sr-only">Toggle navigation</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <nav class="pb-nav" id="primary-nav" data-nav aria-label="Primary">
+        <a href="index.html">Overview</a>
+        <a href="faq.html" aria-current="page">FAQs</a>
+        <a href="privacy.html">Privacy</a>
+        <a class="pb-btn pb-btn--primary" href="index.html#access">Get Early Access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="pb-page-hero">
+      <div class="pb-container">
+        <span class="pb-eyebrow">Help center</span>
+        <h1>Frequently asked questions</h1>
+        <p class="pb-lede">
+          Quick answers about what ProjBox is, how it runs, and how to get
+          access. Still have questions? Email
+          <a href="mailto:matt@projbox.com">matt@projbox.com</a>.
+        </p>
+      </div>
+    </section>
+
+    <section class="pb-section pb-section--tight">
+      <div class="pb-container">
+        <!--
+          FAQ items below are derived from docs/faq_source.md.
+          Kept conversational on purpose — this is not a legal page.
+          Each <details> block is independently expandable.
+        -->
+        <div class="pb-faqlist">
+
+          <details>
+            <summary>What is ProjBox?</summary>
+            <div class="pb-faq__body">
+              <p>ProjBox is a local desktop app that tracks how a project folder changes
+              over time. It helps you see what changed, inspect diffs, and ask questions
+              about your project history.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Who is ProjBox for?</summary>
+            <div class="pb-faq__body">
+              <p>ProjBox is especially useful for people who work with changing CSVs,
+              notes, configs, and similar project files, including:</p>
+              <ul>
+                <li>financial analysts</li>
+                <li>accountants</li>
+                <li>professors and engineering / research teams</li>
+                <li>lab users</li>
+                <li>anyone who keeps saving copies of files and later has to figure out what changed</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>Does ProjBox run locally?</summary>
+            <div class="pb-faq__body">
+              <p>Yes. ProjBox is designed to run on your machine. The website may collect
+              form submissions for beta access, but the product itself is intended to
+              work locally.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Do I need an account to use ProjBox?</summary>
+            <div class="pb-faq__body">
+              <p>For the product itself, no permanent cloud account is the core idea. For
+              beta access, you may be asked for an email address or access code so we
+              can distribute the app and manage pilots.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>What files does ProjBox support today?</summary>
+            <div class="pb-faq__body">
+              <p>Today, the strongest support is for:</p>
+              <ul>
+                <li>CSV files</li>
+                <li>text files</li>
+                <li>Markdown</li>
+                <li>YAML / YML</li>
+              </ul>
+              <p>Support for more file types may expand over time.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>What does ProjBox actually show me?</summary>
+            <div class="pb-faq__body">
+              <p>ProjBox is meant to help you:</p>
+              <ul>
+                <li>see snapshot-level summaries</li>
+                <li>inspect exact diffs</li>
+                <li>preserve earlier project states</li>
+                <li>ask questions about recent project history</li>
+              </ul>
+            </div>
+          </details>
+
+          <details>
+            <summary>Does ProjBox replace Git?</summary>
+            <div class="pb-faq__body">
+              <p>No. ProjBox is not aimed at replacing Git for software teams. It is meant
+              for people who work in normal project folders and want understandable file
+              history without a developer workflow.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Is ProjBox cloud-based?</summary>
+            <div class="pb-faq__body">
+              <p>The product is intended to be local-first. The website itself may use
+              standard web services for forms, analytics, or video embeds.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Is ProjBox free?</summary>
+            <div class="pb-faq__body">
+              <p>For the current beta / pilot stage, that is the plan. Pricing can be
+              decided later after feedback and validation.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>How do I get access?</summary>
+            <div class="pb-faq__body">
+              <p>If you received an access code, enter it on the
+              <a href="index.html#access">access form</a>. If you did not, request access
+              from the same form and we will review your request.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Does ProjBox work on Windows and macOS?</summary>
+            <div class="pb-faq__body">
+              <p>That is the current target.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Does ProjBox have AI features?</summary>
+            <div class="pb-faq__body">
+              <p>Yes, ProjBox can help you ask questions about your project history
+              locally. The deterministic snapshot and diff layer comes first; the AI
+              layer is there to make the history more queryable and usable.</p>
+            </div>
+          </details>
+
+          <details>
+            <summary>Can I go back to earlier versions?</summary>
+            <div class="pb-faq__body">
+              <p>Each snapshot is intended to preserve a point-in-time project state so
+              you can inspect how work evolved over time.</p>
+            </div>
+          </details>
+
+        </div>
+
+        <p style="margin-top: 32px;">
+          <a class="pb-btn pb-btn--ghost" href="index.html">← Back to home</a>
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pb-footer" role="contentinfo">
+    <div class="pb-container pb-footer__inner">
+      <div class="pb-footer__links">
+        <a href="index.html">Overview</a>
+        <a href="faq.html">FAQs</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <p class="pb-footer__trust">
+        Runs 100% on your machine. No cloud. No account. No uploads.
+        &nbsp;·&nbsp; © <span data-year>2026</span> ProjBox
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

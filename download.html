@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- ProjBox Download page — placeholders only.
+       Real installer URLs will replace the disabled buttons later
+       (see commented future URLs below). No fake downloads. -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <!-- noindex: discourage search engines from indexing this page until
+       real builds are publicly available. This is not security. -->
+  <meta name="robots" content="noindex, nofollow" />
+  <title>Download — ProjBox</title>
+  <meta name="description" content="ProjBox beta downloads for Windows and macOS — coming soon for approved early-access users." />
+  <meta name="theme-color" content="#0c0e22" />
+
+  <link rel="icon" type="image/png" href="assets/branding/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/branding/favicon.png" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="pb-skip" href="#main">Skip to content</a>
+
+  <header class="pb-header" role="banner">
+    <div class="pb-container pb-header__inner">
+      <a class="pb-brand" href="index.html" aria-label="ProjBox home">
+        <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="32" height="32" />
+        <span>ProjBox</span>
+      </a>
+
+      <button class="pb-nav-toggle" type="button"
+              data-nav-toggle aria-controls="primary-nav" aria-expanded="false">
+        <span class="pb-sr-only">Toggle navigation</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <nav class="pb-nav" id="primary-nav" data-nav aria-label="Primary">
+        <a href="index.html">Overview</a>
+        <a href="faq.html">FAQs</a>
+        <a href="privacy.html">Privacy</a>
+        <a class="pb-btn pb-btn--primary" href="index.html#access">Get Early Access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+    <section class="pb-page-hero">
+      <div class="pb-container">
+        <span class="pb-eyebrow">Download</span>
+        <h1>Download ProjBox</h1>
+        <p class="pb-lede">
+          ProjBox beta downloads are almost ready. Windows and macOS builds
+          will appear here for approved early-access users.
+        </p>
+      </div>
+    </section>
+
+    <section class="pb-section pb-section--tight">
+      <div class="pb-container">
+        <div class="pb-card pb-prose">
+          <h2>Installers</h2>
+
+          <!--
+            ============================================================
+            FUTURE INSTALLER LINKS — DO NOT WIRE YET.
+            When real builds are published from the (separate, public)
+            ProjBox downloads / releases repo, replace each disabled
+            button below with an active <a href="..."> using the
+            corresponding example URL.
+            ============================================================
+
+            Future Windows release URL:
+            https://github.com/<owner>/projbox-downloads/releases/latest/download/ProjBox-Setup.exe
+
+            Future macOS release URL:
+            https://github.com/<owner>/projbox-downloads/releases/latest/download/ProjBox-macOS.dmg
+
+            Notes:
+              - The ProjBox app source repo will remain private.
+              - Installers will be built with Electron Forge in the
+                private app repo. Signing / notarization are future
+                tasks handled in that repo, not here.
+              - Replace <owner> with the real GitHub org / user name
+                (e.g. "projbox") before going live.
+          -->
+
+          <div class="pb-download__buttons" role="group" aria-label="Available installers">
+            <button type="button" class="pb-btn pb-btn--ghost pb-btn--disabled"
+                    aria-disabled="true" disabled>
+              Windows 11 — Coming soon
+            </button>
+            <button type="button" class="pb-btn pb-btn--ghost pb-btn--disabled"
+                    aria-disabled="true" disabled>
+              macOS — Coming soon
+            </button>
+          </div>
+
+          <p style="margin-top: 24px;">
+            Need access or help? Email
+            <a href="mailto:matt@projbox.com">matt@projbox.com</a>.
+          </p>
+
+          <p>
+            Don't have an access code yet? Request access on the
+            <a href="index.html#access">home page</a>.
+          </p>
+
+          <p style="margin-top: 28px;">
+            <a class="pb-btn pb-btn--ghost" href="index.html">← Back to home</a>
+          </p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pb-footer" role="contentinfo">
+    <div class="pb-container pb-footer__inner">
+      <div class="pb-footer__links">
+        <a href="index.html">Overview</a>
+        <a href="faq.html">FAQs</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <p class="pb-footer__trust">
+        Runs 100% on your machine. No cloud. No account. No uploads.
+        &nbsp;·&nbsp; © <span data-year>2026</span> ProjBox
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+</body>
+</html>

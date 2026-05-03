@@ -1,0 +1,35 @@
+# Internal planning
+docs/
+
+# ProjBox snapshot/history folders
+_proj_*/
+_snapshot_*/
+_projbox_*/
+
+# OS junk
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor folders
+.vscode/
+.cursor/
+.idea/
+
+# Local environment files / secrets
+.env
+.env.*
+*.local
+
+# Logs
+*.log
+
+# Temporary files
+tmp/
+temp/
+
+# Build artifacts if added later
+node_modules/
+dist/
+build/
+.cache/

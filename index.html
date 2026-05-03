@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!--
+    ProjBox — homepage
+    Pure static page. No build tooling, no frameworks.
+    Asset paths use exact case (Logo.png, RightSide.png, ...) because
+    GitHub Pages is case-sensitive.
+  -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>ProjBox — Your project remembers itself now.</title>
+  <meta name="description" content="A local desktop app for Windows and macOS that turns your file changes into understandable project history. Every change, every version, explained in plain English." />
+  <meta name="theme-color" content="#0c0e22" />
+
+  <!-- Favicon (note: the source PNG is large; browsers will downscale.
+       Replace with a smaller true-favicon later if desired.) -->
+  <link rel="icon" type="image/png" href="assets/branding/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/branding/favicon.png" />
+
+  <!-- Open Graph / Twitter -->
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="ProjBox — Your project remembers itself now." />
+  <meta property="og:description" content="A local desktop app that turns file changes into understandable project history." />
+  <meta property="og:image"       content="assets/og/og-image.png" />
+  <meta property="og:url"         content="https://projbox.com/" />
+  <meta name="twitter:card"       content="summary_large_image" />
+  <meta name="twitter:title"      content="ProjBox — Your project remembers itself now." />
+  <meta name="twitter:description" content="A local desktop app that turns file changes into understandable project history." />
+  <meta name="twitter:image"      content="assets/og/og-image.png" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <!-- Skip-to-content for keyboard users -->
+  <a class="pb-skip" href="#main">Skip to content</a>
+
+  <!-- ============================================================
+       HEADER / NAV
+       Shared structure across pages. Logo + brand on the left,
+       site nav + Get Early Access CTA on the right.
+       ============================================================ -->
+  <header class="pb-header" role="banner">
+    <div class="pb-container pb-header__inner">
+      <a class="pb-brand" href="index.html" aria-label="ProjBox home">
+        <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="32" height="32" />
+        <span>ProjBox</span>
+      </a>
+
+      <button class="pb-nav-toggle" type="button"
+              data-nav-toggle aria-controls="primary-nav" aria-expanded="false">
+        <span class="pb-sr-only">Toggle navigation</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <nav class="pb-nav" id="primary-nav" data-nav aria-label="Primary">
+        <a href="index.html">Overview</a>
+        <a href="faq.html">FAQs</a>
+        <a href="privacy.html">Privacy</a>
+        <a class="pb-btn pb-btn--primary" href="#access">Get Early Access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main">
+
+    <!-- ==========================================================
+         HERO
+         H1, T1, two CTAs, truth strip, hero visual (RightSide.png)
+         that doubles as the video poster, plus the access-code form.
+         ========================================================== -->
+    <section class="pb-hero">
+      <div class="pb-container">
+        <div class="pb-hero__grid">
+
+          <!-- Left column: copy + CTAs + truth strip + access form -->
+          <div class="pb-fade-in">
+            <span class="pb-eyebrow">For Windows &amp; macOS · Local-first</span>
+
+            <!-- H1 — see docs/website_copy_v1.md §6.1 -->
+            <h1>Your project remembers itself now.</h1>
+
+            <!-- T1 -->
+            <p class="pb-lede">
+              A local desktop app for Windows and macOS that turns your file
+              changes into understandable project history. Every change, every
+              version, explained in plain English.
+            </p>
+
+            <!-- Two CTAs. The Watch Demo button opens the same modal as the hero poster. -->
+            <div class="pb-hero__cta-row">
+              <button type="button" class="pb-btn pb-btn--primary" data-video-open>
+                <!-- Inline play icon -->
+                <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                  <path fill="currentColor" d="M8 5v14l11-7z"/>
+                </svg>
+                Watch 2-Minute Demo
+              </button>
+              <a class="pb-btn pb-btn--ghost" href="#access">Get Early Access</a>
+            </div>
+
+            <!-- Truth strip -->
+            <div class="pb-truth" role="note" aria-label="Privacy summary">
+              <span class="pb-truth__dot" aria-hidden="true"></span>
+              <span>Runs 100% on your machine. No cloud. No account. No uploads.</span>
+            </div>
+
+            <!-- ==================================================
+                 ACCESS-CODE FORM (soft gating only)
+                 - Prefilled by ?code / ?access / ?invite (see js/form.js)
+                 - With no Tally URL configured, submit shows a friendly
+                   message + mailto: fallback (no fake submissions).
+                 ================================================== -->
+            <form class="pb-card pb-access" id="access" data-access-form novalidate>
+              <p class="pb-access__title">Invited to the pilot?</p>
+
+              <div class="pb-access__grid">
+                <div class="pb-field">
+                  <label for="pb-name">Name</label>
+                  <input id="pb-name" name="name" type="text" autocomplete="name" placeholder="Your name" />
+                </div>
+                <div class="pb-field">
+                  <label for="pb-email">Email</label>
+                  <input id="pb-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+                </div>
+                <div class="pb-field pb-field--full">
+                  <label for="pb-org">Organization / University</label>
+                  <input id="pb-org" name="organization" type="text" autocomplete="organization" placeholder="Where you work or study" />
+                </div>
+                <div class="pb-field pb-field--full">
+                  <label for="pb-code">Access Code</label>
+                  <input id="pb-code" name="access_code" type="text" autocomplete="off"
+                         placeholder="Enter access code" spellcheck="false" />
+                </div>
+                <div class="pb-field pb-field--full">
+                  <label for="pb-message">Optional message or workflow note</label>
+                  <textarea id="pb-message" name="message" rows="3"
+                            placeholder="What kinds of project files do you work with?"></textarea>
+                </div>
+              </div>
+
+              <!-- Invited-state note. Shown by js/form.js when a code param is detected. -->
+              <p class="pb-access__note" data-access-note aria-live="polite"></p>
+
+              <div class="pb-access__row">
+                <p class="pb-access__helper">
+                  If you received an invitation link, your access code may
+                  already be filled in.
+                </p>
+                <button type="submit" class="pb-btn pb-btn--primary">Get ProjBox</button>
+              </div>
+
+              <!-- Submit-status panel. Used for the friendly "form not yet wired" message. -->
+              <p class="pb-access__status" data-access-status aria-live="polite"></p>
+            </form>
+          </div>
+
+          <!-- Right column: hero visual / video poster -->
+          <div class="pb-fade-in">
+            <button type="button" class="pb-poster" data-video-open
+                    aria-label="Play 2-minute demo video">
+              <img src="assets/screenshots/RightSide.png"
+                   alt="ProjBox app preview showing snapshots and a diff view."
+                   width="1200" height="800"
+                   decoding="async" />
+              <span class="pb-poster__play" aria-hidden="true">
+                <span>
+                  <svg viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+                </span>
+              </span>
+            </button>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         HOW IT WORKS — three short, scan-friendly boxes.
+         Source: docs/website_copy_v1.md §6.4
+         ========================================================== -->
+    <section class="pb-section pb-section--tight" id="how-it-works">
+      <div class="pb-container">
+        <div class="pb-fade-in">
+          <span class="pb-eyebrow">How it works</span>
+          <h2>Select a folder. Run a snapshot. See what changed, and when.</h2>
+        </div>
+        <div class="pb-howgrid">
+          <div class="pb-card pb-howcard pb-fade-in">
+            <span class="pb-howcard__num" aria-hidden="true">1</span>
+            <h3>Select a folder</h3>
+            <p>Choose the project folder you want ProjBox to track through time.</p>
+          </div>
+          <div class="pb-card pb-howcard pb-fade-in">
+            <span class="pb-howcard__num" aria-hidden="true">2</span>
+            <h3>Run a snapshot</h3>
+            <p>Capture a point-in-time record of your project whenever your files change.</p>
+          </div>
+          <div class="pb-card pb-howcard pb-fade-in">
+            <span class="pb-howcard__num" aria-hidden="true">3</span>
+            <h3>See what changed</h3>
+            <p>Review a clear summary of what changed since the previous snapshot.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ==========================================================
+         EVERYTHING PROJBOX GIVES YOU — 4 proof cards in a 2x2 grid.
+         Source: docs/website_copy_v1.md §6.5
+         Layout note: 2x2 reads more premium than 4-across at common
+         viewport widths and gives each screenshot more room to breathe.
+         ========================================================== -->
+    <section class="pb-section">
+      <div class="pb-container">
+        <div class="pb-fade-in">
+          <span class="pb-eyebrow">Everything ProjBox gives you</span>
+          <h2>Your project, auto-documented — locally, through time.</h2>
+        </div>
+
+        <div class="pb-proof">
+          <article class="pb-card pb-proofcard pb-fade-in">
+            <div class="pb-proofcard__media">
+              <img src="assets/screenshots/1stBoxPhoto.png"
+                   alt="ProjBox snapshots list with summaries of changes."
+                   loading="lazy" decoding="async" />
+            </div>
+            <div class="pb-proofcard__body">
+              <h3>See every snapshot at a glance</h3>
+              <p>Each snapshot gives you an instant summary of what changed since the previous version.</p>
+            </div>
+          </article>
+
+          <article class="pb-card pb-proofcard pb-fade-in">
+            <div class="pb-proofcard__media">
+              <img src="assets/screenshots/2ndBoxPhoto.png"
+                   alt="ProjBox built-in diff viewer showing exact changes between versions."
+                   loading="lazy" decoding="async" />
+            </div>
+            <div class="pb-proofcard__body">
+              <h3>Inspect the exact change</h3>
+              <p>A built-in diff viewer shows you exactly what changed in your files.</p>
+            </div>
+          </article>
+
+          <article class="pb-card pb-proofcard pb-fade-in">
+            <div class="pb-proofcard__media">
+              <img src="assets/screenshots/3rdBoxPhoto.png"
+                   alt="Local AI answering a question about recent project history."
+                   loading="lazy" decoding="async" />
+            </div>
+            <div class="pb-proofcard__body">
+              <h3>Ask your project what changed</h3>
+              <p>A local AI helps you ask questions about project history in plain English.</p>
+            </div>
+          </article>
+
+          <article class="pb-card pb-proofcard pb-fade-in">
+            <div class="pb-proofcard__media">
+              <img src="assets/screenshots/4thBoxPhoto.png"
+                   alt="Browsing past versions of a project preserved by ProjBox."
+                   loading="lazy" decoding="async" />
+            </div>
+            <div class="pb-proofcard__body">
+              <h3>Keep every version</h3>
+              <p>Each snapshot preserves a point-in-time copy of your project so you can go back through earlier states.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- ============================================================
+       FOOTER — shared across pages.
+       ============================================================ -->
+  <footer class="pb-footer" role="contentinfo">
+    <div class="pb-container pb-footer__inner">
+      <div class="pb-footer__links">
+        <a href="index.html">Overview</a>
+        <a href="faq.html">FAQs</a>
+        <a href="privacy.html">Privacy Policy</a>
+      </div>
+      <p class="pb-footer__trust">
+        Runs 100% on your machine. No cloud. No account. No uploads.
+        &nbsp;·&nbsp; © <span data-year>2026</span> ProjBox
+      </p>
+    </div>
+  </footer>
+
+  <!-- ============================================================
+       VIDEO MODAL
+       Opened by any element with [data-video-open] (the Watch Demo
+       button and the hero poster). Iframe src is set on open and
+       cleared on close to stop playback.
+       ============================================================ -->
+  <div class="pb-modal" data-video-modal role="dialog" aria-modal="true"
+       aria-label="ProjBox demo video" aria-hidden="true">
+    <div class="pb-modal__dialog">
+      <button type="button" class="pb-modal__close" data-video-close aria-label="Close video">×</button>
+      <iframe title="ProjBox demo video"
+              allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+              allowfullscreen
+              src=""></iframe>
+    </div>
+  </div>
+
+  <script src="js/main.js" defer></script>
+  <script src="js/form.js" defer></script>
+</body>
+</html>
