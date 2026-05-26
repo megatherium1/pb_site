@@ -485,8 +485,6 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
      on a stacked single-column layout — reset to natural flow. */
   .pb-poster       { transform: none; margin-top: 0; }
   .pb-hero__visual { padding-top: 0; }
-  /* Cloud compositing overlay is desktop-only; hide on tablet/mobile. */
-  .pb-hero__visual::after { display: none; }
 }
 
 .pb-hero__cta-row {
@@ -519,35 +517,12 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
 }
 
 /* =====================================================================
-   Hero visual / video poster — compositing strategy
+   Hero visual / video poster
    =====================================================================
-   The previous pass switched from `box-shadow` (rectangular outline) to
-   `filter: drop-shadow` (follows PNG alpha). That removed CSS-side
-   framing, but the monitor still read as a hard rectangle floating on
-   the page because nothing in the scene overlapped its edges.
-
-   This pass adds a foreground cloud band — a pseudo-element on the
-   right-column wrapper (.pb-hero__visual) that samples the same
-   CosmicBackground.png used as the page background, blurs it, and masks
-   it from opaque-at-bottom to transparent-at-top. That cloud band sits
-   in front of the monitor's lower edge, dissolving the rectangular
-   silhouette into the cosmic scene.
-
-   Why a CSS pseudo-element rather than a second <img>:
-   - zero extra HTTP requests — the asset is already loaded for body bg
-   - color and texture match the scene exactly by construction
-   - no DOM noise
-
-   Layering top to bottom: play badge (z 3) > fog (z 2) > monitor (z 1).
-   The fog uses pointer-events: none so the entire poster stays clickable.
-
-   FAILURE MODE TO WATCH FOR:
-   If the upper portion of the poster (above the fog band) still shows a
-   clearly demarcated rectangle against the cosmic background, then
-   RightSide.png itself contains opaque pixels around the monitor on its
-   canvas. CSS cannot strip pixels out of an image — re-export the PNG
-   with a transparent canvas around the monitor and the page will
-   compose correctly with no further changes.
+   The monitor is lowered into the cloud layer by offsetting the right
+   column wrapper, while the PNG itself stays transparent and clickable.
+   Avoid foreground fog overlays here: they create a visible rectangular
+   dark patch under the thumbnail instead of blending with the page.
    ===================================================================== */
 
 .pb-poster,
@@ -599,7 +574,7 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   z-index: 1;
 }
 
-/* Right-column wrapper — positioned stage for the foreground cloud band.
+/* Right-column wrapper.
    padding-top pushes the poster down so its base sits inside the cloud
    horizon, giving the "resting/nested in the clouds" look. A larger value
    here is the primary lever for lowering the monitor without touching the
@@ -608,49 +583,12 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   position: relative;
   padding-top: clamp(60px, 8vw, 110px);
 }
-
-/* Foreground cloud band: sampled from CosmicBackground.png, blurred into
-   fog, masked from opaque (bottom) to transparent (top). Sits in front
-   of the poster's lower portion so the rectangular silhouette dissolves
-   into the cosmic scene. */
-.pb-hero__visual::after {
-  content: "";
-  position: absolute;
-  left: -6%;
-  right: -6%;
-  /* The poster is scaled 1.22 from transform-origin: center top, which
-     means the visual bottom of the monitor sits ~22% below the wrapper
-     bottom. Push the fog down so it overlaps the actual visible lower
-     edge of the (now-larger) monitor and produce the GeneralDesignFormat
-     "resting in the clouds" effect. */
-  bottom: -20%;
-  height: 72%;
-  pointer-events: none; /* never block the play button's click target */
-  z-index: 2;
-  background-image: url("../assets/backgrounds/CosmicBackground.png");
-  background-size: cover;
-  /* Sample the cloud band toward the bottom of the cosmic image. */
-  background-position: center 78%;
-  -webkit-mask-image: linear-gradient(to top,
-                        rgba(0, 0, 0, 0.96) 0%,
-                        rgba(0, 0, 0, 0.85) 25%,
-                        rgba(0, 0, 0, 0.45) 55%,
-                        transparent 100%);
-          mask-image: linear-gradient(to top,
-                        rgba(0, 0, 0, 0.96) 0%,
-                        rgba(0, 0, 0, 0.85) 25%,
-                        rgba(0, 0, 0, 0.45) 55%,
-                        transparent 100%);
-  filter: blur(6px);
-  opacity: 0.85;
-}
 .pb-poster__play {
   position: absolute;
   inset: 0;
   display: grid;
   place-items: center;
   pointer-events: none;
-  /* Above the foreground cloud overlay (z 2) so the badge stays visible. */
   z-index: 3;
 }
 .pb-poster__play span {
@@ -734,28 +672,6 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   .pb-access__row-fields { grid-template-columns: 1fr; }
   .pb-access__submit { justify-content: stretch; }
   .pb-access__submit .pb-btn { width: 100%; }
-}
-
-/* Desktop horizontal strip: label text on the left, all fields on the right
-   in one long bar. Grid auto-placement handles the layout without HTML changes:
-   __head → col 1 row 1, __row-fields → col 2 row 1, note/status span full width. */
-@media (min-width: 1081px) {
-  .pb-access {
-    display: grid;
-    grid-template-columns: minmax(140px, 190px) 1fr;
-    column-gap: 24px;
-    align-items: center;
-    padding: 14px 20px;
-  }
-  .pb-access__head {
-    flex-direction: column;
-    align-items: flex-start;
-    margin-bottom: 0;
-  }
-  .pb-access__note,
-  .pb-access__status {
-    grid-column: 1 / -1;
-  }
 }
 
 .pb-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
