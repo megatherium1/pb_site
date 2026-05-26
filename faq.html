@@ -25,9 +25,29 @@
   <!-- Shared header -->
   <header class="pb-header" role="banner">
     <div class="pb-container pb-header__inner">
-      <a class="pb-brand" href="index.html" aria-label="ProjBox home">
-        <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="32" height="32" />
-        <span>ProjBox</span>
+      <a class="pb-brand pb-brand--wordmark" href="index.html" aria-label="ProjBox home">
+        <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="36" height="36" />
+        <span class="pb-wordmark pb-wordmark--sweep" role="img" aria-label="ProjBox">
+          <span class="pb-wordmark__glyph">P</span>
+          <span class="pb-wordmark__glyph">r</span>
+          <span class="pb-wordmark__glyph pb-wordmark__o" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
+              <defs>
+                <linearGradient id="pbWmGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8aa1ff"/>
+                  <stop offset="100%" stop-color="#5cc0ff"/>
+                </linearGradient>
+              </defs>
+              <circle cx="12" cy="12" r="7.5" fill="none" stroke="url(#pbWmGrad)"
+                      stroke-width="2.4" stroke-linecap="butt"
+                      stroke-dasharray="45.16 1.97" transform="rotate(-90 12 12)"/>
+            </svg>
+          </span>
+          <span class="pb-wordmark__glyph">j</span>
+          <span class="pb-wordmark__glyph">B</span>
+          <span class="pb-wordmark__glyph">o</span>
+          <span class="pb-wordmark__glyph">x</span>
+        </span>
       </a>
 
       <button class="pb-nav-toggle" type="button"

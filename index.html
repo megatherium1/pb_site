@@ -7,14 +7,16 @@
     Pure static page. No build tooling, no frameworks.
     Asset paths use exact case (Logo.png, RightSide.png, ...) because
     GitHub Pages is case-sensitive.
+    Wordmark: V5 Sweep · Balanced
+      • font-size 1.68rem, letter-spacing 0.04em, line-height 1.4
+      • logo mark 36×36px
+      • inline <style> ensures wordmark CSS wins over any cascade issue
   -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>ProjBox — Your project remembers itself now.</title>
   <meta name="description" content="A local desktop app for Windows and macOS that turns your file changes into understandable project history. Every change, every version, explained in plain English." />
   <meta name="theme-color" content="#0c0e22" />
 
-  <!-- Favicon (note: the source PNG is large; browsers will downscale.
-       Replace with a smaller true-favicon later if desired.) -->
   <link rel="icon" type="image/png" href="assets/branding/favicon.png" />
   <link rel="apple-touch-icon" href="assets/branding/favicon.png" />
 
@@ -30,6 +32,123 @@
   <meta name="twitter:image"      content="assets/og/og-image.png" />
 
   <link rel="stylesheet" href="css/styles.css" />
+
+  <style>
+    /* ── Header override: tighter padding so banner feels full ── */
+    .pb-header__inner { padding: 11px 0; }
+
+    /* ── Wordmark base ────────────────────────────────────────── */
+    .pb-brand--wordmark { gap: 12px; }
+    .pb-brand--wordmark .pb-brand__mark {
+      width: 36px;
+      height: 36px;
+    }
+
+    .pb-wordmark {
+      position: relative;
+      isolation: isolate;
+      display: inline-flex;
+      align-items: center;
+      font-weight: 800;
+      font-size: 1.68rem;
+      letter-spacing: 0.04em;
+      line-height: 1.4;
+      overflow: visible;
+    }
+    .pb-wordmark__glyph {
+      display: inline-block;
+      position: relative;
+      will-change: opacity;
+      background-image: linear-gradient(135deg, #8aa1ff 0%, #5cc0ff 100%);
+      -webkit-background-clip: text;
+              background-clip: text;
+      -webkit-text-fill-color: transparent;
+      color: transparent;
+    }
+    /* The "o" wraps SVG, not text — reset gradient-text styles */
+    .pb-wordmark__o {
+      background-image: none;
+      -webkit-text-fill-color: currentColor;
+      color: currentColor;
+      width: 0.85em;
+      height: 0.85em;
+      margin: 0 0.01em;
+      vertical-align: -0.07em;
+      line-height: 0;
+    }
+    .pb-wordmark__o svg { width: 100%; height: 100%; display: block; overflow: visible; }
+
+    /* ── V5 Sweep animation ──────────────────────────────────── */
+    .pb-wordmark--sweep .pb-wordmark__glyph {
+      opacity: 0.25;
+      filter: saturate(0.35) brightness(0.7);
+      animation: pbWmSweepGlyph 0.55s ease-out both;
+    }
+    .pb-wordmark--sweep .pb-wordmark__glyph:nth-child(1) { animation-delay: 0.08s; }
+    .pb-wordmark--sweep .pb-wordmark__glyph:nth-child(2) { animation-delay: 0.14s; }
+    .pb-wordmark--sweep .pb-wordmark__glyph:nth-child(3) { animation-delay: 0.20s; }
+    .pb-wordmark--sweep .pb-wordmark__glyph:nth-child(4) { animation-delay: 0.26s; }
+    .pb-wordmark--sweep .pb-wordmark__glyph:nth-child(5) { animation-delay: 0.32s; }
+    .pb-wordmark--sweep .pb-wordmark__glyph:nth-child(6) { animation-delay: 0.38s; }
+    .pb-wordmark--sweep .pb-wordmark__glyph:nth-child(7) { animation-delay: 0.44s; }
+
+    @keyframes pbWmSweepGlyph {
+      0%   { opacity: 0.25; filter: saturate(0.35) brightness(0.7); }
+      50%  { opacity: 1.00; filter: saturate(1.30) brightness(1.6); }
+      100% { opacity: 1.00; filter: saturate(1.00) brightness(1.0); }
+    }
+
+    .pb-wordmark--sweep::after {
+      content: "";
+      position: absolute;
+      top: 0; bottom: 0;
+      left: -30%;
+      width: 30%;
+      background: linear-gradient(90deg,
+                    transparent 0%,
+                    rgba(255,255,255,0.55) 50%,
+                    transparent 100%);
+      mix-blend-mode: screen;
+      opacity: 0;
+      pointer-events: none;
+      animation: pbWmShimmer 0.85s ease-out 0.08s forwards;
+    }
+    @keyframes pbWmShimmer {
+      0%   { opacity: 0;    left: -30%; }
+      30%  { opacity: 0.85; }
+      100% { opacity: 0;    left: 100%; }
+    }
+
+    .pb-wordmark--sweep .pb-wordmark__o svg {
+      will-change: transform;
+      animation: pbWmSpinO 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.10s both;
+    }
+    @keyframes pbWmSpinO {
+      from { transform: rotate(-180deg) scale(0.6); opacity: 0; }
+      to   { transform: rotate(0deg)     scale(1.0); opacity: 1; }
+    }
+    .pb-wordmark--sweep .pb-wordmark__o svg circle {
+      stroke-dasharray: 0 47.12;
+      animation: pbWmDrawO 0.65s ease-out 0.18s forwards;
+    }
+    @keyframes pbWmDrawO {
+      from { stroke-dasharray: 0 47.12; }
+      to   { stroke-dasharray: 45.16 1.97; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .pb-wordmark--sweep::after { display: none; }
+      .pb-wordmark__glyph,
+      .pb-wordmark__o svg,
+      .pb-wordmark__o svg circle {
+        animation: none !important;
+        opacity: 1 !important;
+        transform: none !important;
+        filter: none !important;
+        stroke-dasharray: 45.16 1.97 !important;
+      }
+    }
+  </style>
 </head>
 <body>
   <!-- Skip-to-content for keyboard users -->
@@ -37,14 +156,32 @@
 
   <!-- ============================================================
        HEADER / NAV
-       Shared structure across pages. Logo + brand on the left,
-       site nav + Get Early Access CTA on the right.
        ============================================================ -->
   <header class="pb-header" role="banner">
     <div class="pb-container pb-header__inner">
-      <a class="pb-brand" href="index.html" aria-label="ProjBox home">
-        <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="32" height="32" />
-        <span>ProjBox</span>
+      <a class="pb-brand pb-brand--wordmark" href="index.html" aria-label="ProjBox home">
+        <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="36" height="36" />
+        <span class="pb-wordmark pb-wordmark--sweep" role="img" aria-label="ProjBox">
+          <span class="pb-wordmark__glyph">P</span>
+          <span class="pb-wordmark__glyph">r</span>
+          <span class="pb-wordmark__glyph pb-wordmark__o" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
+              <defs>
+                <linearGradient id="pbWmGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8aa1ff"/>
+                  <stop offset="100%" stop-color="#5cc0ff"/>
+                </linearGradient>
+              </defs>
+              <circle cx="12" cy="12" r="7.5" fill="none" stroke="url(#pbWmGrad)"
+                      stroke-width="2.4" stroke-linecap="butt"
+                      stroke-dasharray="45.16 1.97" transform="rotate(-90 12 12)"/>
+            </svg>
+          </span>
+          <span class="pb-wordmark__glyph">j</span>
+          <span class="pb-wordmark__glyph">B</span>
+          <span class="pb-wordmark__glyph">o</span>
+          <span class="pb-wordmark__glyph">x</span>
+        </span>
       </a>
 
       <button class="pb-nav-toggle" type="button"
@@ -66,31 +203,24 @@
 
     <!-- ==========================================================
          HERO
-         H1, T1, two CTAs, truth strip, hero visual (RightSide.png)
-         that doubles as the video poster, plus the access-code form.
          ========================================================== -->
     <section class="pb-hero">
       <div class="pb-container">
         <div class="pb-hero__grid">
 
-          <!-- Left column: copy + CTAs + truth strip + access form -->
           <div class="pb-fade-in">
             <span class="pb-eyebrow">For Windows &amp; macOS · Local-first</span>
 
-            <!-- H1 — see docs/website_copy_v1.md §6.1 -->
             <h1>Your project remembers itself now.</h1>
 
-            <!-- T1 -->
             <p class="pb-lede">
               A local desktop app for Windows and macOS that turns your file
               changes into understandable project history. Every change, every
               version, explained in plain English.
             </p>
 
-            <!-- Two CTAs. The Watch Demo button opens the same modal as the hero poster. -->
             <div class="pb-hero__cta-row">
               <button type="button" class="pb-btn pb-btn--primary" data-video-open>
-                <!-- Inline play icon -->
                 <svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                   <path fill="currentColor" d="M8 5v14l11-7z"/>
                 </svg>
@@ -99,7 +229,6 @@
               <a class="pb-btn pb-btn--ghost" href="#access">Get Early Access</a>
             </div>
 
-            <!-- Truth strip -->
             <div class="pb-truth" role="note" aria-label="Privacy summary">
               <span class="pb-truth__dot" aria-hidden="true"></span>
               <span>Runs 100% on your machine. No cloud. No account. No uploads.</span>
@@ -107,9 +236,6 @@
 
             <!-- ==================================================
                  ACCESS-CODE FORM (soft gating only)
-                 - Prefilled by ?code / ?access / ?invite (see js/form.js)
-                 - With no Tally URL configured, submit shows a friendly
-                   message + mailto: fallback (no fake submissions).
                  ================================================== -->
             <form class="pb-card pb-access" id="access" data-access-form novalidate>
               <div class="pb-access__head">
@@ -120,8 +246,6 @@
                 </p>
               </div>
 
-              <!-- Horizontal strip: Name, Email, University, Access Code, submit.
-                   Wraps to 2 columns at ≤1080px and 1 column on phones. -->
               <div class="pb-access__row-fields">
                 <div class="pb-field">
                   <label for="pb-name">Name</label>
@@ -132,8 +256,6 @@
                   <input id="pb-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
                 </div>
                 <div class="pb-field">
-                  <!-- Field name stays `organization` so existing prefill /
-                       mailto / future Tally mapping continues to work. -->
                   <label for="pb-org">University</label>
                   <input id="pb-org" name="organization" type="text" autocomplete="organization" placeholder="School or company" />
                 </div>
@@ -147,44 +269,14 @@
                 </div>
               </div>
 
-              <!--
-                Optional message / workflow textarea was removed for the
-                compact horizontal layout. To restore it, add this block
-                back inside .pb-access__row-fields with class pb-field--full:
-
-                <div class="pb-field pb-field--full">
-                  <label for="pb-message">Optional message or workflow note</label>
-                  <textarea id="pb-message" name="message" rows="3"
-                            placeholder="What kinds of project files do you work with?"></textarea>
-                </div>
-              -->
-
-              <!-- Invited-state note. Shown by js/form.js when a code param is detected. -->
               <p class="pb-access__note" data-access-note aria-live="polite"></p>
-
-              <!-- Submit-status panel. Used for the friendly "form not yet wired" message. -->
               <p class="pb-access__status" data-access-status aria-live="polite"></p>
             </form>
           </div>
 
-          <!-- Right column: hero visual / video poster.
-               .pb-hero__visual is the positioned stage for the foreground
-               cloud band (see .pb-hero__visual::after in css/styles.css)
-               that overlaps the bottom of the monitor and dissolves its
-               rectangular silhouette into the cosmic scene. -->
           <div class="pb-fade-in pb-hero__visual">
             <button type="button" class="pb-poster" data-video-open
                     aria-label="Play 2-minute demo video">
-              <!-- RightSideV4.png is the first export with a real alpha
-                   channel (PNG color-type 6 / RGBA). V1 and V3 were both
-                   color-type 2 (RGB, no alpha) — their "transparent" areas
-                   were painted pixels rather than true transparency, which
-                   produced the hard rectangle around the monitor.
-                   With V4's real alpha, the cosmic background shows through
-                   naturally and the foreground cloud band in
-                   css/styles.css (.pb-hero__visual::after) can dissolve the
-                   lower edge of the monitor into the scene. Target effect:
-                   see GeneralDesignFormat.png in docs. -->
               <img src="assets/screenshots/RightSideV4.png"
                    alt="ProjBox app preview showing snapshots and a diff view."
                    width="1200" height="800"
@@ -202,8 +294,7 @@
     </section>
 
     <!-- ==========================================================
-         HOW IT WORKS — three short, scan-friendly boxes.
-         Source: docs/website_copy_v1.md §6.4
+         HOW IT WORKS
          ========================================================== -->
     <section class="pb-section pb-section--tight" id="how-it-works">
       <div class="pb-container">
@@ -232,10 +323,7 @@
     </section>
 
     <!-- ==========================================================
-         EVERYTHING PROJBOX GIVES YOU — 4 proof cards in a 2x2 grid.
-         Source: docs/website_copy_v1.md §6.5
-         Layout note: 2x2 reads more premium than 4-across at common
-         viewport widths and gives each screenshot more room to breathe.
+         EVERYTHING PROJBOX GIVES YOU
          ========================================================== -->
     <section class="pb-section">
       <div class="pb-container">
@@ -299,7 +387,7 @@
   </main>
 
   <!-- ============================================================
-       FOOTER — shared across pages.
+       FOOTER
        ============================================================ -->
   <footer class="pb-footer" role="contentinfo">
     <div class="pb-container pb-footer__inner">
@@ -317,9 +405,6 @@
 
   <!-- ============================================================
        VIDEO MODAL
-       Opened by any element with [data-video-open] (the Watch Demo
-       button and the hero poster). Iframe src is set on open and
-       cleared on close to stop playback.
        ============================================================ -->
   <div class="pb-modal" data-video-modal role="dialog" aria-modal="true"
        aria-label="ProjBox demo video" aria-hidden="true">

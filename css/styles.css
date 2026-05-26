@@ -77,6 +77,24 @@ body {
   overflow-x: hidden;
 }
 
+/* MOBILE BACKGROUND — portrait asset + scroll attachment
+   CosmicBackgroundMobile.png: portrait crop, min 1440×2560, ideally 2160×3840.
+   No text baked in. Switch to scroll — iOS Safari blurs fixed backgrounds
+   (engine rasterises them at viewport size, not image size). */
+@media (max-width: 768px) {
+  body {
+    background-image:
+      radial-gradient(800px 600px  at 50% -5%,  rgba(138, 123, 255, 0.32), transparent 60%),
+      radial-gradient(600px 500px  at 50%  30%,  rgba(92, 192, 255, 0.18),  transparent 60%),
+      radial-gradient(1000px 800px at 50%  110%, rgba(80, 60, 180, 0.28),   transparent 60%),
+      url("../assets/backgrounds/CosmicBackgroundMobile.png");
+    background-attachment: scroll, scroll, scroll, scroll;
+    background-position:   center top, center top, center top, center top;
+    background-size:       cover, cover, cover, cover;
+    background-repeat:     no-repeat, no-repeat, no-repeat, no-repeat;
+  }
+}
+
 /* Subtle stars overlay (cheap CSS-only — no extra image) */
 body::before {
   content: "";
@@ -173,9 +191,9 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
 }
 
 .pb-section {
-  padding: clamp(36px, 5vw, 72px) 0;
+  padding: clamp(22px, 3.5vw, 52px) 0;
 }
-.pb-section--tight { padding: clamp(28px, 3.5vw, 52px) 0; }
+.pb-section--tight { padding: clamp(14px, 2.5vw, 36px) 0; }
 
 /* -------------------------------------------------------------
    5. Header / nav
@@ -194,7 +212,7 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   align-items: center;
   justify-content: space-between;
   gap: 16px;
-  padding: 14px 0;
+  padding: 11px 0;
 }
 .pb-brand {
   display: inline-flex;
@@ -212,6 +230,132 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   object-fit: cover;
   box-shadow: var(--pb-glow-purple);
 }
+
+/* Animated gradient wordmark (V5 Sweep — header brand lockup) */
+.pb-brand--wordmark { gap: 12px; }
+.pb-brand--wordmark .pb-brand__mark {
+  width: 36px;
+  height: 36px;
+}
+
+.pb-wordmark {
+  position: relative;
+  /* isolation:isolate keeps the shimmer's mix-blend-mode:screen contained
+     to the wordmark area so it brightens the gradient letters rather than
+     blending against the dark header background behind them. */
+  isolation: isolate;
+  display: inline-flex;
+  align-items: center;
+  font-weight: 800;
+  font-size: 1.68rem;
+  letter-spacing: 0.04em;
+  line-height: 1.4;
+  overflow: visible;
+}
+.pb-wordmark__glyph {
+  display: inline-block;
+  position: relative;
+  /* will-change:transform was removed: it promotes each glyph to a GPU
+     compositing layer, which breaks filter+background-clip:text rendering
+     in Chromium and causes the shimmer to paint *behind* the glyphs. */
+  will-change: opacity;
+  background-image: linear-gradient(135deg, #8aa1ff 0%, #5cc0ff 100%);
+  -webkit-background-clip: text;
+          background-clip: text;
+  -webkit-text-fill-color: transparent;
+  color: transparent;
+}
+.pb-wordmark__o {
+  background-image: none;
+  -webkit-text-fill-color: currentColor;
+  color: currentColor;
+  width: 0.85em;
+  height: 0.85em;
+  margin: 0 0.01em;
+  vertical-align: -0.07em;
+  line-height: 0;
+}
+.pb-wordmark__o svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+  overflow: visible;
+}
+
+/* Sweep intro — plays once on page load */
+.pb-wordmark--sweep .pb-wordmark__glyph {
+  opacity: 0.25;
+  filter: saturate(0.35) brightness(0.7);
+  animation: pbWmSweepGlyph 0.55s ease-out both;
+}
+.pb-wordmark--sweep .pb-wordmark__glyph:nth-child(1) { animation-delay: 0.08s; }
+.pb-wordmark--sweep .pb-wordmark__glyph:nth-child(2) { animation-delay: 0.14s; }
+.pb-wordmark--sweep .pb-wordmark__glyph:nth-child(3) { animation-delay: 0.20s; }
+.pb-wordmark--sweep .pb-wordmark__glyph:nth-child(4) { animation-delay: 0.26s; }
+.pb-wordmark--sweep .pb-wordmark__glyph:nth-child(5) { animation-delay: 0.32s; }
+.pb-wordmark--sweep .pb-wordmark__glyph:nth-child(6) { animation-delay: 0.38s; }
+.pb-wordmark--sweep .pb-wordmark__glyph:nth-child(7) { animation-delay: 0.44s; }
+
+@keyframes pbWmSweepGlyph {
+  0%   { opacity: 0.25; filter: saturate(0.35) brightness(0.7); }
+  50%  { opacity: 1.00; filter: saturate(1.30) brightness(1.6); }
+  100% { opacity: 1.00; filter: saturate(1.00) brightness(1.0); }
+}
+
+.pb-wordmark--sweep::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: -30%;
+  width: 30%;
+  background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.55) 50%,
+                transparent 100%);
+  mix-blend-mode: screen;
+  opacity: 0;
+  pointer-events: none;
+  animation: pbWmShimmer 0.85s ease-out 0.08s forwards;
+}
+@keyframes pbWmShimmer {
+  0%   { opacity: 0;    left: -30%; }
+  30%  { opacity: 0.85; }
+  100% { opacity: 0;    left: 100%; }
+}
+
+.pb-wordmark--sweep .pb-wordmark__o svg {
+  /* will-change:transform on the SVG itself (not the parent glyph) so
+     the spin animation is GPU-accelerated without breaking the shimmer. */
+  will-change: transform;
+  animation: pbWmSpinO 0.75s cubic-bezier(0.22, 1, 0.36, 1) 0.10s both;
+}
+@keyframes pbWmSpinO {
+  from { transform: rotate(-180deg) scale(0.6); opacity: 0; }
+  to   { transform: rotate(0deg) scale(1.0); opacity: 1; }
+}
+.pb-wordmark--sweep .pb-wordmark__o svg circle {
+  stroke-dasharray: 0 47.12;
+  animation: pbWmDrawO 0.65s ease-out 0.18s forwards;
+}
+@keyframes pbWmDrawO {
+  from { stroke-dasharray: 0 47.12; }
+  to   { stroke-dasharray: 45.16 1.97; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pb-wordmark--sweep::after { display: none; }
+  .pb-wordmark--sweep .pb-wordmark__glyph,
+  .pb-wordmark--sweep .pb-wordmark__o svg,
+  .pb-wordmark--sweep .pb-wordmark__o svg circle {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+    stroke-dasharray: 45.16 1.97 !important;
+  }
+}
+
 .pb-nav {
   display: flex;
   align-items: center;
@@ -320,7 +464,7 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
 .pb-hero {
   /* Trimmed top padding so the eyebrow sits just under the sticky header
      instead of leaving a large empty band at the top of the page. */
-  padding: clamp(20px, 3vw, 36px) 0 clamp(28px, 4vw, 56px);
+  padding: clamp(20px, 3vw, 36px) 0 clamp(14px, 2.5vw, 36px);
 }
 .pb-hero__grid {
   display: grid;
@@ -328,7 +472,7 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
      breathe (H1 reads as two lines instead of three) and the lede flows
      naturally. The poster's `scale()` makes it visually larger without
      needing to dominate the grid track. */
-  grid-template-columns: minmax(0, 1.1fr) minmax(0, 1fr);
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 1fr);
   gap: clamp(20px, 3vw, 48px);
   /* `start` aligns the poster's top with the eyebrow row of the left
      column; `center` was pushing the poster too far down. */
@@ -336,6 +480,13 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
 }
 @media (max-width: 960px) {
   .pb-hero__grid { grid-template-columns: 1fr; }
+
+  /* Poster tilt/scale reads fine on desktop but overflows and looks awkward
+     on a stacked single-column layout — reset to natural flow. */
+  .pb-poster       { transform: none; margin-top: 0; }
+  .pb-hero__visual { padding-top: 0; }
+  /* Cloud compositing overlay is desktop-only; hide on tablet/mobile. */
+  .pb-hero__visual::after { display: none; }
 }
 
 .pb-hero__cta-row {
@@ -448,8 +599,15 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   z-index: 1;
 }
 
-/* Right-column wrapper — positioned stage for the foreground cloud band. */
-.pb-hero__visual { position: relative; }
+/* Right-column wrapper — positioned stage for the foreground cloud band.
+   padding-top pushes the poster down so its base sits inside the cloud
+   horizon, giving the "resting/nested in the clouds" look. A larger value
+   here is the primary lever for lowering the monitor without touching the
+   left text column. */
+.pb-hero__visual {
+  position: relative;
+  padding-top: clamp(60px, 8vw, 110px);
+}
 
 /* Foreground cloud band: sampled from CosmicBackground.png, blurred into
    fog, masked from opaque (bottom) to transparent (top). Sits in front
@@ -465,8 +623,8 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
      bottom. Push the fog down so it overlaps the actual visible lower
      edge of the (now-larger) monitor and produce the GeneralDesignFormat
      "resting in the clouds" effect. */
-  bottom: -12%;
-  height: 55%;
+  bottom: -20%;
+  height: 72%;
   pointer-events: none; /* never block the play button's click target */
   z-index: 2;
   background-image: url("../assets/backgrounds/CosmicBackground.png");
@@ -576,6 +734,28 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   .pb-access__row-fields { grid-template-columns: 1fr; }
   .pb-access__submit { justify-content: stretch; }
   .pb-access__submit .pb-btn { width: 100%; }
+}
+
+/* Desktop horizontal strip: label text on the left, all fields on the right
+   in one long bar. Grid auto-placement handles the layout without HTML changes:
+   __head → col 1 row 1, __row-fields → col 2 row 1, note/status span full width. */
+@media (min-width: 1081px) {
+  .pb-access {
+    display: grid;
+    grid-template-columns: minmax(140px, 190px) 1fr;
+    column-gap: 24px;
+    align-items: center;
+    padding: 14px 20px;
+  }
+  .pb-access__head {
+    flex-direction: column;
+    align-items: flex-start;
+    margin-bottom: 0;
+  }
+  .pb-access__note,
+  .pb-access__status {
+    grid-column: 1 / -1;
+  }
 }
 
 .pb-field { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
@@ -773,7 +953,7 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
    ------------------------------------------------------------- */
 .pb-footer {
   border-top: 1px solid var(--pb-border);
-  margin-top: clamp(40px, 6vw, 80px);
+  margin-top: clamp(24px, 4vw, 52px);
   padding: 36px 0 56px;
   background: rgba(5, 6, 15, 0.45);
   backdrop-filter: blur(8px);
