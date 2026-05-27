@@ -17,10 +17,9 @@
   // -----------------------------------------------------------
   // CONFIG — paste real values here when available.
   // -----------------------------------------------------------
-  // TODO: paste the real Tally form URL here (e.g. https://tally.so/r/XXXXX).
-  // When set, the form will redirect to Tally with the user's fields as
-  // query params so Tally can prefill its own fields.
-  var TALLY_FORM_URL = "";
+  // Tally early-access form. Redirect sends name, email, university,
+  // access_code, and source as query params for Tally field prefill.
+  var TALLY_FORM_URL = "https://tally.so/r/QKOlbG";
 
   // Where Tally should send users after a successful submission.
   // (Configured in the Tally dashboard, not in this file. Listed here
@@ -125,9 +124,11 @@
         // visible fields (configure matching field keys in Tally).
         try {
           var url = new URL(TALLY_FORM_URL);
-          Object.keys(values).forEach(function (k) {
-            if (values[k]) url.searchParams.set(k, values[k]);
-          });
+          if (values.name)         url.searchParams.set("name", values.name);
+          if (values.email)        url.searchParams.set("email", values.email);
+          if (values.organization) url.searchParams.set("university", values.organization);
+          if (values.access_code)  url.searchParams.set("access_code", values.access_code);
+          url.searchParams.set("source", "projbox-home");
           window.location.href = url.toString();
         } catch (err) {
           // If the URL ever ends up malformed, fall through to the
