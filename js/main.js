@@ -16,7 +16,7 @@
   //    the embed URL is derived automatically.
   // -----------------------------------------------------------
   // TODO: paste real demo URL when available
-  var YOUTUBE_VIDEO_URL = "https://youtu.be/d66QIs68QZ8";
+  var YOUTUBE_VIDEO_URL = "https://vimeo.com/1198644021?share=copy&fl=sv&fe=ci";
 
   /**
    * Convert a YouTube watch URL into an embed URL with autoplay.
