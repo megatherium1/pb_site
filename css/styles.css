@@ -855,6 +855,12 @@ main > .pb-section:not(.pb-section--tight) .pb-container {
 }
 .pb-proofcard__media {
   position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  appearance: none;
+  -webkit-appearance: none;
   /* Soft purple glow inside the media frame so screenshots don't sit on a
      flat black slab; the bezel feels like part of the cosmic theme. */
   background:
@@ -864,6 +870,28 @@ main > .pb-section:not(.pb-section--tight) .pb-container {
   /* Reserve a consistent media area so cards align even with mixed image sizes */
   aspect-ratio: 16 / 9;
   overflow: hidden;
+  cursor: zoom-in;
+  color: inherit;
+  font: inherit;
+  text-align: inherit;
+}
+.pb-proofcard__media::after {
+  content: "Click to expand";
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(5, 6, 20, 0.72);
+  color: #fff;
+  font-size: 0.82rem;
+  font-weight: 600;
+  line-height: 1;
+  opacity: 0;
+  padding: 8px 11px;
+  pointer-events: none;
+  transform: translateY(4px);
+  transition: opacity 0.2s ease, transform 0.2s ease;
 }
 .pb-proofcard__media img {
   position: absolute;
@@ -877,6 +905,21 @@ main > .pb-section:not(.pb-section--tight) .pb-container {
   padding: var(--proof-card-media-padding);
   /* Very subtle lift for darker screenshots so detail stays readable. */
   filter: brightness(1.04);
+  transition: filter 0.2s ease, transform 0.2s ease;
+}
+.pb-proofcard__media:hover img,
+.pb-proofcard__media:focus-visible img {
+  filter: brightness(1.12);
+  transform: scale(1.015);
+}
+.pb-proofcard__media:hover::after,
+.pb-proofcard__media:focus-visible::after {
+  opacity: 1;
+  transform: translateY(0);
+}
+.pb-proofcard__media:focus-visible {
+  outline: 2px solid var(--pb-accent-2);
+  outline-offset: -4px;
 }
 .pb-proofcard__body { padding: var(--proof-card-body-padding); }
 .pb-proofcard__body h3 {
@@ -1063,6 +1106,56 @@ main > .pb-section:not(.pb-section--tight) .pb-container {
 .pb-modal__close:hover { background: rgba(30, 30, 80, 0.9); }
 .pb-modal__close:focus-visible { outline: 2px solid var(--pb-accent-2); }
 body.pb-no-scroll { overflow: hidden; }
+
+.pb-image-modal {
+  align-items: flex-start;
+  overflow-y: auto;
+}
+.pb-image-modal__dialog {
+  position: relative;
+  width: min(1120px, 100%);
+  max-height: calc(100vh - 48px);
+  margin: auto 0;
+  overflow: hidden;
+  border-radius: var(--pb-radius-lg);
+  background:
+    linear-gradient(180deg, rgba(20, 22, 58, 0.95), rgba(8, 9, 24, 0.98));
+  box-shadow: 0 30px 90px rgba(0,0,0,0.65), 0 0 0 1px var(--pb-border-strong);
+}
+.pb-image-modal__dialog img {
+  width: 100%;
+  max-height: calc(100vh - 190px);
+  object-fit: contain;
+  background: #05060f;
+  padding: clamp(12px, 2vw, 22px);
+}
+.pb-image-modal__caption {
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 18px clamp(18px, 2.5vw, 28px) 22px;
+}
+.pb-image-modal__caption h3 {
+  margin-bottom: 6px;
+  padding-right: 44px;
+}
+.pb-image-modal__caption p {
+  margin: 0;
+  color: #c8ccea;
+}
+
+@media (max-width: 640px) {
+  .pb-proofcard__media::after {
+    display: none;
+  }
+  .pb-image-modal {
+    padding: 14px;
+  }
+  .pb-image-modal__dialog {
+    max-height: calc(100vh - 28px);
+  }
+  .pb-image-modal__dialog img {
+    max-height: calc(100vh - 210px);
+  }
+}
 
 /* -------------------------------------------------------------
    15. Scroll-in animation (respects prefers-reduced-motion)

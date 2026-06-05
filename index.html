@@ -336,11 +336,12 @@
 
         <div class="pb-proof">
           <article class="pb-card pb-proofcard pb-fade-in">
-            <div class="pb-proofcard__media">
+            <button type="button" class="pb-proofcard__media" data-proof-open
+                    aria-label="Expand screenshot: See every snapshot at a glance">
               <img src="assets/screenshots/1stBoxPhoto.png"
                    alt="ProjBox snapshots list with summaries of changes."
                    loading="lazy" decoding="async" />
-            </div>
+            </button>
             <div class="pb-proofcard__body">
               <h3>See every snapshot at a glance</h3>
               <p>Each snapshot gives you an instant summary of what changed since the previous version.</p>
@@ -348,11 +349,12 @@
           </article>
 
           <article class="pb-card pb-proofcard pb-fade-in">
-            <div class="pb-proofcard__media">
+            <button type="button" class="pb-proofcard__media" data-proof-open
+                    aria-label="Expand screenshot: Inspect the exact change">
               <img src="assets/screenshots/2ndBoxPhoto.png"
                    alt="ProjBox built-in diff viewer showing exact changes between versions."
                    loading="lazy" decoding="async" />
-            </div>
+            </button>
             <div class="pb-proofcard__body">
               <h3>Inspect the exact change</h3>
               <p>A built-in diff viewer shows you exactly what changed in your files.</p>
@@ -360,11 +362,12 @@
           </article>
 
           <article class="pb-card pb-proofcard pb-fade-in">
-            <div class="pb-proofcard__media">
+            <button type="button" class="pb-proofcard__media" data-proof-open
+                    aria-label="Expand screenshot: Ask your project what changed">
               <img src="assets/screenshots/3rdBoxPhoto.png"
                    alt="Local AI answering a question about recent project history."
                    loading="lazy" decoding="async" />
-            </div>
+            </button>
             <div class="pb-proofcard__body">
               <h3>Ask your project what changed</h3>
               <p>A local AI helps you ask questions about project history in plain English.</p>
@@ -372,11 +375,12 @@
           </article>
 
           <article class="pb-card pb-proofcard pb-fade-in">
-            <div class="pb-proofcard__media">
+            <button type="button" class="pb-proofcard__media" data-proof-open
+                    aria-label="Expand screenshot: Keep every version">
               <img src="assets/screenshots/4thBoxPhoto.png"
                    alt="Browsing past versions of a project preserved by ProjBox."
                    loading="lazy" decoding="async" />
-            </div>
+            </button>
             <div class="pb-proofcard__body">
               <h3>Keep every version</h3>
               <p>Each snapshot preserves a point-in-time copy of your project so you can go back through earlier states.</p>
@@ -416,6 +420,22 @@
               allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
               allowfullscreen
               src=""></iframe>
+    </div>
+  </div>
+
+  <!-- ============================================================
+       IMAGE MODAL
+       ============================================================ -->
+  <div class="pb-modal pb-image-modal" data-proof-modal role="dialog" aria-modal="true"
+       aria-labelledby="proof-modal-title" aria-describedby="proof-modal-description"
+       aria-hidden="true">
+    <div class="pb-image-modal__dialog">
+      <button type="button" class="pb-modal__close" data-proof-close aria-label="Close expanded screenshot">×</button>
+      <img data-proof-modal-image src="" alt="" />
+      <div class="pb-image-modal__caption">
+        <h3 id="proof-modal-title" data-proof-modal-title></h3>
+        <p id="proof-modal-description" data-proof-modal-description></p>
+      </div>
     </div>
   </div>
 

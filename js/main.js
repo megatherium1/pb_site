@@ -1,6 +1,7 @@
 /* =============================================================
    ProjBox marketing site — main.js
    - Video modal (opened by Watch Demo CTA + hero poster)
+   - Screenshot lightbox for proof cards
    - Mobile nav toggle
    - Scroll fade-in via IntersectionObserver (reduced-motion aware)
    No external dependencies. Plain ES5/ES6, no build step.
@@ -102,7 +103,70 @@
   }
 
   // -----------------------------------------------------------
-  // 3. Mobile nav toggle
+  // 3. Proof-card screenshot lightbox
+  // -----------------------------------------------------------
+  function initProofLightbox() {
+    var modal = document.querySelector("[data-proof-modal]");
+    if (!modal) return;
+
+    var image = modal.querySelector("[data-proof-modal-image]");
+    var title = modal.querySelector("[data-proof-modal-title]");
+    var description = modal.querySelector("[data-proof-modal-description]");
+    var closeEl = modal.querySelector("[data-proof-close]");
+    var triggers = document.querySelectorAll("[data-proof-open]");
+    var activeTrigger = null;
+
+    if (!image || !title || !description || !triggers.length) return;
+
+    function open(trigger) {
+      var card = trigger.closest(".pb-proofcard");
+      var cardImage = trigger.querySelector("img");
+      var cardTitle = card ? card.querySelector(".pb-proofcard__body h3") : null;
+      var cardDescription = card ? card.querySelector(".pb-proofcard__body p") : null;
+      if (!cardImage || !cardTitle || !cardDescription) return;
+
+      activeTrigger = trigger;
+      image.setAttribute("src", cardImage.currentSrc || cardImage.src);
+      image.setAttribute("alt", cardImage.getAttribute("alt") || "");
+      title.textContent = cardTitle.textContent;
+      description.textContent = cardDescription.textContent;
+      modal.classList.add("is-open");
+      modal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("pb-no-scroll");
+      if (closeEl) closeEl.focus();
+    }
+
+    function close() {
+      modal.classList.remove("is-open");
+      modal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("pb-no-scroll");
+      image.setAttribute("src", "");
+      image.setAttribute("alt", "");
+      title.textContent = "";
+      description.textContent = "";
+      if (activeTrigger) activeTrigger.focus();
+      activeTrigger = null;
+    }
+
+    triggers.forEach(function (trigger) {
+      trigger.addEventListener("click", function () {
+        open(trigger);
+      });
+    });
+
+    if (closeEl) closeEl.addEventListener("click", close);
+
+    modal.addEventListener("click", function (e) {
+      if (e.target === modal) close();
+    });
+
+    document.addEventListener("keydown", function (e) {
+      if (e.key === "Escape" && modal.classList.contains("is-open")) close();
+    });
+  }
+
+  // -----------------------------------------------------------
+  // 4. Mobile nav toggle
   // -----------------------------------------------------------
   function initNavToggle() {
     var toggle = document.querySelector("[data-nav-toggle]");
@@ -124,7 +188,7 @@
   }
 
   // -----------------------------------------------------------
-  // 4. Scroll fade-in (no-op when reduced motion is preferred)
+  // 5. Scroll fade-in (no-op when reduced motion is preferred)
   // -----------------------------------------------------------
   function initFadeIn() {
     var prefersReduced = window.matchMedia &&
@@ -150,7 +214,7 @@
   }
 
   // -----------------------------------------------------------
-  // 5. Year stamp in footer (small nicety)
+  // 6. Year stamp in footer (small nicety)
   // -----------------------------------------------------------
   function initYear() {
     var el = document.querySelector("[data-year]");
@@ -163,12 +227,14 @@
   if (document.readyState === "loading") {
     document.addEventListener("DOMContentLoaded", function () {
       initVideoModal();
+      initProofLightbox();
       initNavToggle();
       initFadeIn();
       initYear();
     });
   } else {
     initVideoModal();
+    initProofLightbox();
     initNavToggle();
     initFadeIn();
     initYear();
