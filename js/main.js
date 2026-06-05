@@ -11,22 +11,36 @@
 
   // -----------------------------------------------------------
   // 1. Single source of truth for the demo video URL.
-  //    Replace the YOUTUBE_VIDEO_URL below when the real demo
-  //    video is ready. Accepts a normal YouTube watch URL —
+  //    Accepts a YouTube watch URL or a Vimeo page/player URL —
   //    the embed URL is derived automatically.
   // -----------------------------------------------------------
-  // TODO: paste real demo URL when available
-  var YOUTUBE_VIDEO_URL = "https://vimeo.com/1198644021?share=copy&fl=sv&fe=ci";
+  var DEMO_VIDEO_URL = "https://vimeo.com/1198644021?share=copy&fl=sv&fe=ci";
 
   /**
-   * Convert a YouTube watch URL into an embed URL with autoplay.
+   * Convert a YouTube or Vimeo URL into an embed URL with autoplay.
    * Falls back to the raw URL if no video id is found.
    */
   function toEmbedUrl(url) {
     try {
       var u = new URL(url);
+      var host = u.hostname.replace(/^www\./, "");
       var id = "";
-      if (u.hostname.indexOf("youtu.be") !== -1) {
+
+      if (host === "vimeo.com") {
+        id = u.pathname.replace(/^\//, "").split("/")[0];
+        if (!id) return url;
+        return "https://player.vimeo.com/video/" + encodeURIComponent(id) +
+               "?badge=0&autopause=0&autoplay=1";
+      }
+
+      if (host === "player.vimeo.com" && u.pathname.indexOf("/video/") === 0) {
+        id = u.pathname.split("/video/")[1].split("/")[0];
+        if (!id) return url;
+        return "https://player.vimeo.com/video/" + encodeURIComponent(id) +
+               "?badge=0&autopause=0&autoplay=1";
+      }
+
+      if (host.indexOf("youtu.be") !== -1) {
         id = u.pathname.replace(/^\//, "");
       } else if (u.searchParams.get("v")) {
         id = u.searchParams.get("v");
@@ -52,7 +66,7 @@
     var triggers = document.querySelectorAll("[data-video-open]");
 
     function open() {
-      iframe.setAttribute("src", toEmbedUrl(YOUTUBE_VIDEO_URL));
+      iframe.setAttribute("src", toEmbedUrl(DEMO_VIDEO_URL));
       modal.classList.add("is-open");
       modal.setAttribute("aria-hidden", "false");
       document.body.classList.add("pb-no-scroll");
