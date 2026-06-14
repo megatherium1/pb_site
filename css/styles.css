@@ -26,12 +26,17 @@
   /* Layout */
   --pb-max-width: 1240px;
   --pb-section-wide-max: var(--pb-max-width);
+  --pb-proof-max-width: min(var(--pb-max-width), calc(100vw - 48px));
+  --pb-gap-hero-next: clamp(16px, 1.8vw, 28px);
+  --pb-gap-section: clamp(20px, 2vw, 32px);
+  --pb-gap-heading-grid: clamp(12px, 1.2vw, 20px);
   --how-grid-gap: 18px;
   --how-card-padding: clamp(20px, 2.4vw, 28px);
   --how-card-num-size: 36px;
   --how-card-title-size: 1.25rem;
   --how-card-text-size: 1rem;
   --proof-grid-gap: 22px;
+  --proof-card-media-ratio: 16 / 9;
   --proof-card-body-padding: 20px 22px 22px;
   --proof-card-media-padding: 14px;
   --proof-card-title-size: 1.25rem;
@@ -206,8 +211,10 @@ p { margin: 0 0 1em; color: var(--pb-text-dim); }
   margin: 0 auto;
   padding: 0 24px;
 }
-#how-it-works .pb-container,
-main > .pb-section:not(.pb-section--tight) .pb-container {
+main.pb-home > .pb-section--proof .pb-container {
+  max-width: var(--pb-proof-max-width);
+}
+main.pb-home > .pb-section:not(.pb-section--proof) .pb-container {
   max-width: var(--pb-section-wide-max);
 }
 
@@ -215,6 +222,27 @@ main > .pb-section:not(.pb-section--tight) .pb-container {
   padding: clamp(22px, 3.5vw, 52px) 0;
 }
 .pb-section--tight { padding: clamp(14px, 2.5vw, 36px) 0; }
+
+/* Homepage: stack sections with clamp()-based gaps instead of doubled padding */
+main.pb-home {
+  display: flex;
+  flex-direction: column;
+}
+main.pb-home > * + * {
+  margin-top: var(--pb-gap-section);
+}
+main.pb-home > .pb-hero + * {
+  margin-top: var(--pb-gap-hero-next);
+}
+main.pb-home > .pb-section {
+  padding: 0;
+}
+main.pb-home > .pb-hero {
+  padding-bottom: 0;
+}
+main.pb-home + .pb-footer {
+  margin-top: var(--pb-gap-section);
+}
 
 /* -------------------------------------------------------------
    5. Header / nav
@@ -809,7 +837,7 @@ main > .pb-section:not(.pb-section--tight) .pb-container {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: var(--how-grid-gap);
-  margin-top: 20px;
+  margin-top: var(--pb-gap-heading-grid);
 }
 @media (max-width: 820px) { .pb-howgrid { grid-template-columns: 1fr; } }
 .pb-howcard.pb-card { padding: var(--how-card-padding); }
@@ -843,7 +871,7 @@ main > .pb-section:not(.pb-section--tight) .pb-container {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
   gap: var(--proof-grid-gap);
-  margin-top: 24px;
+  margin-top: var(--pb-gap-heading-grid);
 }
 @media (max-width: 760px) { .pb-proof { grid-template-columns: 1fr; } }
 
@@ -868,7 +896,7 @@ main > .pb-section:not(.pb-section--tight) .pb-container {
     #0b0d22;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   /* Reserve a consistent media area so cards align even with mixed image sizes */
-  aspect-ratio: 16 / 9;
+  aspect-ratio: var(--proof-card-media-ratio, 16 / 9);
   overflow: hidden;
   cursor: zoom-in;
   color: inherit;
@@ -932,36 +960,72 @@ main > .pb-section:not(.pb-section--tight) .pb-container {
   font-size: var(--proof-card-text-size);
 }
 
-/* Large-screen scale-up for How it works + proof sections (mirrors hero breakpoints) */
+/* Proof section — widen cards and enlarge screenshots without adding vertical height */
+@media (min-width: 1024px) {
+  :root {
+    --pb-proof-max-width: min(1280px, calc(100vw - 48px));
+    --proof-grid-gap: 24px;
+    --proof-card-body-padding: 20px 24px 22px;
+    --proof-card-media-padding: 12px;
+    --proof-card-title-size: 1.28rem;
+    --proof-card-text-size: 1.04rem;
+  }
+}
+
+@media (min-width: 1400px) {
+  :root {
+    --pb-proof-max-width: min(1400px, calc(100vw - 80px));
+    --proof-grid-gap: 26px;
+    --proof-card-body-padding: 20px 28px 22px;
+    --proof-card-media-padding: 8px;
+    --proof-card-title-size: 1.36rem;
+    --proof-card-text-size: 1.08rem;
+  }
+  .pb-section--proof h2 {
+    font-size: clamp(1.8rem, 2.6vw + 0.5rem, 2.75rem);
+  }
+}
+
+@media (min-width: 1600px) {
+  :root {
+    --pb-proof-max-width: min(1520px, calc(100vw - 100px));
+    --proof-grid-gap: 28px;
+    --proof-card-body-padding: 22px 30px 24px;
+    --proof-card-media-padding: 6px;
+    --proof-card-title-size: 1.42rem;
+    --proof-card-text-size: 1.12rem;
+  }
+}
+
+@media (min-width: 1800px) {
+  :root {
+    --pb-proof-max-width: min(1600px, calc(100vw - 120px));
+    --proof-grid-gap: 28px;
+    --proof-card-body-padding: 22px 32px 24px;
+    --proof-card-media-padding: 4px;
+    --proof-card-title-size: 1.48rem;
+    --proof-card-text-size: 1.15rem;
+  }
+}
+
+/* How it works — secondary scale-up; stays narrower than proof on large screens */
 @media (min-width: 1500px) {
   :root {
-    --pb-section-wide-max: min(1500px, calc(100vw - 120px));
     --how-grid-gap: 24px;
     --how-card-padding: clamp(24px, 2.2vw, 32px);
     --how-card-num-size: 40px;
     --how-card-title-size: 1.32rem;
     --how-card-text-size: 1.05rem;
-    --proof-grid-gap: 28px;
-    --proof-card-body-padding: 22px 26px 26px;
-    --proof-card-media-padding: 12px;
-    --proof-card-title-size: 1.32rem;
-    --proof-card-text-size: 1.05rem;
   }
 }
 
 @media (min-width: 1900px) {
   :root {
-    --pb-section-wide-max: min(1640px, calc(100vw - 160px));
     --how-grid-gap: 28px;
     --how-card-padding: clamp(28px, 2vw, 36px);
     --how-card-num-size: 44px;
     --how-card-title-size: 1.38rem;
     --how-card-text-size: 1.08rem;
-    --proof-grid-gap: 32px;
-    --proof-card-body-padding: 24px 28px 28px;
-    --proof-card-media-padding: 10px;
-    --proof-card-title-size: 1.38rem;
-    --proof-card-text-size: 1.08rem;
   }
 }
 
