@@ -208,13 +208,13 @@
       <div class="pb-container">
         <div class="pb-hero__grid">
 
-          <div class="pb-fade-in">
+          <div class="pb-hero__copy pb-fade-in">
             <span class="pb-eyebrow">YOUR PROJECT REMEMBERS ITSELF NOW.</span>
 
             <h1>Your project history, finally made clear.</h1>
 
             <p class="pb-lede">
-              ProjBox is a local Windows/macOS app that creates snapshots of the folders you already use, then explains what changed from version to version.
+              ProjBox is a local Windows/macOS app that creates snapshots of the folders you already use, then explains what changed from version to version as your project evolves.
             </p>
 
             <div class="pb-hero__cta-row">
@@ -231,45 +231,6 @@
               <span class="pb-truth__dot" aria-hidden="true"></span>
               <span>Runs 100% on your machine. No cloud. No account. No uploads.</span>
             </div>
-
-            <!-- ==================================================
-                 ACCESS-CODE FORM (soft gating only)
-                 ================================================== -->
-            <form class="pb-card pb-access" id="access" data-access-form novalidate>
-              <div class="pb-access__head">
-                <p class="pb-access__title">Invited to ProjBox?</p>
-                <p class="pb-access__helper">
-                  If you received an invitation link, your access code may
-                  already be filled in.
-                </p>
-              </div>
-
-              <div class="pb-access__row-fields">
-                <div class="pb-field">
-                  <label for="pb-name">Name</label>
-                  <input id="pb-name" name="name" type="text" autocomplete="name" placeholder="Your name" />
-                </div>
-                <div class="pb-field">
-                  <label for="pb-email">Email</label>
-                  <input id="pb-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
-                </div>
-                <div class="pb-field">
-                  <label for="pb-org">University</label>
-                  <input id="pb-org" name="organization" type="text" autocomplete="organization" placeholder="University or Organization" />
-                </div>
-                <div class="pb-field">
-                  <label for="pb-code">Access Code</label>
-                  <input id="pb-code" name="access_code" type="text" autocomplete="off"
-                         placeholder="Enter access code" spellcheck="false" />
-                </div>
-                <div class="pb-access__submit">
-                  <button type="submit" class="pb-btn pb-btn--primary">Get ProjBox</button>
-                </div>
-              </div>
-
-              <p class="pb-access__note" data-access-note aria-live="polite"></p>
-              <p class="pb-access__status" data-access-status aria-live="polite"></p>
-            </form>
           </div>
 
           <div class="pb-fade-in pb-hero__visual">
@@ -288,6 +249,38 @@
               </span>
             </button>
           </div>
+
+          <form class="pb-card pb-access pb-fade-in" id="access" data-access-form novalidate>
+            <div class="pb-access__head">
+              <p class="pb-access__title">Your invitation</p>
+            </div>
+
+            <div class="pb-access__row-fields">
+              <div class="pb-field">
+                <label for="pb-name">Name</label>
+                <input id="pb-name" name="name" type="text" autocomplete="name" placeholder="Your name" />
+              </div>
+              <div class="pb-field">
+                <label for="pb-email">Email</label>
+                <input id="pb-email" name="email" type="email" autocomplete="email" placeholder="you@example.com" required />
+              </div>
+              <div class="pb-field">
+                <label for="pb-org">University</label>
+                <input id="pb-org" name="organization" type="text" autocomplete="organization" placeholder="University or Organization" />
+              </div>
+              <div class="pb-field">
+                <label for="pb-code">Access Code</label>
+                <input id="pb-code" name="access_code" type="text" autocomplete="off"
+                       placeholder="Enter access code" spellcheck="false" />
+              </div>
+              <div class="pb-access__submit">
+                <button type="submit" class="pb-btn pb-btn--primary">Get ProjBox</button>
+              </div>
+            </div>
+
+            <p class="pb-access__note" data-access-note aria-live="polite"></p>
+            <p class="pb-access__status" data-access-status aria-live="polite"></p>
+          </form>
 
         </div>
       </div>
@@ -383,7 +376,7 @@
           <div class="pb-card pb-howcard pb-fade-in">
             <span class="pb-howcard__num" aria-hidden="true">3</span>
             <h3>See what changed</h3>
-            <p>Get elegant summaries, diffs, and the files at that point in time which you can return to later. Never again do "File → Save As"</p>
+            <p>Get clear summaries, diffs, and a saved version you can return to later.</p>
           </div>
         </div>
       </div>

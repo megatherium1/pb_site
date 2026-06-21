@@ -106,14 +106,15 @@ body {
 @media (max-width: 768px) {
   body {
     background-image:
-      radial-gradient(800px 600px  at 50% -5%,  rgba(138, 123, 255, 0.32), transparent 60%),
-      radial-gradient(600px 500px  at 50%  30%,  rgba(92, 192, 255, 0.18),  transparent 60%),
-      radial-gradient(1000px 800px at 50%  110%, rgba(80, 60, 180, 0.28),   transparent 60%),
+      linear-gradient(180deg, rgba(5, 6, 15, 0.52) 0%, transparent 38%),
+      radial-gradient(800px 600px  at 50% -5%,  rgba(138, 123, 255, 0.30), transparent 60%),
+      radial-gradient(600px 500px  at 50%  30%, rgba(92, 192, 255, 0.15),  transparent 60%),
+      radial-gradient(1000px 800px at 50% 110%, rgba(80, 60, 180, 0.26),   transparent 60%),
       url("../assets/backgrounds/CosmicBackgroundMobile.png");
-    background-attachment: scroll, scroll, scroll, scroll;
-    background-position:   center top, center top, center top, center top;
-    background-size:       cover, cover, cover, cover;
-    background-repeat:     no-repeat, no-repeat, no-repeat, no-repeat;
+    background-attachment: scroll, scroll, scroll, scroll, scroll;
+    background-position:   center top, center top, center top, center top, center top;
+    background-size:       cover, cover, cover, cover, cover;
+    background-repeat:     no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
   }
 }
 
@@ -234,11 +235,18 @@ main.pb-home > * + * {
 main.pb-home > .pb-hero + * {
   margin-top: var(--pb-gap-hero-next);
 }
+@media (min-width: 1800px) {
+  main.pb-home > .pb-hero + * {
+    margin-top: clamp(20px, 1.8vw, 36px);
+  }
+}
 main.pb-home > .pb-section {
   padding: 0;
 }
 main.pb-home > .pb-hero {
-  padding-bottom: 0;
+  /* Compensate for left-column translateY so the access card does not
+     visually overlap the proof section below the hero layout box. */
+  padding-bottom: var(--pb-hero-copy-offset-y, 0px);
 }
 main.pb-home + .pb-footer {
   margin-top: var(--pb-gap-section);
@@ -515,10 +523,11 @@ main.pb-home + .pb-footer {
   --pb-hero-gap: clamp(20px, 3vw, 48px);
   --pb-hero-visual-offset: clamp(60px, 8vw, 110px);
   --pb-hero-copy-offset-y: 0px;
+  --pb-hero-padding-top: clamp(20px, 3vw, 36px);
 
   /* Trimmed top padding so the eyebrow sits just under the sticky header
      instead of leaving a large empty band at the top of the page. */
-  padding: clamp(20px, 3vw, 36px) 0 clamp(14px, 2.5vw, 36px);
+  padding: var(--pb-hero-padding-top) 0 clamp(14px, 2.5vw, 36px);
 }
 .pb-hero .pb-container {
   max-width: var(--pb-hero-max-width);
@@ -535,16 +544,42 @@ main.pb-home + .pb-footer {
      column; `center` was pushing the poster too far down. */
   align-items: start;
 }
-.pb-hero__grid > .pb-fade-in:first-child {
+.pb-hero__copy {
   transform: translateY(var(--pb-hero-copy-offset-y));
 }
+
+/* Desktop: explicit grid placement so the form (now a sibling of the copy
+   div) stays in column 1 beneath the copy, and the poster spans both rows
+   in column 2 — identical to the old nested-form layout. */
+@media (min-width: 961px) {
+  .pb-hero__copy   { grid-column: 1; grid-row: 1; }
+  .pb-hero__visual { grid-column: 2; grid-row: 1 / 3; }
+  .pb-access       { grid-column: 1; grid-row: 2; }
+}
+
 @media (max-width: 960px) {
   .pb-hero__grid { grid-template-columns: 1fr; }
 
-  /* Poster tilt/scale reads fine on desktop but overflows and looks awkward
-     on a stacked single-column layout — reset to natural flow. */
+  .pb-hero__copy   { order: 1; }
+  .pb-hero__visual { order: 2; }
+  .pb-access       { order: 3; }
+
+  .pb-hero__copy { transform: none; }
   .pb-poster       { transform: none; margin-top: 0; }
   .pb-hero__visual { padding-top: 0; }
+}
+
+/* Mobile hero compactness — tighten vertical rhythm so product proof
+   appears within the first screen-and-a-half on typical phones. */
+@media (max-width: 768px) {
+  .pb-hero {
+    padding-top: 14px;
+    padding-bottom: 10px;
+  }
+  .pb-hero__grid { gap: 18px; }
+  .pb-hero__cta-row { margin: 16px 0 14px; }
+  .pb-truth { margin-bottom: 0; }
+  .pb-hero__grid > .pb-access { margin-top: 4px; }
 }
 
 @media (min-width: 1500px) {
@@ -556,11 +591,24 @@ main.pb-home + .pb-footer {
   }
 }
 
+@media (min-width: 1600px) {
+  .pb-hero {
+    --pb-hero-padding-top: clamp(14px, 1.6vw, 22px);
+    --pb-hero-copy-offset-y: clamp(18px, 2vw, 36px);
+  }
+}
+
+@media (min-width: 1800px) {
+  .pb-hero {
+    --pb-hero-padding-top: clamp(2px, 0.4vw, 6px);
+    --pb-hero-copy-offset-y: clamp(0px, 0.2vw, 2px);
+  }
+}
+
 @media (min-width: 1900px) {
   .pb-hero {
     --pb-hero-max-width: min(1640px, calc(100vw - 160px));
     --pb-hero-visual-offset: clamp(125px, 7vw, 190px);
-    --pb-hero-copy-offset-y: clamp(56px, 4vw, 92px);
   }
 }
 
@@ -732,7 +780,7 @@ main.pb-home + .pb-footer {
   align-items: baseline;
   justify-content: space-between;
   gap: 8px 16px;
-  margin-bottom: 12px;
+  margin-bottom: 8px;
 }
 .pb-access__title {
   font-size: 0.82rem;
@@ -740,11 +788,6 @@ main.pb-home + .pb-footer {
   letter-spacing: 0.18em;
   text-transform: uppercase;
   color: var(--pb-accent-warm);
-  margin: 0;
-}
-.pb-access__helper {
-  font-size: 0.85rem;
-  color: var(--pb-text-mute);
   margin: 0;
 }
 .pb-access__row-fields {
