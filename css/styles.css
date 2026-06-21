@@ -99,22 +99,43 @@ body {
   }
 }
 
-/* MOBILE BACKGROUND — portrait asset + scroll attachment
-   CosmicBackgroundMobile.jpg: portrait crop, min 1440×2560, ideally 2160×3840.
-   No text baked in. Switch to scroll — iOS Safari blurs fixed backgrounds
-   (engine rasterises them at viewport size, not image size). */
+/* MOBILE BACKGROUND — fixed viewport layer on main.pb-home::before.
+   CosmicBackgroundMobile.jpg: portrait crop. Do NOT apply to body — cover
+   on a tall scrollable page upscales/blurs the image. Use position:fixed
+   pseudo-element instead of background-attachment:fixed (iOS Safari blurs that). */
 @media (max-width: 768px) {
   body {
+    background-image: none;
+    background-color: #050617;
+  }
+
+  body::before {
+    display: none;
+  }
+
+  main.pb-home {
+    isolation: isolate;
+  }
+
+  main.pb-home::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
     background-image:
-      linear-gradient(180deg, rgba(5, 6, 15, 0.52) 0%, transparent 38%),
-      radial-gradient(800px 600px  at 50% -5%,  rgba(138, 123, 255, 0.30), transparent 60%),
-      radial-gradient(600px 500px  at 50%  30%, rgba(92, 192, 255, 0.15),  transparent 60%),
-      radial-gradient(1000px 800px at 50% 110%, rgba(80, 60, 180, 0.26),   transparent 60%),
+      linear-gradient(
+        180deg,
+        rgba(5, 6, 18, 0.88) 0%,
+        rgba(7, 8, 28, 0.72) 34%,
+        rgba(8, 7, 30, 0.78) 70%,
+        rgba(5, 6, 18, 0.92) 100%
+      ),
       url("../assets/backgrounds/CosmicBackgroundMobile.jpg");
-    background-attachment: scroll, scroll, scroll, scroll, scroll;
-    background-position:   center top, center top, center top, center top, center top;
-    background-size:       cover, cover, cover, cover, cover;
-    background-repeat:     no-repeat, no-repeat, no-repeat, no-repeat, no-repeat;
+    background-size: cover;
+    background-position: center top;
+    background-repeat: no-repeat;
+    transform: translateZ(0);
   }
 }
 
