@@ -2,15 +2,14 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <!-- ProjBox Download page — placeholders only.
-       Real installer URLs will replace the disabled buttons later
-       (see commented future URLs below). No fake downloads. -->
+  <!-- ProjBox Download page — Windows pilot v0.1.0 available via public
+       GitHub Releases (megatherium1/projbox-downloads). macOS pending. -->
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <!-- noindex: discourage search engines from indexing this page until
        real builds are publicly available. This is not security. -->
   <meta name="robots" content="noindex, nofollow" />
   <title>Download — ProjBox</title>
-  <meta name="description" content="ProjBox beta downloads for Windows and macOS — coming soon for approved early-access users." />
+  <meta name="description" content="Download the ProjBox Windows pilot build. macOS installer coming soon for approved early-access users." />
   <meta name="theme-color" content="#0c0e22" />
 
   <link rel="icon" type="image/png" href="assets/branding/favicon.png" />
@@ -69,8 +68,8 @@
         <span class="pb-eyebrow">Download</span>
         <h1>Download ProjBox</h1>
         <p class="pb-lede">
-          ProjBox beta downloads are almost ready. Windows and macOS builds
-          will appear here for approved early-access users.
+          The Windows pilot build is available below. A macOS installer is
+          coming soon for approved early-access users.
         </p>
       </div>
     </section>
@@ -81,39 +80,31 @@
           <h2>Installers</h2>
 
           <!--
-            ============================================================
-            FUTURE INSTALLER LINKS — DO NOT WIRE YET.
-            When real builds are published from the (separate, public)
-            ProjBox downloads / releases repo, replace each disabled
-            button below with an active <a href="..."> using the
-            corresponding example URL.
-            ============================================================
+            Installer URLs — public megatherium1/projbox-downloads repo only.
 
-            Future Windows release URL:
-            https://github.com/<owner>/projbox-downloads/releases/latest/download/ProjBox-Setup.exe
+            Windows (live pilot): tag-specific URL — do NOT switch to
+            /releases/latest/download/ until out of prerelease.
+            https://github.com/megatherium1/projbox-downloads/releases/download/v0.1.0/ProjBox-Windows-Setup.exe
 
-            Future macOS release URL:
-            https://github.com/<owner>/projbox-downloads/releases/latest/download/ProjBox-macOS.dmg
-
-            Notes:
-              - The ProjBox app source repo will remain private.
-              - Installers will be built with Electron Forge in the
-                private app repo. Signing / notarization are future
-                tasks handled in that repo, not here.
-              - Replace <owner> with the real GitHub org / user name
-                (e.g. "projbox") before going live.
+            macOS: pending — wire when a build is published.
           -->
 
           <div class="pb-download__buttons" role="group" aria-label="Available installers">
-            <button type="button" class="pb-btn pb-btn--ghost pb-btn--disabled"
-                    aria-disabled="true" disabled>
-              Windows 11 — Coming soon
-            </button>
+            <a class="pb-btn pb-btn--ghost"
+               href="https://github.com/megatherium1/projbox-downloads/releases/download/v0.1.0/ProjBox-Windows-Setup.exe">
+              Download for Windows
+            </a>
             <button type="button" class="pb-btn pb-btn--ghost pb-btn--disabled"
                     aria-disabled="true" disabled>
               macOS — Coming soon
             </button>
           </div>
+
+          <p style="margin-top: 16px;">
+            Windows pilot build. The installer is unsigned, so Windows SmartScreen
+            may show a warning. ProjBox runs locally on your machine and does not
+            require an account.
+          </p>
 
           <p style="margin-top: 24px;">
             Thanks, your request was received. 
