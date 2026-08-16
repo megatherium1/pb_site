@@ -1176,6 +1176,7 @@ main.pb-home + .pb-footer {
 .pb-download__card .pb-download__buttons {
   gap: 18px;
   margin-top: 24px;
+  margin-bottom: 8px;
 }
 .pb-download__card .pb-download__buttons .pb-btn {
   padding: 18px 28px;
@@ -1183,7 +1184,7 @@ main.pb-home + .pb-footer {
   min-width: 280px;
 }
 .pb-download__note {
-  margin-top: 24px;
+  margin-top: 32px;
   font-size: 1.125rem;
   line-height: 1.65;
 }
@@ -1191,6 +1192,18 @@ main.pb-home + .pb-footer {
   font-size: 1.125rem;
   line-height: 1.65;
   margin-top: 0;
+}
+.pb-download__card > ol {
+  font-size: 1.125rem;
+  line-height: 1.65;
+  margin-top: 0;
+  padding-left: 1.2em;
+}
+.pb-download__card > ol li {
+  margin-bottom: 0.6em;
+}
+.pb-download__card > ol li:last-child {
+  margin-bottom: 0;
 }
 .pb-download__grid {
   display: grid;
