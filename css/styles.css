@@ -1141,6 +1141,8 @@ main.pb-home + .pb-footer {
 .pb-faqlist .pb-faq__body ul { margin: 0 0 0.6em 1.2em; padding: 0; }
 
 .pb-prose { max-width: 70ch; }
+.pb-prose > h2:first-child,
+.pb-prose > h3:first-child { margin-top: 0; }
 .pb-prose h2 { margin-top: 1.6em; }
 .pb-prose h3 { margin-top: 1.4em; }
 .pb-prose ul { padding-left: 1.2em; }
