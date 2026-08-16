@@ -1156,6 +1156,38 @@ main.pb-home + .pb-footer {
 }
 .pb-download__buttons .pb-btn { padding: 14px 22px; font-size: 1rem; min-width: 220px; }
 
+.pb-download .pb-page-hero {
+  padding-bottom: clamp(8px, 1.2vw, 14px);
+}
+.pb-download .pb-page-hero h1 {
+  margin-bottom: 0;
+}
+.pb-download .pb-section--tight {
+  padding-top: 0;
+}
+.pb-download__card {
+  padding: clamp(32px, 3.5vw, 48px);
+  max-width: 85ch;
+}
+.pb-download__card h2 {
+  font-size: clamp(2.1rem, 3vw + 0.5rem, 3rem);
+  margin-bottom: 0.6em;
+}
+.pb-download__card .pb-download__buttons {
+  gap: 18px;
+  margin-top: 24px;
+}
+.pb-download__card .pb-download__buttons .pb-btn {
+  padding: 18px 28px;
+  font-size: 1.15rem;
+  min-width: 280px;
+}
+.pb-download__note {
+  margin-top: 24px;
+  font-size: 1.125rem;
+  line-height: 1.65;
+}
+
 /* -------------------------------------------------------------
    13. Footer
    ------------------------------------------------------------- */
