@@ -1188,28 +1188,38 @@ main.pb-home + .pb-footer {
   line-height: 1.65;
 }
 
-.pb-btn--chromatic-ring {
+/* -------------------------------------------------------------
+   Chromatic ring wrapper (Safari-safe)
+   Put animated spectrum rings on a non-form wrapper — not on
+   <button> pseudo-elements. iOS Safari needs -webkit-mask-* clip/
+   origin/composite, both xor + exclude, and ring thickness ≥ 3px.
+   See .cursor/rules/chromatic-rings-safari.mdc before adding more.
+   ------------------------------------------------------------- */
+.pb-chromatic-ring-wrap {
   position: relative;
+  display: inline-flex;
+  vertical-align: middle;
+  border-radius: 999px;
   isolation: isolate;
-  border-color: transparent;
 }
-.pb-btn--chromatic-ring::before,
-.pb-btn--chromatic-ring::after {
+.pb-chromatic-ring-wrap::before,
+.pb-chromatic-ring-wrap::after {
   content: "";
   position: absolute;
   border-radius: inherit;
   pointer-events: none;
 }
-.pb-btn--chromatic-ring::before {
+.pb-chromatic-ring-wrap::before {
   inset: 0;
-  padding: 2px;
+  z-index: 0;
+  padding: 3px;
   background: linear-gradient(
     120deg,
-    rgba(34, 211, 238, 0.95),
-    rgba(129, 140, 248, 0.95),
-    rgba(236, 72, 153, 0.95),
-    rgba(251, 191, 36, 0.85),
-    rgba(34, 211, 238, 0.95)
+    rgb(34, 211, 238),
+    rgb(129, 140, 248),
+    rgb(236, 72, 153),
+    rgb(251, 191, 36),
+    rgb(34, 211, 238)
   );
   background-size: 240% 240%;
   -webkit-mask:
@@ -1218,27 +1228,40 @@ main.pb-home + .pb-footer {
   mask:
     linear-gradient(#fff 0 0) content-box,
     linear-gradient(#fff 0 0);
+  -webkit-mask-clip: content-box, border-box;
+  mask-clip: content-box, border-box;
+  -webkit-mask-origin: content-box, border-box;
+  mask-origin: content-box, border-box;
   -webkit-mask-composite: xor;
   mask-composite: exclude;
   animation: pbChromaticDrift 5.2s linear infinite;
 }
-.pb-btn--chromatic-ring::after {
-  inset: -8px;
+.pb-chromatic-ring-wrap::after {
+  inset: -10px;
+  z-index: 0;
   background: linear-gradient(
     120deg,
-    rgba(34, 211, 238, 0.16),
-    rgba(217, 70, 239, 0.18),
-    rgba(251, 191, 36, 0.12)
+    rgba(34, 211, 238, 0.42),
+    rgba(217, 70, 239, 0.44),
+    rgba(251, 191, 36, 0.32)
   );
   background-size: 240% 240%;
-  filter: blur(12px);
-  opacity: 0.65;
-  z-index: -1;
+  filter: blur(14px);
+  opacity: 0.78;
   animation: pbChromaticDrift 5.2s linear infinite;
 }
-.pb-btn--chromatic-ring.pb-btn--disabled::before { opacity: 0.45; }
-.pb-btn--chromatic-ring.pb-btn--disabled::after { opacity: 0.25; }
-.pb-btn--chromatic-ring:not(.pb-btn--disabled):hover::after { opacity: 0.85; }
+.pb-chromatic-ring-wrap .pb-btn {
+  position: relative;
+  z-index: 1;
+  border-color: transparent;
+  -webkit-appearance: none;
+  appearance: none;
+}
+.pb-chromatic-ring-wrap--muted::before { opacity: 0.58; }
+.pb-chromatic-ring-wrap--muted::after { opacity: 0.38; }
+.pb-chromatic-ring-wrap:not(.pb-chromatic-ring-wrap--muted):hover::after {
+  opacity: 0.95;
+}
 
 @keyframes pbChromaticDrift {
   0% { background-position: 0% 50%; }
