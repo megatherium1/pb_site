@@ -72,54 +72,67 @@
 
     <section class="pb-section pb-section--tight">
       <div class="pb-container">
-        <div class="pb-card pb-prose pb-download__card">
-          <h2>Installers</h2>
+        <div class="pb-download__grid">
+          <div class="pb-card pb-prose pb-download__card">
+            <h2>Installers</h2>
 
-          <!--
-            Installer URLs — public megatherium1/projbox-downloads repo only.
+            <!--
+              Installer URLs — public megatherium1/projbox-downloads repo only.
 
-            Windows (live): stable asset name via latest release redirect.
-            https://github.com/megatherium1/projbox-downloads/releases/latest/download/ProjBox-Windows-Setup.exe
+              Windows (live): stable asset name via latest release redirect.
+              https://github.com/megatherium1/projbox-downloads/releases/latest/download/ProjBox-Windows-Setup.exe
 
-            macOS: pending — wire when a build is published.
-          -->
+              macOS: pending — wire when a build is published.
+            -->
 
-          <div class="pb-download__buttons" role="group" aria-label="Available installers">
-            <span class="pb-chromatic-ring-wrap">
-              <a class="pb-btn pb-btn--ghost"
-                 href="https://github.com/megatherium1/projbox-downloads/releases/latest/download/ProjBox-Windows-Setup.exe">
-                Download for Windows
-              </a>
-            </span>
-            <span class="pb-chromatic-ring-wrap pb-chromatic-ring-wrap--muted">
-              <button type="button" class="pb-btn pb-btn--ghost pb-btn--disabled"
-                      aria-disabled="true" disabled>
-                macOS — Coming soon
-              </button>
-            </span>
-          </div>
+            <div class="pb-download__buttons" role="group" aria-label="Available installers">
+              <span class="pb-chromatic-ring-wrap">
+                <a class="pb-btn pb-btn--ghost"
+                   href="https://github.com/megatherium1/projbox-downloads/releases/latest/download/ProjBox-Windows-Setup.exe">
+                  Download for Windows
+                </a>
+              </span>
+              <span class="pb-chromatic-ring-wrap pb-chromatic-ring-wrap--muted">
+                <button type="button" class="pb-btn pb-btn--ghost pb-btn--disabled"
+                        aria-disabled="true" disabled>
+                  macOS — Coming soon
+                </button>
+              </span>
+            </div>
 
-          <p class="pb-download__note">
-            <b>Windows:</b> Windows SmartScreen may show a warning. This is expected: choose <b>More info → Run anyway</b> to continue. ProjBox runs entirely on your computer, with no account, cloud, or uploads.
-          </p>
+            <p class="pb-download__note">
+              <b>Windows:</b> Windows SmartScreen may show a warning. This is expected: choose <b>More info → Run anyway</b> to continue. ProjBox runs entirely on your computer, with no account, cloud, or uploads.
+            </p>
 
-          <!-- <p style="margin-top: 24px;"> -->
-            <!-- Thanks, your request was received.  -->
+            <!-- <p style="margin-top: 24px;"> -->
+              <!-- Thanks, your request was received.  -->
 			
 			<!-- You’ve been added to the ProjBox academic access list.  -->
 			
 			<!-- ProjBox is currently available primarily to select academic institutions and research groups. Professional teams and other interested users can email -->
-            <!-- <a href="mailto:matt@projbox.com">matt@projbox.com</a> to request early access. -->
-          <!-- </p> -->
+              <!-- <a href="mailto:matt@projbox.com">matt@projbox.com</a> to request early access. -->
+            <!-- </p> -->
 
-          <!-- <p> -->
-            <!-- Don't have an access code yet? Request access on the -->
-            <!-- <a href="index.html#access">home page</a>. -->
-          <!-- </p> -->
+            <!-- <p> -->
+              <!-- Don't have an access code yet? Request access on the -->
+              <!-- <a href="index.html#access">home page</a>. -->
+            <!-- </p> -->
 
-          <!-- <p style="margin-top: 28px;"> -->
-            <!-- <a class="pb-btn pb-btn--ghost" href="index.html">← Back to home</a> -->
-          <!-- </p> -->
+            <!-- <p style="margin-top: 28px;"> -->
+              <!-- <a class="pb-btn pb-btn--ghost" href="index.html">← Back to home</a> -->
+            <!-- </p> -->
+          </div>
+
+          <div class="pb-card pb-prose pb-download__card">
+            <h2>Get started</h2>
+            <p>
+              After installing, choose a project folder you already work in and click
+              <b>Run Snapshot</b> to save its first version. Keep working normally,
+              adding, deleting, or renaming files and editing Excel files, then run
+              another snapshot to see exactly what changed.
+              <b>That comparison is the “Eureka” moment.</b>
+            </p>
+          </div>
         </div>
       </div>
     </section>
