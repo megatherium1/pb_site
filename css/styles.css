@@ -1188,6 +1188,63 @@ main.pb-home + .pb-footer {
   line-height: 1.65;
 }
 
+.pb-btn--chromatic-ring {
+  position: relative;
+  isolation: isolate;
+  border-color: transparent;
+}
+.pb-btn--chromatic-ring::before,
+.pb-btn--chromatic-ring::after {
+  content: "";
+  position: absolute;
+  border-radius: inherit;
+  pointer-events: none;
+}
+.pb-btn--chromatic-ring::before {
+  inset: 0;
+  padding: 2px;
+  background: linear-gradient(
+    120deg,
+    rgba(34, 211, 238, 0.95),
+    rgba(129, 140, 248, 0.95),
+    rgba(236, 72, 153, 0.95),
+    rgba(251, 191, 36, 0.85),
+    rgba(34, 211, 238, 0.95)
+  );
+  background-size: 240% 240%;
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  animation: pbChromaticDrift 5.2s linear infinite;
+}
+.pb-btn--chromatic-ring::after {
+  inset: -8px;
+  background: linear-gradient(
+    120deg,
+    rgba(34, 211, 238, 0.16),
+    rgba(217, 70, 239, 0.18),
+    rgba(251, 191, 36, 0.12)
+  );
+  background-size: 240% 240%;
+  filter: blur(12px);
+  opacity: 0.65;
+  z-index: -1;
+  animation: pbChromaticDrift 5.2s linear infinite;
+}
+.pb-btn--chromatic-ring.pb-btn--disabled::before { opacity: 0.45; }
+.pb-btn--chromatic-ring.pb-btn--disabled::after { opacity: 0.25; }
+.pb-btn--chromatic-ring:not(.pb-btn--disabled):hover::after { opacity: 0.85; }
+
+@keyframes pbChromaticDrift {
+  0% { background-position: 0% 50%; }
+  100% { background-position: 220% 50%; }
+}
+
 /* -------------------------------------------------------------
    13. Footer
    ------------------------------------------------------------- */
