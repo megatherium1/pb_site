@@ -214,7 +214,27 @@
   }
 
   // -----------------------------------------------------------
-  // 6. Year stamp in footer (small nicety)
+  // 6. Logo wordmark intro loop (full sweep every 7s)
+  // -----------------------------------------------------------
+  function initWordmarkLoop() {
+    var wordmark = document.querySelector(".pb-wordmark--sweep");
+    if (!wordmark) return;
+
+    var prefersReduced = window.matchMedia &&
+      window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (prefersReduced) return;
+
+    function replayWordmarkIntro() {
+      wordmark.classList.remove("pb-wordmark--sweep");
+      void wordmark.offsetWidth;
+      wordmark.classList.add("pb-wordmark--sweep");
+    }
+
+    setInterval(replayWordmarkIntro, 7000);
+  }
+
+  // -----------------------------------------------------------
+  // 7. Year stamp in footer (small nicety)
   // -----------------------------------------------------------
   function initYear() {
     var el = document.querySelector("[data-year]");
@@ -230,6 +250,7 @@
       initProofLightbox();
       initNavToggle();
       initFadeIn();
+      initWordmarkLoop();
       initYear();
     });
   } else {
@@ -237,6 +258,7 @@
     initProofLightbox();
     initNavToggle();
     initFadeIn();
+    initWordmarkLoop();
     initYear();
   }
 })();
