@@ -344,6 +344,7 @@ main.pb-home + .pb-footer {
   color: transparent;
 }
 .pb-wordmark__o {
+  position: relative;
   background-image: none;
   -webkit-text-fill-color: currentColor;
   color: currentColor;
@@ -353,11 +354,88 @@ main.pb-home + .pb-footer {
   vertical-align: -0.07em;
   line-height: 0;
 }
+.pb-wordmark__o-chroma-spin {
+  transform-origin: 12px 12px;
+  transform-box: view-box;
+  animation: pbChromaticSpin 4.5s linear infinite;
+}
+.pb-wordmark__o-chroma-follow--violet { stroke: #a78bfa; }
+.pb-wordmark__o-chroma-follow--blue { stroke: #60a5fa; }
+.pb-wordmark__o-chroma-follow--cyan { stroke: #22d3ee; }
+.pb-wordmark__o-chroma-follow--teal { stroke: #2dd4bf; }
+.pb-wordmark__o-chroma-follow--green { stroke: #34d399; }
 .pb-wordmark__o svg {
+  position: relative;
+  z-index: 1;
   width: 100%;
   height: 100%;
   display: block;
   overflow: visible;
+}
+
+/* Thin spectrum halo behind the box PNG — not the download-button wrap */
+.pb-brand__mark-halo {
+  position: relative;
+  display: inline-flex;
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+}
+.pb-brand__mark-halo .pb-brand__mark {
+  position: relative;
+  z-index: 1;
+}
+.pb-brand__mark-halo::before,
+.pb-brand__mark-halo::after {
+  content: "";
+  position: absolute;
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: 0;
+}
+.pb-brand__mark-halo::before {
+  inset: -5px;
+  padding: 2px;
+  opacity: 0.45;
+  background: conic-gradient(
+    from 0deg,
+    rgb(34, 211, 238),
+    rgb(129, 140, 248),
+    rgb(236, 72, 153),
+    rgb(251, 191, 36),
+    rgb(34, 211, 238)
+  );
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-clip: content-box, border-box;
+  mask-clip: content-box, border-box;
+  -webkit-mask-origin: content-box, border-box;
+  mask-origin: content-box, border-box;
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  will-change: transform;
+  animation: pbChromaticSpin 4.5s linear infinite;
+}
+.pb-brand__mark-halo::after {
+  inset: -2px;
+  opacity: 0.28;
+  filter: blur(6px);
+  background: conic-gradient(
+    from 0deg,
+    rgba(34, 211, 238, 0.42),
+    rgba(129, 140, 248, 0.44),
+    rgba(236, 72, 153, 0.4),
+    rgba(251, 191, 36, 0.32),
+    rgba(34, 211, 238, 0.42)
+  );
+  will-change: transform;
+  animation: pbChromaticSpin 4.5s linear infinite;
 }
 
 /* Sweep intro — plays once on page load */
@@ -412,7 +490,7 @@ main.pb-home + .pb-footer {
   from { transform: rotate(-180deg) scale(0.6); opacity: 0; }
   to   { transform: rotate(0deg) scale(1.0); opacity: 1; }
 }
-.pb-wordmark--sweep .pb-wordmark__o svg circle {
+.pb-wordmark--sweep .pb-wordmark__o-letter {
   stroke-dasharray: 0 47.12;
   animation: pbWmDrawO 0.65s ease-out 0.18s forwards;
 }
@@ -425,12 +503,20 @@ main.pb-home + .pb-footer {
   .pb-wordmark--sweep::after { display: none; }
   .pb-wordmark--sweep .pb-wordmark__glyph,
   .pb-wordmark--sweep .pb-wordmark__o svg,
-  .pb-wordmark--sweep .pb-wordmark__o svg circle {
+  .pb-wordmark--sweep .pb-wordmark__o-letter {
     animation: none !important;
     opacity: 1 !important;
     transform: none !important;
     filter: none !important;
     stroke-dasharray: 45.16 1.97 !important;
+  }
+  .pb-chromatic-ring-wrap--spin::before,
+  .pb-chromatic-ring-wrap--spin::after,
+  .pb-wordmark__o-chroma-spin,
+  .pb-brand__mark-halo::before,
+  .pb-brand__mark-halo::after {
+    animation: none !important;
+    transform: none !important;
   }
 }
 
@@ -1299,6 +1385,38 @@ main.pb-home + .pb-footer {
 @keyframes pbChromaticDrift {
   0% { background-position: 0% 50%; }
   100% { background-position: 220% 50%; }
+}
+
+/* Clockwise spin — logo rings (conic gradient rotates as a unit) */
+.pb-chromatic-ring-wrap--spin::before {
+  background: conic-gradient(
+    from 0deg,
+    rgb(34, 211, 238),
+    rgb(129, 140, 248),
+    rgb(236, 72, 153),
+    rgb(251, 191, 36),
+    rgb(34, 211, 238)
+  );
+  background-size: 100% 100%;
+  will-change: transform;
+  animation: pbChromaticSpin 4.5s linear infinite;
+}
+.pb-chromatic-ring-wrap--spin::after {
+  background: conic-gradient(
+    from 0deg,
+    rgba(34, 211, 238, 0.42),
+    rgba(129, 140, 248, 0.44),
+    rgba(236, 72, 153, 0.4),
+    rgba(251, 191, 36, 0.32),
+    rgba(34, 211, 238, 0.42)
+  );
+  background-size: 100% 100%;
+  will-change: transform;
+  animation: pbChromaticSpin 4.5s linear infinite;
+}
+@keyframes pbChromaticSpin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* -------------------------------------------------------------

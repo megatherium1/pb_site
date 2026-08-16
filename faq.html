@@ -26,7 +26,9 @@
   <header class="pb-header" role="banner">
     <div class="pb-container pb-header__inner">
       <a class="pb-brand pb-brand--wordmark" href="index.html" aria-label="ProjBox home">
-        <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="36" height="36" />
+        <span class="pb-brand__mark-halo">
+          <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="36" height="36" />
+        </span>
         <span class="pb-wordmark pb-wordmark--sweep" role="img" aria-label="ProjBox">
           <span class="pb-wordmark__glyph">P</span>
           <span class="pb-wordmark__glyph">r</span>
@@ -38,9 +40,26 @@
                   <stop offset="100%" stop-color="#5cc0ff"/>
                 </linearGradient>
               </defs>
-              <circle cx="12" cy="12" r="7.5" fill="none" stroke="url(#pbWmGrad)"
+              <circle class="pb-wordmark__o-letter" cx="12" cy="12" r="7.5" fill="none" stroke="url(#pbWmGrad)"
                       stroke-width="2.4" stroke-linecap="butt"
                       stroke-dasharray="45.16 1.97" transform="rotate(-90 12 12)"/>
+              <g class="pb-wordmark__o-chroma-spin">
+                <circle class="pb-wordmark__o-chroma-follow pb-wordmark__o-chroma-follow--violet"
+                        cx="12" cy="12" r="7.5" fill="none" stroke-width="2.4"
+                        stroke-linecap="round" stroke-dasharray="2.8 44.32"/>
+                <circle class="pb-wordmark__o-chroma-follow pb-wordmark__o-chroma-follow--blue"
+                        cx="12" cy="12" r="7.5" fill="none" stroke-width="2.4"
+                        stroke-linecap="butt" stroke-dasharray="2.8 44.32" stroke-dashoffset="-2.2"/>
+                <circle class="pb-wordmark__o-chroma-follow pb-wordmark__o-chroma-follow--cyan"
+                        cx="12" cy="12" r="7.5" fill="none" stroke-width="2.4"
+                        stroke-linecap="butt" stroke-dasharray="2.8 44.32" stroke-dashoffset="-4.4"/>
+                <circle class="pb-wordmark__o-chroma-follow pb-wordmark__o-chroma-follow--teal"
+                        cx="12" cy="12" r="7.5" fill="none" stroke-width="2.4"
+                        stroke-linecap="butt" stroke-dasharray="2.8 44.32" stroke-dashoffset="-6.6"/>
+                <circle class="pb-wordmark__o-chroma-follow pb-wordmark__o-chroma-follow--green"
+                        cx="12" cy="12" r="7.5" fill="none" stroke-width="2.4"
+                        stroke-linecap="round" stroke-dasharray="2.8 44.32" stroke-dashoffset="-8.8"/>
+              </g>
             </svg>
           </span>
           <span class="pb-wordmark__glyph">j</span>
