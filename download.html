@@ -102,7 +102,10 @@
               Windows (live): stable asset name via latest release redirect.
               https://github.com/megatherium1/projbox-downloads/releases/latest/download/ProjBox-Windows-Setup.exe
 
-              macOS: pending — wire when a build is published.
+              macOS Apple Silicon (live): early-access build.
+              https://github.com/megatherium1/projbox-downloads/releases/latest/download/ProjBox-macOS-Apple-Silicon.dmg
+
+              Intel (pending): https://github.com/megatherium1/projbox-downloads/releases/latest/download/ProjBox-macOS-Intel.dmg
             -->
 
             <div class="pb-download__buttons" role="group" aria-label="Available installers">
@@ -112,16 +115,28 @@
                   Download for Windows
                 </a>
               </span>
+              <span class="pb-chromatic-ring-wrap">
+                <a class="pb-btn pb-btn--ghost"
+                   href="https://github.com/megatherium1/projbox-downloads/releases/latest/download/ProjBox-macOS-Apple-Silicon.dmg">
+                  Download for macOS — Apple Silicon (M1+)
+                </a>
+              </span>
               <span class="pb-chromatic-ring-wrap pb-chromatic-ring-wrap--muted">
                 <button type="button" class="pb-btn pb-btn--ghost pb-btn--disabled"
                         aria-disabled="true" disabled>
-                  macOS — Coming soon
+                  Download for macOS — Intel
                 </button>
               </span>
             </div>
 
+            <p class="pb-download__intel-pending">Intel build coming soon.</p>
+
             <p class="pb-download__note">
               <b>Windows:</b> Windows SmartScreen may show a warning. This is expected: choose <b>More info → Run anyway</b> to continue. ProjBox runs entirely on your computer, with no account, cloud, or uploads.
+            </p>
+
+            <p class="pb-download__note">
+              <b>macOS:</b> This early-access build is not yet notarized, so macOS may show a security warning on first launch. If blocked, go to <b>System Settings → Privacy &amp; Security → Open Anyway</b>.
             </p>
 
             <!-- <p style="margin-top: 24px;"> -->
