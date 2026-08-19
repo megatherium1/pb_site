@@ -100,16 +100,16 @@
       <div class="pb-container">
         <div class="pb-storyboard pb-fade-in" data-storyboard role="region" aria-label="ProjBox interactive walkthrough">
           <div class="pb-storyboard__mobile-bar">
-            <button type="button" class="pb-storyboard__nav-btn" data-storyboard-prev disabled aria-label="Previous step" tabindex="-1">
+            <button type="button" class="pb-storyboard__nav-btn" data-storyboard-prev disabled aria-label="Previous step">
               <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
               </svg>
             </button>
-            <p class="pb-storyboard__mobile-step" aria-live="polite">
+            <p class="pb-storyboard__mobile-step">
               <span data-storyboard-step-current>1</span> of <span data-storyboard-step-total>5</span>
               · <span data-storyboard-step-label>Choose your folder</span>
             </p>
-            <button type="button" class="pb-storyboard__nav-btn" data-storyboard-next disabled aria-label="Next step" tabindex="-1">
+            <button type="button" class="pb-storyboard__nav-btn" data-storyboard-next disabled aria-label="Next step">
               <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
                 <path fill="currentColor" d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
               </svg>
@@ -159,12 +159,31 @@
                   <span class="pb-storyboard__dot pb-storyboard__dot--yellow"></span>
                   <span class="pb-storyboard__dot pb-storyboard__dot--green"></span>
                 </div>
-                <div class="pb-storyboard__viewport">
-                  <p class="pb-storyboard__placeholder">Interactive walkthrough coming here</p>
+                <div class="pb-storyboard__viewport" data-storyboard-viewport>
+                  <p class="pb-storyboard__loading" data-storyboard-loading>Loading walkthrough…</p>
+                  <p class="pb-storyboard__caption" data-storyboard-caption></p>
+                  <p class="pb-storyboard__status" data-storyboard-status></p>
+                  <noscript>
+                    <div class="pb-storyboard__nojs">
+                      <img src="storyboard_assets/7.png" width="1254" height="1254"
+                           alt="ProjBox Snapshot Summary for snapshot two: two modified files, one renamed file, and detected changes in AAPL_prices.csv including Close and Volume multiplied by 0.25, a Market_Cap outlier, and one added column." />
+                    </div>
+                  </noscript>
                 </div>
+              </div>
+
+              <div class="pb-storyboard__toolbar">
+                <button type="button" class="pb-storyboard__replay" data-storyboard-replay hidden>
+                  <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                    <path fill="currentColor" d="M12 5V1L7 6l5 5V7a5 5 0 1 1-5 5H5a7 7 0 1 0 7-7z"/>
+                  </svg>
+                  Replay
+                </button>
               </div>
             </div>
           </div>
+
+          <p class="pb-storyboard__a11y pb-sr-only" data-storyboard-live aria-live="polite"></p>
         </div>
       </div>
     </section>
@@ -194,6 +213,7 @@
   </footer>
 
   <script src="js/main.js" defer></script>
+  <script src="js/storyboard.js" defer></script>
   <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ab65d819038c453aaa1844204bf7db8d"}'></script><!-- End Cloudflare Web Analytics -->
 </body>
 </html>

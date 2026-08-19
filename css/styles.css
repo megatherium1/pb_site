@@ -45,10 +45,13 @@
   --pb-radius:    16px;
   --pb-radius-lg: 24px;
 
-  /* Storyboard stage (How It Works page) */
+  /* Storyboard stage (How It Works page).
+     Screenshots vary in aspect ratio, so the stage ratio is a token:
+     change --pb-storyboard-ratio to reframe every scene at once. */
   --pb-storyboard-rail-width: clamp(200px, 22%, 260px);
   --pb-storyboard-gap: clamp(16px, 2vw, 28px);
-  --pb-storyboard-min-height: clamp(280px, 52vw, 560px);
+  --pb-storyboard-ratio: 16 / 9;
+  --pb-storyboard-min-height: clamp(240px, 30vw, 380px);
 
   /* Typography */
   --pb-font-sans: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto,
@@ -1355,11 +1358,22 @@ main.pb-home + .pb-footer {
   border: 1px solid var(--pb-border-strong);
   background: rgba(255, 255, 255, 0.04);
   color: var(--pb-text-dim);
-  cursor: not-allowed;
+  cursor: pointer;
   flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.pb-storyboard__nav-btn:not(:disabled):hover {
+  background: rgba(138, 123, 255, 0.14);
+  border-color: rgba(138, 123, 255, 0.45);
+  color: #fff;
+}
+.pb-storyboard__nav-btn:focus-visible {
+  outline: 2px solid var(--pb-accent-2);
+  outline-offset: 2px;
 }
 .pb-storyboard__nav-btn:disabled {
   opacity: 0.45;
+  cursor: not-allowed;
 }
 
 .pb-storyboard__layout {
@@ -1397,13 +1411,24 @@ main.pb-home + .pb-footer {
   background: transparent;
   text-align: left;
   font-family: inherit;
-  cursor: default;
+  cursor: pointer;
   color: var(--pb-text-dim);
   transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
+/* Inert until storyboard.js wires the controls up. */
 .pb-storyboard__step:disabled {
   opacity: 1;
+  cursor: default;
   color: var(--pb-text-dim);
+}
+.pb-storyboard__step:not(:disabled):hover {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: var(--pb-border-strong);
+  color: #fff;
+}
+.pb-storyboard__step:focus-visible {
+  outline: 2px solid var(--pb-accent-2);
+  outline-offset: 2px;
 }
 .pb-storyboard__step.is-active,
 .pb-storyboard__step[aria-current="step"] {
@@ -1468,22 +1493,290 @@ main.pb-home + .pb-footer {
 .pb-storyboard__viewport {
   position: relative;
   width: 100%;
+  aspect-ratio: var(--pb-storyboard-ratio);
   min-height: var(--pb-storyboard-min-height);
+  max-height: min(72vh, 640px);
   overflow: hidden;
-  transform-origin: center center;
-  display: grid;
-  place-items: center;
+  /* Backdrop for scenes whose screenshot is too low-resolution to
+     cover the stage without blurring — see .is-matted below. */
+  background:
+    radial-gradient(120% 90% at 50% 0%, rgba(138, 123, 255, 0.16), transparent 62%),
+    radial-gradient(120% 90% at 50% 100%, rgba(92, 192, 255, 0.10), transparent 60%),
+    #070818;
 }
 
-.pb-storyboard__placeholder {
+/* These two are toggled with the `hidden` attribute, which loses to
+   the display values below without an explicit override. */
+.pb-storyboard__loading[hidden],
+.pb-storyboard__replay[hidden] {
+  display: none;
+}
+
+.pb-storyboard__loading {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
   margin: 0;
-  padding: 24px;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
   font-weight: 600;
   letter-spacing: 0.08em;
   text-transform: uppercase;
   color: var(--pb-text-mute);
+  z-index: 5;
+}
+
+/* ---- Scene layers -------------------------------------------
+   One layer per screenshot, stacked and crossfaded. Overlays live
+   inside .pb-sb-frame so they travel with the camera; they undo the
+   camera scale with --pb-sb-inv to keep a constant on-screen size.
+   ------------------------------------------------------------- */
+.pb-sb-scene {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 450ms ease;
+}
+.pb-sb-scene.is-active {
+  opacity: 1;
+}
+
+.pb-sb-frame {
+  --pb-sb-inv: 1;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform-origin: 0 0;
+  will-change: transform;
+}
+
+.pb-sb-img {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.pb-sb-overlay {
+  position: absolute;
+  inset: 0;
+}
+
+/* Screenshot cannot cover the stage at its sharpness ceiling, so it
+   is presented as a deliberate framed window instead of upscaled. */
+.pb-sb-scene.is-matted .pb-sb-img {
+  border-radius: calc(10px * var(--pb-sb-inv));
+}
+.pb-sb-scene.is-matted .pb-sb-frame {
+  box-shadow:
+    0 0 0 calc(1px * var(--pb-sb-inv)) rgba(255, 255, 255, 0.16),
+    0 calc(26px * var(--pb-sb-inv)) calc(60px * var(--pb-sb-inv)) rgba(0, 0, 0, 0.55),
+    0 0 calc(70px * var(--pb-sb-inv)) rgba(138, 123, 255, 0.22);
+  border-radius: calc(10px * var(--pb-sb-inv));
+}
+
+/* ---- Highlight rings ---------------------------------------- */
+.pb-storyboard__ring {
+  position: absolute;
+  border: calc(2px * var(--pb-sb-inv)) solid rgba(var(--pb-ring-rgb), 0.9);
+  border-radius: calc(7px * var(--pb-sb-inv));
+  box-shadow:
+    0 0 calc(22px * var(--pb-sb-inv)) rgba(var(--pb-ring-rgb), 0.4),
+    inset 0 0 calc(26px * var(--pb-sb-inv)) rgba(var(--pb-ring-rgb), 0.14);
+  opacity: 0;
+  transition: opacity 320ms ease, border-width 700ms ease;
+}
+.pb-storyboard__ring.is-in {
+  opacity: 1;
+}
+.pb-storyboard__ring--new { --pb-ring-rgb: 92, 192, 255; }
+.pb-storyboard__ring--glow { --pb-ring-rgb: 138, 123, 255; }
+.pb-storyboard__ring--soft {
+  --pb-ring-rgb: 201, 182, 255;
+  opacity: 0;
+}
+.pb-storyboard__ring--soft.is-in { opacity: 0.7; }
+
+/* ---- Numbered callouts -------------------------------------- */
+.pb-storyboard__callout {
+  position: absolute;
+  transform: translate(-50%, -50%) scale(var(--pb-sb-inv));
+  transform-origin: center center;
+}
+.pb-storyboard__callout--left {
+  transform: translate(0, -50%) scale(var(--pb-sb-inv));
+  transform-origin: left center;
+}
+.pb-storyboard__callout--right {
+  transform: translate(-100%, -50%) scale(var(--pb-sb-inv));
+  transform-origin: right center;
+}
+
+.pb-storyboard__callout-inner {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 13px 6px 7px;
+  border-radius: 999px;
+  border: 1px solid rgba(138, 123, 255, 0.45);
+  background: rgba(10, 11, 30, 0.88);
+  box-shadow: 0 10px 28px rgba(0, 0, 0, 0.45), 0 0 22px rgba(138, 123, 255, 0.24);
+  color: #fff;
+  font-size: 0.8rem;
+  font-weight: 600;
+  line-height: 1.2;
+  white-space: nowrap;
+  opacity: 0;
+  transform: translateY(6px);
+  transition: opacity 340ms ease, transform 340ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+.pb-storyboard__callout.is-in .pb-storyboard__callout-inner {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.pb-storyboard__callout-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--pb-accent), var(--pb-accent-2));
+  color: #0a0b1e;
+  font-size: 0.72rem;
+  font-weight: 800;
+}
+
+/* ---- Click ripple ------------------------------------------- */
+.pb-storyboard__ripple {
+  position: absolute;
+  width: calc(44px * var(--pb-sb-inv));
+  height: calc(44px * var(--pb-sb-inv));
+  margin: calc(-22px * var(--pb-sb-inv)) 0 0 calc(-22px * var(--pb-sb-inv));
+  border: calc(2px * var(--pb-sb-inv)) solid rgba(201, 182, 255, 0.9);
+  border-radius: 50%;
+  opacity: 0;
+  pointer-events: none;
+}
+.pb-storyboard__ripple.is-on {
+  animation: pbSbRipple 700ms cubic-bezier(0.22, 1, 0.36, 1);
+}
+@keyframes pbSbRipple {
+  0% { opacity: 0.95; transform: scale(0.3); }
+  70% { opacity: 0.32; }
+  100% { opacity: 0; transform: scale(1.5); }
+}
+
+/* ---- Caption + status -------------------------------------- */
+.pb-storyboard__caption {
+  position: absolute;
+  left: 50%;
+  bottom: clamp(12px, 2.4%, 22px);
+  transform: translateX(-50%);
+  z-index: 4;
+  max-width: min(88%, 620px);
+  margin: 0;
+  padding: 9px 18px;
+  border-radius: 999px;
+  border: 1px solid var(--pb-border-strong);
+  background: rgba(7, 8, 24, 0.78);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
+  color: #fff;
+  font-size: clamp(0.82rem, 0.5vw + 0.7rem, 0.98rem);
+  font-weight: 600;
+  line-height: 1.35;
   text-align: center;
+  text-wrap: balance;
+  opacity: 0;
+}
+.pb-storyboard__caption.is-in {
+  animation: pbSbRise 420ms cubic-bezier(0.22, 1, 0.36, 1) forwards;
+}
+@keyframes pbSbRise {
+  from { opacity: 0; transform: translate(-50%, 8px); }
+  to { opacity: 1; transform: translate(-50%, 0); }
+}
+
+.pb-storyboard__status {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 4;
+  margin: 0;
+  padding: 10px 20px;
+  border-radius: 999px;
+  border: 1px solid rgba(138, 123, 255, 0.45);
+  background: rgba(10, 11, 30, 0.9);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  color: #fff;
+  font-size: 0.88rem;
+  font-weight: 600;
+  opacity: 0;
+  transition: opacity 240ms ease;
+}
+.pb-storyboard__status.is-in {
+  opacity: 1;
+}
+
+/* ---- Replay control ---------------------------------------- */
+.pb-storyboard__toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  /* Reserved so revealing Replay never shifts the page. */
+  min-height: 44px;
+  margin-top: 12px;
+}
+
+.pb-storyboard__replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 999px;
+  border: 1px solid var(--pb-border-strong);
+  background: rgba(255, 255, 255, 0.04);
+  color: var(--pb-text-dim);
+  font-family: inherit;
+  font-size: 0.88rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+}
+.pb-storyboard__replay:hover {
+  background: rgba(138, 123, 255, 0.14);
+  border-color: rgba(138, 123, 255, 0.45);
+  color: #fff;
+}
+.pb-storyboard__replay:focus-visible {
+  outline: 2px solid var(--pb-accent-2);
+  outline-offset: 2px;
+}
+.pb-storyboard__replay svg {
+  width: 15px;
+  height: 15px;
+}
+
+/* ---- No-JavaScript fallback --------------------------------
+   7.png is square; the crop keeps the Snapshot Summary card in view
+   and holds the app toolbar out of frame. */
+.pb-storyboard__nojs {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+.pb-storyboard__nojs img {
+  display: block;
+  width: 100%;
+  height: auto;
+  margin-top: -8%;
 }
 
 .pb-howitworks__closing-text {
@@ -1495,6 +1788,9 @@ main.pb-home + .pb-footer {
 }
 
 @media (max-width: 899px) {
+  .pb-storyboard {
+    --pb-storyboard-ratio: 4 / 3;
+  }
   .pb-storyboard__mobile-bar {
     display: flex;
   }
@@ -1503,6 +1799,30 @@ main.pb-home + .pb-footer {
   }
   .pb-storyboard__layout {
     grid-template-columns: 1fr;
+  }
+  .pb-storyboard__viewport {
+    max-height: 58vh;
+  }
+  .pb-storyboard__callout-inner {
+    padding: 5px 11px 5px 6px;
+    font-size: 0.72rem;
+  }
+  .pb-storyboard__callout-num {
+    width: 17px;
+    height: 17px;
+    font-size: 0.64rem;
+  }
+  .pb-storyboard__caption {
+    max-width: 92%;
+    padding: 7px 13px;
+    white-space: normal;
+  }
+  .pb-storyboard__status {
+    font-size: 0.8rem;
+    padding: 8px 15px;
+  }
+  .pb-storyboard__toolbar {
+    justify-content: center;
   }
 }
 
@@ -1515,9 +1835,29 @@ main.pb-home + .pb-footer {
   }
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .pb-storyboard__step {
-    transition: background 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+/* Reduced motion: no cinematic camera, no autoplay (see storyboard.js).
+   Every step still renders a complete, readable static frame. */
+@media (prefers-reduced-motion: reduce) {
+  .pb-sb-scene,
+  .pb-sb-frame,
+  .pb-storyboard__ring,
+  .pb-storyboard__callout-inner,
+  .pb-storyboard__status {
+    transition: none;
+  }
+  .pb-storyboard__callout-inner {
+    transform: none;
+  }
+  .pb-storyboard__caption {
+    animation: none;
+  }
+  .pb-storyboard__caption.is-in {
+    animation: none;
+    opacity: 1;
+    transform: translateX(-50%);
+  }
+  .pb-storyboard__ripple {
+    display: none;
   }
 }
 
