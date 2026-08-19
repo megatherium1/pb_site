@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>ProjBox - After Snapshot 03</title>
+<link rel="stylesheet" href="../_shared.css">
+<style>
+  .bg-glow {
+    background:
+      radial-gradient(55% 55% at 25% 30%, rgba(52,211,153,0.12) 0%, transparent 70%),
+      radial-gradient(55% 55% at 78% 72%, rgba(96,165,250,0.10) 0%, transparent 70%);
+  }
+  .step-badge { color: var(--color-add); }
+  .after-title {
+    background: linear-gradient(135deg, #34d399 0%, #60a5fa 55%, #a78bfa 100%);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  /* Card symmetry for this slide:
+     same card heights, same title->subtext spacing per card. */
+  .after-card-02 .after-item {
+    min-height: 252px;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+  }
+  .after-card-02 .after-file {
+    min-height: 0;
+  }
+  .after-card-02 .after-status {
+    margin-bottom: 12px;
+  }
+  .after-card-02 .after-note {
+    margin-top: 14px;
+  }
+  .after-file-tree {
+    font-size: 20px;
+    line-height: 1.24;
+  }
+</style>
+</head>
+<body class="animated after-card after-card-02">
+
+<div class="bg-glow"></div>
+
+<!-- Standard ProjBox wordmark (May 2026): Inter text + open-ring first "o" SVG. -->
+<div class="wordmark wordmark-native" role="img" aria-label="ProjBox">
+  <span class="logo-text" aria-hidden="true">
+    <span class="logo-glyph">P</span>
+    <span class="logo-glyph">r</span>
+    <span class="logo-glyph logo-o-open"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="7.5" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="butt" stroke-dasharray="45.16 1.97" transform="rotate(-90 12 12)"/></svg></span>
+    <span class="logo-glyph">j</span>
+    <span class="logo-glyph">B</span>
+    <span class="logo-glyph">o</span>
+    <span class="logo-glyph">x</span>
+  </span>
+</div>
+
+<div class="center-stage after-stage">
+  <div class="step-badge">SNAPSHOT &middot; 03</div>
+  <h1 class="after-title">What we&rsquo;ll change in Snapshot 03</h1>
+  <p class="after-summary">ProjBox tracks <b>everything</b> inside the project folder.</p>
+
+  <div class="after-grid">
+    <div class="after-item is-unchanged">
+      <span class="after-status status-unchanged">UNCHANGED</span>
+      <div class="after-file">
+        <span>AAPL_prices.csv</span>
+        <span>notes.txt</span>
+      </div>
+      <div class="after-note">No new changes</div>
+    </div>
+    <div class="after-item is-renamed">
+      <span class="after-status status-renamed">RENAMED</span>
+      <div class="after-file">myRenamedPDF.pdf</div>
+      <div class="after-note">Same file, new name &mdash; ProjBox knows!</div>
+    </div>
+    <div class="after-item is-created">
+      <span class="after-status status-created">CREATED</span>
+      <div class="after-file after-file-tree">supporting_files/<br>&nbsp;&nbsp;another_nested_folder/<br>&nbsp;&nbsp;AAPL_HTML_Report.pdf<br>&nbsp;&nbsp;vendor_export.zip</div>
+      <div class="after-note">New supporting materials added inside a nested folder.</div>
+    </div>
+  </div>
+</div>
+
+<div class="footer-ribbon">
+  <span>WHOLE-FOLDER HISTORY <span class="dot"></span> RENAMES, NEW FOLDERS, UNCHANGED FILES</span>
+  <span>projbox.com</span>
+</div>
+
+</body>
+</html>

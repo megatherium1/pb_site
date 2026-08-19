@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <!-- ProjBox How It Works page — storyboard shell for interactive walkthrough -->
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>How It Works — ProjBox</title>
+  <meta name="description" content="See how ProjBox works: save a snapshot of your project folder, keep working normally, and explore exactly what changed over time." />
+  <meta name="theme-color" content="#0c0e22" />
+
+  <link rel="icon" type="image/png" href="assets/branding/favicon.png" />
+  <link rel="apple-touch-icon" href="assets/branding/favicon.png" />
+
+  <meta property="og:type"        content="website" />
+  <meta property="og:title"       content="ProjBox — How It Works" />
+  <meta property="og:description" content="See how ProjBox turns your project folder into clear, understandable history." />
+  <meta property="og:image"       content="assets/og/og-image.png" />
+  <meta property="og:url"         content="https://projbox.com/how-it-works.html" />
+
+  <link rel="stylesheet" href="css/styles.css" />
+</head>
+<body>
+  <a class="pb-skip" href="#main">Skip to content</a>
+
+  <header class="pb-header" role="banner">
+    <div class="pb-container pb-header__inner">
+      <a class="pb-brand pb-brand--wordmark" href="/" aria-label="ProjBox home">
+        <span class="pb-brand__mark-halo">
+          <img class="pb-brand__mark" src="assets/branding/Logo.png" alt="" width="36" height="36" />
+        </span>
+        <span class="pb-wordmark pb-wordmark--sweep" role="img" aria-label="ProjBox">
+          <span class="pb-wordmark__glyph">P</span>
+          <span class="pb-wordmark__glyph">r</span>
+          <span class="pb-wordmark__glyph pb-wordmark__o" aria-hidden="true">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" focusable="false">
+              <defs>
+                <linearGradient id="pbWmGrad" x1="0" y1="0" x2="1" y2="1">
+                  <stop offset="0%" stop-color="#8aa1ff"/>
+                  <stop offset="100%" stop-color="#5cc0ff"/>
+                </linearGradient>
+              </defs>
+              <circle class="pb-wordmark__o-letter" cx="12" cy="12" r="7.5" fill="none" stroke="url(#pbWmGrad)"
+                      stroke-width="2.4" stroke-linecap="butt"
+                      stroke-dasharray="45.16 1.97" transform="rotate(-90 12 12)"/>
+              <g class="pb-wordmark__o-chroma-spin">
+                <circle class="pb-wordmark__o-chroma-follow pb-wordmark__o-chroma-follow--violet"
+                        cx="12" cy="12" r="7.5" fill="none" stroke-width="2.4"
+                        stroke-linecap="round" stroke-dasharray="2.8 44.32"/>
+                <circle class="pb-wordmark__o-chroma-follow pb-wordmark__o-chroma-follow--blue"
+                        cx="12" cy="12" r="7.5" fill="none" stroke-width="2.4"
+                        stroke-linecap="butt" stroke-dasharray="2.8 44.32" stroke-dashoffset="-2.2"/>
+                <circle class="pb-wordmark__o-chroma-follow pb-wordmark__o-chroma-follow--cyan"
+                        cx="12" cy="12" r="7.5" fill="none" stroke-width="2.4"
+                        stroke-linecap="butt" stroke-dasharray="2.8 44.32" stroke-dashoffset="-4.4"/>
+                <circle class="pb-wordmark__o-chroma-follow pb-wordmark__o-chroma-follow--teal"
+                        cx="12" cy="12" r="7.5" fill="none" stroke-width="2.4"
+                        stroke-linecap="butt" stroke-dasharray="2.8 44.32" stroke-dashoffset="-6.6"/>
+                <circle class="pb-wordmark__o-chroma-follow pb-wordmark__o-chroma-follow--green"
+                        cx="12" cy="12" r="7.5" fill="none" stroke-width="2.4"
+                        stroke-linecap="round" stroke-dasharray="2.8 44.32" stroke-dashoffset="-8.8"/>
+              </g>
+            </svg>
+          </span>
+          <span class="pb-wordmark__glyph">j</span>
+          <span class="pb-wordmark__glyph">B</span>
+          <span class="pb-wordmark__glyph">o</span>
+          <span class="pb-wordmark__glyph">x</span>
+        </span>
+      </a>
+
+      <button class="pb-nav-toggle" type="button"
+              data-nav-toggle aria-controls="primary-nav" aria-expanded="false">
+        <span class="pb-sr-only">Toggle navigation</span>
+        <span aria-hidden="true">☰</span>
+      </button>
+
+      <nav class="pb-nav" id="primary-nav" data-nav aria-label="Primary">
+        <a href="/">Overview</a>
+        <a href="/how-it-works.html" aria-current="page">How It Works</a>
+        <a href="/faq.html">FAQs</a>
+        <a href="/privacy.html">Privacy</a>
+        <a class="pb-btn pb-btn--primary" href="/#access">Get Early Access</a>
+      </nav>
+    </div>
+  </header>
+
+  <main id="main" class="pb-howitworks">
+    <section class="pb-page-hero pb-page-hero--compact pb-fade-in">
+      <div class="pb-container">
+        <span class="pb-eyebrow">HOW IT WORKS</span>
+        <h1>See how ProjBox works</h1>
+        <p class="pb-lede">
+          Start with the project folder you already use. Save a snapshot, keep working normally,
+          then let ProjBox show you exactly what changed.
+        </p>
+      </div>
+    </section>
+
+    <section class="pb-section pb-section--tight pb-howitworks__stage-section">
+      <div class="pb-container">
+        <div class="pb-storyboard pb-fade-in" data-storyboard role="region" aria-label="ProjBox interactive walkthrough">
+          <div class="pb-storyboard__mobile-bar">
+            <button type="button" class="pb-storyboard__nav-btn" data-storyboard-prev disabled aria-label="Previous step" tabindex="-1">
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/>
+              </svg>
+            </button>
+            <p class="pb-storyboard__mobile-step" aria-live="polite">
+              <span data-storyboard-step-current>1</span> of <span data-storyboard-step-total>5</span>
+              · <span data-storyboard-step-label>Choose your folder</span>
+            </p>
+            <button type="button" class="pb-storyboard__nav-btn" data-storyboard-next disabled aria-label="Next step" tabindex="-1">
+              <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M8.59 16.59 13.17 12 8.59 7.41 10 6l6 6-6 6z"/>
+              </svg>
+            </button>
+          </div>
+
+          <div class="pb-storyboard__layout">
+            <nav class="pb-storyboard__rail" aria-label="Walkthrough steps">
+              <ol class="pb-storyboard__steps">
+                <li>
+                  <button type="button" class="pb-storyboard__step is-active" data-step="1" disabled aria-current="step">
+                    <span class="pb-storyboard__step-num" aria-hidden="true">1</span>
+                    <span class="pb-storyboard__step-label">Choose your folder</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="pb-storyboard__step" data-step="2" disabled>
+                    <span class="pb-storyboard__step-num" aria-hidden="true">2</span>
+                    <span class="pb-storyboard__step-label">Run Snapshot</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="pb-storyboard__step" data-step="3" disabled>
+                    <span class="pb-storyboard__step-num" aria-hidden="true">3</span>
+                    <span class="pb-storyboard__step-label">Keep working</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="pb-storyboard__step" data-step="4" disabled>
+                    <span class="pb-storyboard__step-num" aria-hidden="true">4</span>
+                    <span class="pb-storyboard__step-label">Run Snapshot again</span>
+                  </button>
+                </li>
+                <li>
+                  <button type="button" class="pb-storyboard__step" data-step="5" disabled>
+                    <span class="pb-storyboard__step-num" aria-hidden="true">5</span>
+                    <span class="pb-storyboard__step-label">Explore what changed</span>
+                  </button>
+                </li>
+              </ol>
+            </nav>
+
+            <div class="pb-storyboard__stage">
+              <div class="pb-storyboard__window">
+                <div class="pb-storyboard__titlebar" aria-hidden="true">
+                  <span class="pb-storyboard__dot pb-storyboard__dot--red"></span>
+                  <span class="pb-storyboard__dot pb-storyboard__dot--yellow"></span>
+                  <span class="pb-storyboard__dot pb-storyboard__dot--green"></span>
+                </div>
+                <div class="pb-storyboard__viewport">
+                  <p class="pb-storyboard__placeholder">Interactive walkthrough coming here</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="pb-section pb-section--tight">
+      <div class="pb-container pb-howitworks__closing pb-fade-in">
+        <p class="pb-howitworks__closing-text">
+          No repositories. No uploads. No new workflow. Keep working in the folders you already use.
+        </p>
+        <a class="pb-btn pb-btn--primary" href="/#access">Get Early Access</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="pb-footer" role="contentinfo">
+    <div class="pb-container pb-footer__inner">
+      <div class="pb-footer__links">
+        <a href="/">Overview</a>
+        <a href="/faq.html">FAQs</a>
+        <a href="/privacy.html">Privacy Policy</a>
+      </div>
+      <p class="pb-footer__trust">
+        Runs 100% on your machine. No cloud. No account. No uploads.
+        &nbsp;·&nbsp; © <span data-year>2026</span> ProjBox
+      </p>
+    </div>
+  </footer>
+
+  <script src="js/main.js" defer></script>
+  <!-- Cloudflare Web Analytics --><script defer src='https://static.cloudflareinsights.com/beacon.min.js' data-cf-beacon='{"token": "ab65d819038c453aaa1844204bf7db8d"}'></script><!-- End Cloudflare Web Analytics -->
+</body>
+</html>
