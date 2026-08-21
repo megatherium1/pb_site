@@ -1676,6 +1676,17 @@ main.pb-home + .pb-footer {
   font-weight: 800;
 }
 
+.pb-storyboard__callout--sm .pb-storyboard__callout-inner {
+  gap: 8px;
+  padding: 4px 12px 4px 4px;
+  font-size: 0.95rem;
+}
+.pb-storyboard__callout--sm .pb-storyboard__callout-num {
+  width: 20px;
+  height: 20px;
+  font-size: 0.82rem;
+}
+
 /* ---- Click ripple ------------------------------------------- */
 .pb-storyboard__ripple {
   position: absolute;

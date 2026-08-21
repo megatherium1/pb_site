@@ -74,38 +74,38 @@
       scenes: [
         {
           asset: "1",
-          dur: 2200,
+          dur: 2750,
           cams: [
             { at: 0, z: 1.0, fx: 0.3, fy: 0.52, dur: 0 },
-            { at: 80, z: 1.06, fx: 0.32, fy: 0.52, dur: 2000 }
+            { at: 100, z: 1.06, fx: 0.32, fy: 0.52, dur: 2500 }
           ],
           mCams: [
             { at: 0, z: 1.4, fx: 0.13, fy: 0.5, dur: 0 },
-            { at: 80, z: 1.48, fx: 0.15, fy: 0.5, dur: 2000 }
+            { at: 100, z: 1.48, fx: 0.15, fy: 0.5, dur: 2500 }
           ],
-          captions: [{ at: 150, text: "Start with the folder you already use.", typeOn: true }],
+          captions: [{ at: 188, text: "Start with the folder you already use.", typeOn: true }],
           rings: [
-            { at: 400, x: 0.080, y: 0.528, w: 0.118, h: 0.078, tone: "new" },
-            { at: 750, x: 0.081, y: 0.611, w: 0.076, h: 0.078, tone: "new" },
-            { at: 1100, x: 0.081, y: 0.700, w: 0.132, h: 0.078, tone: "new" }
+            { at: 500, x: 0.080, y: 0.528, w: 0.118, h: 0.078, tone: "new" },
+            { at: 938, x: 0.081, y: 0.611, w: 0.076, h: 0.078, tone: "new" },
+            { at: 1375, x: 0.081, y: 0.700, w: 0.132, h: 0.078, tone: "new" }
           ],
           callouts: [
-            { n: 1, at: 400, x: 0.218, y: 0.567, anchor: "left", text: "File 1", m: { hide: true } },
-            { n: 2, at: 750, x: 0.218, y: 0.650, anchor: "left", text: "File 2", m: { hide: true } },
-            { n: 3, at: 1100, x: 0.218, y: 0.739, anchor: "left", text: "File 3", m: { hide: true } }
+            { n: 1, at: 500, x: 0.218, y: 0.540, anchor: "left", text: "File 1", size: "sm", m: { hide: true } },
+            { n: 2, at: 938, x: 0.218, y: 0.650, anchor: "left", text: "File 2", size: "sm", m: { hide: true } },
+            { n: 3, at: 1375, x: 0.218, y: 0.765, anchor: "left", text: "File 3", size: "sm", m: { hide: true } }
           ],
           desc: "Windows Explorer showing the my_Project folder with AAPL_prices.csv, notes.txt and vendor_report.pdf."
         },
         {
           asset: "2",
-          dur: 1800,
+          dur: 2250,
           /* 2.png is 2934px wide, so framing the sidebar alone is what keeps
              the project name at native sharpness. The Run First Snapshot
              button is deliberately left off-frame for step 2 to reveal. */
-          cams: [{ at: 0, z: 3.2, fx: 0.1, fy: 0.18, dur: 700 }],
-          mCams: [{ at: 0, z: 4.5, fx: 0.08, fy: 0.155, dur: 700 }],
-          captions: [{ at: 200, text: "The same folder, now selected in ProjBox." }],
-          rings: [{ at: 300, x: 0.006, y: 0.132, w: 0.058, h: 0.045, tone: "glow" }],
+          cams: [{ at: 0, z: 3.2, fx: 0.1, fy: 0.18, dur: 875 }],
+          mCams: [{ at: 0, z: 4.5, fx: 0.08, fy: 0.155, dur: 875 }],
+          captions: [{ at: 250, text: "The same folder, now selected in ProjBox." }],
+          rings: [{ at: 375, x: 0.006, y: 0.132, w: 0.058, h: 0.045, tone: "glow" }],
           desc: "ProjBox with my_project selected in the project sidebar and no snapshots yet."
         }
       ]
@@ -563,6 +563,7 @@
       var el = document.createElement("div");
       var anchor = pick(callout, "anchor", "center");
       el.className = "pb-storyboard__callout pb-storyboard__callout--" + anchor;
+      if (pick(callout, "size", "") === "sm") el.classList.add("pb-storyboard__callout--sm");
       el.style.left = (pick(callout, "x", 0.5) * 100) + "%";
       el.style.top = (pick(callout, "y", 0.5) * 100) + "%";
 
