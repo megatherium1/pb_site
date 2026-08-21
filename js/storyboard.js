@@ -161,63 +161,63 @@
       scenes: [
         {
           asset: "5",
-          dur: 3000,
+          dur: 3750,
           cams: [
             { at: 0, z: 1.05, fx: 0.45, fy: 0.3, dur: 0 },
-            { at: 100, z: 1.15, fx: 0.45, fy: 0.32, dur: 2600 }
+            { at: 125, z: 1.15, fx: 0.45, fy: 0.32, dur: 3250 }
           ],
           mCams: [
             { at: 0, z: 2.0, fx: 0.28, fy: 0.18, dur: 0 },
-            { at: 1400, z: 2.0, fx: 0.62, fy: 0.22, dur: 900 }
+            { at: 1750, z: 2.0, fx: 0.62, fy: 0.22, dur: 1125 }
           ],
           captions: [
             { at: 0, text: "We keep working normally." },
-            { at: 2400, text: "Four edits in AAPL_prices.csv." }
+            { at: 3000, text: "Four edits in AAPL_prices.csv." }
           ],
           rings: [
-            { at: 400, x: 0.147, y: 0.055, w: 0.1, h: 0.93, tone: "new" },
-            { at: 950, x: 0.243, y: 0.055, w: 0.148, h: 0.93, tone: "new" },
-            { at: 1500, x: 0.465, y: 0.272, w: 0.122, h: 0.04, tone: "glow", m: { at: 2000 } },
-            { at: 2050, x: 0.677, y: 0.055, w: 0.139, h: 0.93, tone: "new", m: { at: 2450 } }
+            { at: 500, x: 0.147, y: 0.055, w: 0.1, h: 0.93, tone: "new" },
+            { at: 1188, x: 0.243, y: 0.055, w: 0.148, h: 0.93, tone: "new" },
+            { at: 1875, x: 0.465, y: 0.272, w: 0.122, h: 0.04, tone: "glow", m: { at: 2500 } },
+            { at: 2563, x: 0.677, y: 0.055, w: 0.139, h: 0.93, tone: "new", m: { at: 3063 } }
           ],
           callouts: [
-            { n: 1, at: 400, x: 0.197, y: 0.205, text: "Close \u00d7 0.25" },
-            { n: 2, at: 950, x: 0.317, y: 0.345, text: "Volume \u00d7 0.25" },
+            { n: 1, at: 500, x: 0.197, y: 0.205, text: "Close \u00d7 0.25" },
+            { n: 2, at: 1188, x: 0.317, y: 0.345, text: "Volume \u00d7 0.25" },
             {
               n: 3,
-              at: 1500,
+              at: 1875,
               x: 0.487,
               y: 0.47,
               text: "Market_Cap outlier",
-              m: { at: 2000, x: 0.52, y: 0.42, text: "Outlier" }
+              m: { at: 2500, x: 0.52, y: 0.42, text: "Outlier" }
             },
             {
               n: 4,
-              at: 2050,
+              at: 2563,
               x: 0.715,
               y: 0.14,
               anchor: "left",
               text: "New_Column added",
-              m: { at: 2450, x: 0.66, y: 0.14, anchor: "left", text: "New_Column" }
+              m: { at: 3063, x: 0.66, y: 0.14, anchor: "left", text: "New_Column" }
             }
           ],
           desc: "The AAPL spreadsheet after four edits: Close divided by four, Volume divided by four, one Market_Cap outlier, and a new column named New_Column."
         },
         {
           asset: "6",
-          dur: 2400,
+          dur: 3000,
           cams: [
-            { at: 0, z: 1.1, fx: 0.2, fy: 0.58, dur: 600 },
-            { at: 1150, z: 1.18, fx: 0.26, fy: 0.66, dur: 800 }
+            { at: 0, z: 1.1, fx: 0.2, fy: 0.58, dur: 750 },
+            { at: 1438, z: 1.18, fx: 0.26, fy: 0.66, dur: 1000 }
           ],
           mCams: [
-            { at: 0, z: 1.3, fx: 0.17, fy: 0.62, dur: 600 },
-            { at: 1150, z: 1.35, fx: 0.175, fy: 0.72, dur: 800 }
+            { at: 0, z: 1.3, fx: 0.17, fy: 0.62, dur: 750 },
+            { at: 1438, z: 1.35, fx: 0.175, fy: 0.72, dur: 1000 }
           ],
           captions: [{ at: 0, text: "One note updated. One file renamed." }],
           rings: [
-            { at: 250, x: 0.082, y: 0.752, w: 0.155, h: 0.088, tone: "new" },
-            { at: 1350, x: 0.082, y: 0.848, w: 0.21, h: 0.088, tone: "new" }
+            { at: 313, x: 0.082, y: 0.752, w: 0.155, h: 0.088, tone: "new" },
+            { at: 1688, x: 0.082, y: 0.848, w: 0.21, h: 0.088, tone: "new" }
           ],
           /* The mobile frame is only wide enough for the Name column, so the
              pills are dropped rather than parked over the filenames they
@@ -225,7 +225,7 @@
           callouts: [
             {
               n: 5,
-              at: 250,
+              at: 313,
               x: 0.25,
               y: 0.796,
               anchor: "left",
@@ -234,7 +234,7 @@
             },
             {
               n: 6,
-              at: 1350,
+              at: 1688,
               x: 0.3,
               y: 0.892,
               anchor: "left",
