@@ -40,8 +40,8 @@
 
   var ASSET_DIR = "storyboard_assets/";
   var EASE = "cubic-bezier(0.22, 1, 0.36, 1)";
-  var CROSSFADE = 450;
-  var SPEED = 1; /* global pacing multiplier — Part 3 tuning knob */
+  var CROSSFADE = 580;
+  var SPEED = 1.3; /* global pacing multiplier — scales later() + camera transitions */
 
   /* -----------------------------------------------------------
      1. Assets
@@ -56,7 +56,7 @@
     "5": { file: "5.png", w: 995, h: 640, baseMax: 1.0, maxEffective: 1.25 },
     "6": { file: "6.png", w: 1359, h: 332, baseMax: 1.0, maxEffective: 1.18 },
     "7": { file: "7.png", w: 1254, h: 1254, baseMax: 1.0, maxEffective: 1.2 },
-    "8": { file: "8.png", w: 1254, h: 1254, baseMax: 1.0, maxEffective: 1.2 }
+    "8": { file: "8_new.png", w: 1202, h: 1308, baseMax: 1.0, maxEffective: 1.2 }
   };
 
   var LOAD_STAGES = [["1", "2"], ["3", "4", "5", "6"], ["7", "8"]];
@@ -107,12 +107,20 @@
       scenes: [
         {
           asset: "2",
-          dur: 1800,
-          cams: [{ at: 0, z: 2.6, fx: 0.624, fy: 0.741, dur: 800 }],
-          mCams: [{ at: 0, z: 3.6, fx: 0.624, fy: 0.741, dur: 800 }],
-          captions: [{ at: 150, text: "Save your first version." }],
-          rings: [{ at: 0, x: 0.554, y: 0.712, w: 0.141, h: 0.058, tone: "glow" }],
-          ripples: [{ at: 850, x: 0.624, y: 0.741 }],
+          dur: 3200,
+          /* z=1.0 cover-framed establishing view, ~2s real hold (raw 1540 / SPEED),
+             then zoom to button; ring after arrival, ripple after ring. */
+          cams: [
+            { at: 0, z: 1.0, fx: 0.50, fy: 0.55, dur: 900, entryDur: 900 },
+            { at: 1540, z: 2.6, fx: 0.624, fy: 0.741, dur: 1000 }
+          ],
+          mCams: [
+            { at: 0, z: 1.0, fx: 0.50, fy: 0.55, dur: 900, entryDur: 900 },
+            { at: 1540, z: 3.6, fx: 0.624, fy: 0.741, dur: 1000 }
+          ],
+          captions: [{ at: 300, text: "Save your first version." }],
+          rings: [{ at: 2600, x: 0.554, y: 0.712, w: 0.141, h: 0.058, tone: "glow" }],
+          ripples: [{ at: 2900, x: 0.624, y: 0.741 }],
           desc: "The Run First Snapshot button is pressed in ProjBox."
         },
         {
@@ -263,55 +271,53 @@
       scenes: [
         {
           asset: "7",
-          dur: 3600,
-          /* fy stays clear of y < 0.036: the toolbar in this capture contains
-             a typo ("Selent Project Folder") that must never be on screen. */
+          dur: 5800,
+          /* Overview (fy≈0.42 crops toolbar typo) → interpret modified/renamed
+             → register → move to Open Diff Viewer → click → crossfade. */
           cams: [
-            { at: 0, z: 1.25, fx: 0.5, fy: 0.3, dur: 0 },
-            { at: 1700, z: 1.5, fx: 0.45, fy: 0.7, dur: 1100 }
+            { at: 0, z: 1.0, fx: 0.50, fy: 0.42, dur: 0 },
+            { at: 1540, z: 1.5, fx: 0.45, fy: 0.70, dur: 1200 },
+            { at: 3750, z: 1.55, fx: 0.38, fy: 0.78, dur: 1000 }
           ],
           mCams: [
-            { at: 0, z: 1.7, fx: 0.515, fy: 0.3, dur: 0 },
-            { at: 1700, z: 2.9, fx: 0.4, fy: 0.7, dur: 1100 }
+            { at: 0, z: 1.5, fx: 0.515, fy: 0.42, dur: 0 },
+            { at: 1540, z: 2.2, fx: 0.42, fy: 0.70, dur: 1200 },
+            { at: 3750, z: 2.4, fx: 0.36, fy: 0.78, dur: 1000 }
           ],
           captions: [
-            { at: 150, text: "ProjBox catches all of it." },
-            { at: 1250, text: "Two modified files. One renamed file." }
+            { at: 200, text: "ProjBox catches all of it." },
+            { at: 3300, text: "Two modified files. One renamed file." }
           ],
           rings: [
-            { at: 300, x: 0.226, y: 0.355, w: 0.143, h: 0.106, dur: 1300, tone: "new" },
-            { at: 700, x: 0.66, y: 0.355, w: 0.143, h: 0.106, dur: 900, tone: "new" },
-            { at: 2900, x: 0.256, y: 0.774, w: 0.136, h: 0.042, tone: "glow" }
+            { at: 2900, x: 0.226, y: 0.355, w: 0.143, h: 0.106, tone: "new" },
+            { at: 3400, x: 0.208, y: 0.528, w: 0.52, h: 0.088, tone: "new" },
+            { at: 4900, x: 0.256, y: 0.774, w: 0.136, h: 0.042, tone: "glow" }
           ],
-          ripples: [{ at: 3050, x: 0.324, y: 0.794 }],
+          ripples: [{ at: 5300, x: 0.324, y: 0.794 }],
           desc: "The ProjBox Snapshot Summary for snapshot two: two modified files, one renamed file, and detected changes in AAPL_prices.csv including Close and Volume multiplied by 0.25, one Market_Cap outlier and one added column."
         },
         {
           asset: "8",
-          dur: 3700,
+          dur: 4000,
           cams: [
-            { at: 0, z: 1.3, fx: 0.6, fy: 0.2, dur: 0 },
-            { at: 900, z: 1.22, fx: 0.58, fy: 0.46, dur: 800 },
-            { at: 2500, z: 1.4, fx: 0.55, fy: 0.88, dur: 900 }
+            { at: 0, z: 1.12, fx: 0.52, fy: 0.17, dur: 0 },
+            { at: 1000, z: 1.08, fx: 0.48, fy: 0.40, dur: 900 },
+            { at: 2600, z: 1.22, fx: 0.42, fy: 0.88, dur: 1000 }
           ],
-          /* The "exact pattern" badge and the "x 0.25" value sit at opposite
-             ends of the insights panel — too far apart to hold both on a phone
-             at a readable scale, so mobile keeps the value and drops the badge. */
           mCams: [
-            { at: 0, z: 2.0, fx: 0.74, fy: 0.19, dur: 0 },
-            { at: 900, z: 2.4, fx: 0.36, fy: 0.48, dur: 800 },
-            { at: 2500, z: 2.2, fx: 0.555, fy: 0.9, dur: 900 }
+            { at: 0, z: 1.8, fx: 0.58, fy: 0.17, dur: 0 },
+            { at: 1000, z: 1.7, fx: 0.38, fy: 0.42, dur: 900 },
+            { at: 2600, z: 2.0, fx: 0.42, fy: 0.88, dur: 1000 }
           ],
           captions: [
             { at: 200, text: "ProjBox opens the file-level diff." },
-            { at: 1750, text: "It detects the exact pattern: \u00d7 0.25." },
-            { at: 2900, text: "See exactly what changed, not just which files changed." }
+            { at: 1800, text: "It detects the exact pattern: \u00d7 0.25." },
+            { at: 3100, text: "See exactly what changed, not just which files changed." }
           ],
           rings: [
-            { at: 250, x: 0.848, y: 0.135, w: 0.133, h: 0.098, dur: 900, tone: "new" },
-            { at: 1800, x: 0.64, y: 0.392, w: 0.328, h: 0.032, tone: "glow", m: { hide: true } },
-            { at: 1950, x: 0.224, y: 0.458, w: 0.056, h: 0.028, tone: "new" },
-            { at: 3400, x: 0.33, y: 0.918, w: 0.452, h: 0.026, tone: "new" }
+            { at: 300, x: 0.68, y: 0.168, w: 0.22, h: 0.034, dur: 900, tone: "glow", m: { hide: true } },
+            { at: 1900, x: 0.18, y: 0.395, w: 0.09, h: 0.048, tone: "new" },
+            { at: 3200, x: 0.28, y: 0.902, w: 0.44, h: 0.028, tone: "new" }
           ],
           desc: "The ProjBox Diff Viewer for AAPL_prices.csv comparing snapshot one to snapshot two: 67 rows modified, one column added, and an exact pattern detected of all comparable numeric values multiplied by 0.25."
         }
@@ -669,7 +675,8 @@
   var suspended = false;
   var started = false;
 
-  function activateLayer(layer, scene) {
+  function activateLayer(layer, scene, opts) {
+    opts = opts || {};
     var previous = activeLayer;
     var first = cams(scene)[0];
 
@@ -685,14 +692,18 @@
       applyCam(layer, first, 0);
       layer.el.classList.add("is-active");
     } else {
-      /* Same screenshot: keep the camera continuous instead of cutting. */
-      applyCam(layer, first, first.dur || 700);
+      /* Same screenshot: ease from the previous framing instead of cutting.
+         Step 1→2 autoplay passes continuity so the sidebar crop eases out
+         to the z=1.0 establishing view before the scene clock runs. */
+      var entryDur = opts.continuity ? (first.entryDur || first.dur || 900) : 0;
+      applyCam(layer, first, entryDur);
     }
 
     activeLayer = layer;
   }
 
-  function play(stepIndex, sceneIndex, mode) {
+  function play(stepIndex, sceneIndex, mode, opts) {
+    opts = opts || {};
     var step = STEPS[stepIndex];
     if (!step) return;
     var scene = step.scenes[sceneIndex];
@@ -716,7 +727,7 @@
 
       var layer = layers[scene.asset];
       var built = buildOverlay(layer, scene);
-      activateLayer(layer, scene);
+      activateLayer(layer, scene, opts);
       setStatus("");
 
       var sceneCams = cams(scene);
@@ -807,7 +818,13 @@
       return;
     }
     if (mode === "auto" && stepIndex + 1 < STEPS.length) {
-      play(stepIndex + 1, 0, "auto");
+      var nextStep = stepIndex + 1;
+      var lastScene = step.scenes[sceneIndex];
+      /* Step 1 ends on a tight 2.png sidebar crop; Step 2 opens wide on the
+         same asset — ease out instead of snapping backward. */
+      var continuity = (stepIndex === 0 && sceneIndex === step.scenes.length - 1 &&
+        lastScene.asset === "2" && STEPS[nextStep].scenes[0].asset === "2");
+      play(nextStep, 0, "auto", { continuity: continuity });
       return;
     }
     finish();
