@@ -1703,9 +1703,9 @@ main.pb-home + .pb-footer {
   bottom: clamp(12px, 2.4%, 22px);
   transform: translateX(-50%);
   z-index: 4;
-  max-width: min(88%, 620px);
+  max-width: min(88%, 780px);
   margin: 0;
-  padding: 9px 18px;
+  padding: 12px 24px;
   border-radius: 999px;
   border: 1px solid var(--pb-border-strong);
   background: rgba(7, 8, 24, 0.78);
@@ -1713,7 +1713,7 @@ main.pb-home + .pb-footer {
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 14px 34px rgba(0, 0, 0, 0.45);
   color: #fff;
-  font-size: clamp(0.82rem, 0.5vw + 0.7rem, 0.98rem);
+  font-size: clamp(1.15rem, 0.7vw + 0.98rem, 1.37rem);
   font-weight: 600;
   line-height: 1.35;
   text-align: center;
@@ -1841,7 +1841,7 @@ main.pb-home + .pb-footer {
   }
   .pb-storyboard__caption {
     max-width: 92%;
-    padding: 7px 13px;
+    padding: 10px 18px;
     white-space: normal;
   }
   .pb-storyboard__status {

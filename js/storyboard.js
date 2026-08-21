@@ -142,7 +142,7 @@
         },
         {
           asset: "4",
-          dur: 1500,
+          dur: 3040,
           cams: [{ at: 0, z: 1.12, fx: 0.3, fy: 0.68, dur: 600 }],
           mCams: [{ at: 0, z: 1.25, fx: 0.285, fy: 0.75, dur: 600 }],
           captions: [{ at: 100, text: "Your saved versions live right inside your project folder." }],
