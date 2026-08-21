@@ -315,9 +315,9 @@
             { at: 3100, text: "See exactly what changed, not just which files changed." }
           ],
           rings: [
-            { at: 300, x: 0.68, y: 0.168, w: 0.22, h: 0.034, dur: 900, tone: "glow", m: { hide: true } },
-            { at: 1900, x: 0.18, y: 0.395, w: 0.09, h: 0.048, tone: "new" },
-            { at: 3200, x: 0.28, y: 0.902, w: 0.44, h: 0.028, tone: "new" }
+            { at: 300, x: 0.848, y: 0.150, w: 0.126, h: 0.086, dur: 900, tone: "glow", m: { hide: true } },
+            { at: 1900, x: 0.224, y: 0.419, w: 0.267, h: 0.092, tone: "new" },
+            { at: 3200, x: 0.600, y: 0.924, w: 0.155, h: 0.016, tone: "new" }
           ],
           desc: "The ProjBox Diff Viewer for AAPL_prices.csv comparing snapshot one to snapshot two: 67 rows modified, one column added, and an exact pattern detected of all comparable numeric values multiplied by 0.25."
         }
