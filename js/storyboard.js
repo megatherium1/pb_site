@@ -289,6 +289,8 @@
             { at: 3300, text: "Two modified files. One renamed file." }
           ],
           rings: [
+            { at: 500, x: 0.227, y: 0.356, w: 0.140, h: 0.104, tone: "new" },
+            { at: 950, x: 0.660, y: 0.356, w: 0.141, h: 0.104, tone: "new" },
             { at: 2900, x: 0.226, y: 0.355, w: 0.143, h: 0.106, tone: "new" },
             { at: 3400, x: 0.208, y: 0.528, w: 0.52, h: 0.088, tone: "new" },
             { at: 4900, x: 0.256, y: 0.774, w: 0.136, h: 0.042, tone: "glow" }
