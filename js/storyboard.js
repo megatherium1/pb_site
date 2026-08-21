@@ -84,6 +84,16 @@
             { at: 80, z: 1.48, fx: 0.15, fy: 0.5, dur: 2000 }
           ],
           captions: [{ at: 150, text: "Start with the folder you already use.", typeOn: true }],
+          rings: [
+            { at: 400, x: 0.080, y: 0.528, w: 0.118, h: 0.078, tone: "new" },
+            { at: 750, x: 0.081, y: 0.611, w: 0.076, h: 0.078, tone: "new" },
+            { at: 1100, x: 0.081, y: 0.700, w: 0.132, h: 0.078, tone: "new" }
+          ],
+          callouts: [
+            { n: 1, at: 400, x: 0.218, y: 0.567, anchor: "left", text: "File 1", m: { hide: true } },
+            { n: 2, at: 750, x: 0.218, y: 0.650, anchor: "left", text: "File 2", m: { hide: true } },
+            { n: 3, at: 1100, x: 0.218, y: 0.739, anchor: "left", text: "File 3", m: { hide: true } }
+          ],
           desc: "Windows Explorer showing the my_Project folder with AAPL_prices.csv, notes.txt and vendor_report.pdf."
         },
         {
