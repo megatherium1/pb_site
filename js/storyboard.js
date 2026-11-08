@@ -56,10 +56,12 @@
     "5": { file: "5.png", w: 995, h: 640, baseMax: 1.0, maxEffective: 1.25 },
     "6": { file: "6.png", w: 1359, h: 332, baseMax: 1.0, maxEffective: 1.18 },
     "7": { file: "7.png", w: 1254, h: 1254, baseMax: 1.0, maxEffective: 1.2 },
-    "8": { file: "8_new.png", w: 1202, h: 1308, baseMax: 1.0, maxEffective: 1.2 }
+    "8": { file: "8_new.png", w: 1202, h: 1308, baseMax: 1.0, maxEffective: 1.2 },
+    "9": { file: "9.png", w: 3178, h: 1900, baseMax: 1.0, maxEffective: 1.2 },
+    "10": { file: "10.png", w: 3180, h: 1900, baseMax: 1.0, maxEffective: 1.2 }
   };
 
-  var LOAD_STAGES = [["1", "2"], ["3", "4", "5", "6"], ["7", "8"]];
+  var LOAD_STAGES = [["1", "2", "9", "10"], ["3", "4", "5", "6"], ["7", "8"]];
 
   /* -----------------------------------------------------------
      2. Scenes
@@ -95,6 +97,47 @@
             { n: 3, at: 1375, x: 0.218, y: 0.765, anchor: "left", text: "File 3", size: "sm", m: { hide: true } }
           ],
           desc: "Windows Explorer showing the my_Project folder with AAPL_prices.csv, notes.txt and vendor_report.pdf."
+        },
+        {
+          asset: "9",
+          dur: 3200,
+          /* TODO: recapture 9.png without personal Recent Projects paths
+             (C:\Users\prosp\...). Left as-is for now so that list still
+             shows the feature exists. */
+          cams: [
+            { at: 0, z: 1.0, fx: 0.50, fy: 0.48, dur: 0 },
+            { at: 1540, z: 1.35, fx: 0.50, fy: 0.534, dur: 1000 }
+          ],
+          mCams: [
+            { at: 0, z: 1.0, fx: 0.50, fy: 0.48, dur: 0 },
+            { at: 1540, z: 1.35, fx: 0.50, fy: 0.534, dur: 1000 }
+          ],
+          captions: [{ at: 200, text: "Open ProjBox and select your project folder" }],
+          rings: [{ at: 2600, x: 0.431, y: 0.504, w: 0.139, h: 0.061, tone: "glow" }],
+          ripples: [{ at: 2900, x: 0.500, y: 0.534 }],
+          desc: "The ProjBox welcome screen with Select Project Folder in the center."
+        },
+        {
+          asset: "10",
+          dur: 3360,
+          cams: [
+            { at: 0, z: 1.0, fx: 0.50, fy: 0.48, dur: 0 },
+            { at: 960, z: 1.45, fx: 0.34, fy: 0.35, dur: 1200 }
+          ],
+          mCams: [
+            { at: 0, z: 1.15, fx: 0.42, fy: 0.48, dur: 0 },
+            { at: 960, z: 1.45, fx: 0.34, fy: 0.35, dur: 1200 }
+          ],
+          captions: [{ at: 0, text: "Open ProjBox and select your project folder" }],
+          rings: [
+            { at: 2200, x: 0.158, y: 0.052, w: 0.169, h: 0.057, tone: "glow" },
+            { at: 2700, x: 0.454, y: 0.604, w: 0.076, h: 0.041, tone: "glow" }
+          ],
+          ripples: [
+            { at: 2450, x: 0.243, y: 0.081 },
+            { at: 3000, x: 0.492, y: 0.624 }
+          ],
+          desc: "The Select a ProjBox Project Folder dialog on my_project, with Select Folder highlighted."
         },
         {
           asset: "2",
@@ -621,6 +664,9 @@
     }
     if (opts.stack) captionEl.classList.add("is-stack");
     else if (!opts.append) captionEl.classList.remove("is-stack");
+    if (!opts.append && captionEl.classList.contains("is-in") && captionEl.textContent === text) {
+      return;
+    }
     if (opts.append && captionEl.textContent) {
       captionEl.textContent = captionEl.textContent + "\n" + text;
       captionEl.classList.add("is-in");
