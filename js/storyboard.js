@@ -182,7 +182,7 @@
           ],
           captions: [
             { at: 0, text: "We keep working normally." },
-            { at: 3000, text: "Four edits in AAPL_prices.csv." }
+            { at: 1150, text: "We make four edits to a file in Excel.", append: true }
           ],
           rings: [
             { at: 500, x: 0.147, y: 0.055, w: 0.1, h: 0.93, tone: "new" },
@@ -224,14 +224,13 @@
             { at: 0, z: 1.3, fx: 0.17, fy: 0.62, dur: 750 },
             { at: 1438, z: 1.35, fx: 0.175, fy: 0.72, dur: 1000 }
           ],
-          captions: [{ at: 0, text: "One note updated. One file renamed." }],
           rings: [
             { at: 313, x: 0.082, y: 0.752, w: 0.155, h: 0.088, tone: "new" },
             { at: 1688, x: 0.082, y: 0.848, w: 0.21, h: 0.088, tone: "new" }
           ],
           /* The mobile frame is only wide enough for the Name column, so the
              pills are dropped rather than parked over the filenames they
-             describe. The rings and the caption carry the same information. */
+             describe. The rings carry the same information. */
           callouts: [
             {
               n: 5,
@@ -612,11 +611,17 @@
     step();
   }
 
-  function setCaption(text, typeOn) {
+  function setCaption(text, typeOn, opts) {
     if (!captionEl) return;
+    opts = opts || {};
     if (!text) {
       captionEl.classList.remove("is-in");
       captionEl.textContent = "";
+      return;
+    }
+    if (opts.append && captionEl.textContent) {
+      captionEl.textContent = captionEl.textContent + "\n" + text;
+      captionEl.classList.add("is-in");
       return;
     }
     captionEl.classList.remove("is-in");
@@ -762,11 +767,19 @@
       /* Captions */
       var captions = scene.captions || [];
       if (still) {
-        var last = captions[captions.length - 1];
-        setCaption(last ? last.text : "", false);
+        var stillText = "";
+        captions.forEach(function (caption) {
+          if (caption.append && stillText) stillText += "\n" + caption.text;
+          else stillText = caption.text;
+        });
+        setCaption(stillText, false);
+      } else if (!captions.length) {
+        setCaption("", false);
       } else {
         captions.forEach(function (caption) {
-          later(function () { setCaption(caption.text, caption.typeOn); }, caption.at || 0);
+          later(function () {
+            setCaption(caption.text, caption.typeOn, { append: !!caption.append });
+          }, caption.at || 0);
         });
       }
 

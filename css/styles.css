@@ -1729,6 +1729,7 @@ main.pb-home + .pb-footer {
   line-height: 1.35;
   text-align: center;
   text-wrap: balance;
+  white-space: pre-line;
   opacity: 0;
 }
 .pb-storyboard__caption.is-in {
@@ -1853,7 +1854,7 @@ main.pb-home + .pb-footer {
   .pb-storyboard__caption {
     max-width: 92%;
     padding: 10px 18px;
-    white-space: normal;
+    white-space: pre-line;
   }
   .pb-storyboard__status {
     font-size: 0.8rem;
