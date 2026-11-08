@@ -181,8 +181,8 @@
             { at: 1750, z: 2.0, fx: 0.62, fy: 0.22, dur: 1125 }
           ],
           captions: [
-            { at: 0, text: "We keep working normally." },
-            { at: 1150, text: "We make four edits to a file in Excel.", append: true }
+            { at: 0, text: "\u2022  We keep working normally.", stack: true },
+            { at: 1150, text: "\u2022  We make four edits to our CSV file in Excel.", append: true, stack: true }
           ],
           rings: [
             { at: 500, x: 0.147, y: 0.055, w: 0.1, h: 0.93, tone: "new" },
@@ -265,7 +265,7 @@
           dur: 2200,
           cams: [{ at: 0, z: 3.1, fx: 0.753, fy: 0.06, dur: 900 }],
           mCams: [{ at: 0, z: 3.4, fx: 0.753, fy: 0.055, dur: 900 }],
-          captions: [{ at: 100, text: "Now we run Snapshot again." }],
+          captions: [{ at: 100, text: "Now we click \"Run Snapshot\" again to see what's changed in our project folder since the last snapshot" }],
           rings: [{ at: 300, x: 0.706, y: 0.043, w: 0.096, h: 0.05, tone: "glow" }],
           ripples: [{ at: 950, x: 0.753, y: 0.067 }],
           statuses: [{ at: 1350, text: "Saving Snapshot #2\u2026", dur: 750 }],
@@ -615,10 +615,12 @@
     if (!captionEl) return;
     opts = opts || {};
     if (!text) {
-      captionEl.classList.remove("is-in");
+      captionEl.classList.remove("is-in", "is-stack");
       captionEl.textContent = "";
       return;
     }
+    if (opts.stack) captionEl.classList.add("is-stack");
+    else if (!opts.append) captionEl.classList.remove("is-stack");
     if (opts.append && captionEl.textContent) {
       captionEl.textContent = captionEl.textContent + "\n" + text;
       captionEl.classList.add("is-in");
@@ -768,17 +770,22 @@
       var captions = scene.captions || [];
       if (still) {
         var stillText = "";
+        var stillStack = false;
         captions.forEach(function (caption) {
           if (caption.append && stillText) stillText += "\n" + caption.text;
           else stillText = caption.text;
+          if (caption.stack) stillStack = true;
         });
-        setCaption(stillText, false);
+        setCaption(stillText, false, { stack: stillStack });
       } else if (!captions.length) {
         setCaption("", false);
       } else {
         captions.forEach(function (caption) {
           later(function () {
-            setCaption(caption.text, caption.typeOn, { append: !!caption.append });
+            setCaption(caption.text, caption.typeOn, {
+              append: !!caption.append,
+              stack: !!caption.stack
+            });
           }, caption.at || 0);
         });
       }
