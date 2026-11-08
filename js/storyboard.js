@@ -122,11 +122,11 @@
           dur: 3360,
           cams: [
             { at: 0, z: 1.0, fx: 0.50, fy: 0.48, dur: 0 },
-            { at: 960, z: 1.45, fx: 0.34, fy: 0.35, dur: 1200 }
+            { at: 960, z: 1.05, fx: 0.36, fy: 0.42, dur: 1200 }
           ],
           mCams: [
             { at: 0, z: 1.15, fx: 0.42, fy: 0.48, dur: 0 },
-            { at: 960, z: 1.45, fx: 0.34, fy: 0.35, dur: 1200 }
+            { at: 960, z: 1.05, fx: 0.36, fy: 0.42, dur: 1200 }
           ],
           captions: [{ at: 0, text: "Open ProjBox and select your project folder" }],
           rings: [
